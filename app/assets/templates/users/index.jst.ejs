@@ -1,0 +1,15 @@
+<br>
+<br>
+<br>
+<br>
+<h1> Users </h1>
+
+<ul>
+
+<% users.each(function(user){ %>
+  <li> <a href="#users/<%= user.id%>"><%= user.escape("username") %></a> </li>
+  
+<% }); %>
+</ul>
+
+<a href="#boards/new">Create a new board</a>
