@@ -1,4 +1,8 @@
 SOC::Application.routes.draw do
+  resources :answers
+
+  resources :questions
+
   resources :users, only: [:new, :create]
   
   resource :session, only: [:new, :create, :destroy]

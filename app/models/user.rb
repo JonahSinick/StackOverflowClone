@@ -15,7 +15,16 @@ class User < ActiveRecord::Base
   
   validates :username, :email, :password_digest, :session_token, presence: true
   validates :username, :email, uniqueness: true
-
+  
+  has_many :authored_questions,
+  class: "Question",
+  primary_key: :id,
+  foreign_key: :author_id
+  
+  has_many :authored_answers,
+  class: "Answer",
+  primary_key: :id,
+  foreign_key: :author_id
   
     
   def password=(password)
