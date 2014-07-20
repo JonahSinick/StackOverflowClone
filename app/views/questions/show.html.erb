@@ -1,0 +1,14 @@
+<h1><%= @question.title%></h1>
+
+<%= @question.body %>
+
+<center><h2>Answers</h2></center>
+
+  <hr>
+<%@question.answers.each do |answer|%>
+  <p><%=answer.body%></p>
+  <br>
+  <b>Written by:</b> <%=answer.author.username%>
+
+  <br>
+<%end%>
