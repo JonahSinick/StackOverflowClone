@@ -17,7 +17,7 @@ module Api
     # end
 
     def index
-      @questions = Question.all
+      @questions = Question.order("id").page(params[:page])
       render json: @questions
     end
 

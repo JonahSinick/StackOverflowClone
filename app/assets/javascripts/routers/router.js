@@ -11,21 +11,28 @@ SOC.Routers.Router = Backbone.Router.extend({
   },
   
   questionsIndex: function(){
+    SOC.questions.reset()
     SOC.questions.fetch();
 
     var view = new SOC.Views.QuestionsIndex({
       collection: SOC.questions
     });
+    
 
     this._swapView(view);
   },
 
 
   showQuestion: function(id){
-    question = new SOC.Models.Question({
-      id: id
-    });
-    question.fetch()
+    var question = SOC.questions.get(id);
+    if(!question || question.answers().length === 0){
+      var question = new SOC.Models.Question({
+        id: id
+      });
+      question.fetch();
+      SOC.questions.remove(id);
+      SOC.questions.add(question);
+    }
     var showView = new SOC.Views.ShowQuestion({model: question});
     this._swapView(showView);
   },
