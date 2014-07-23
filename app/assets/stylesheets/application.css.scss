@@ -13,3 +13,101 @@
  */
 
 @import "bootstrap";
+
+
+.question-summary {
+border-bottom: 1px solid #eaeaea;
+overflow: hidden;
+padding: 11px 0;
+width: 730px;
+float: left;
+}
+
+.question-hyperlink {
+font-weight: bold;
+}
+
+#question-mini-list {
+overflow: auto;
+margin-top: -10px;
+margin-bottom: 30px;
+}
+
+#mainbar, .mainbar {
+float: left;
+margin-bottom: 40px;
+width: 735px;
+}
+
+#content {
+margin: 0 auto;
+width: 980px;
+min-height: 450px;
+}
+
+//.subheader {
+//border-bottom: 1px solid #ccc;
+//height: 34px;
+//clear: both;
+//margin-bottom: 15px;
+//}
+
+.subheader h1 {
+  
+border-bottom: 1px solid #ccc;  
+float: left;
+font-size: 18px;
+line-height: 34px;
+margin-bottom: 0;
+}
+
+#header #hmenus {
+width: 724px;
+float: left;
+padding: 34px 0 20px 5px;
+margin-top: 10px;
+width: 720px;
+}
+
+.askquestion {
+float: right;
+}
+
+
+
+.nav2 {
+float: left;
+font-size: 125%;
+}
+
+.nav2 a {
+color: #fff;
+display: block;
+padding: 6px 12px 6px 12px;
+text-decoration: none;
+}
+
+
+#nav-askquestion {
+margin-right: 0;
+}
+
+
+
+.askquestion ul {
+list-style: disc;
+margin-left: 30px;
+margin-bottom: 1em;
+}
+
+.askquestion ul li {
+margin-right: 0;
+}
+
+
+.nav2 li {
+background: #777;
+display: block;
+float: left;
+margin-right: 7px;
+}

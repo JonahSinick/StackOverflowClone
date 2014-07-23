@@ -1,38 +1,49 @@
-<h1>Sign Up</h1>
 
-<form action= "<%= users_url%>" method="post">
-  
-  <input 
-    type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token%>"
-  >
-  
-  
-  <label>Username
-  <input 
-    type="text"
-    name="user[username]"
-    value="<%= @user.email %>"
-  >
-  </label>
 
-  <label>Email
-  <input 
-    type="text"
-    name="user[email]"
-    value="<%= @user.email %>"
-  >
-  </label>
 
-  <label>Password
-  <input 
-    type="text"
-    name="user[password]"
-  >
-  </label>
-  
-  <button type="submit">Sign up</button>
 
-  
-</form>
+<div class="form-group row">
+  <div class="col-xs-4 col-xs-offset-1" >
+    <form role="form" action="<%= session_url %>" method="post">
+    <h2>Sign Up</h2>
+      <input
+        name="authenticity_token"
+        type="hidden"
+        value="<%= form_authenticity_token %>">
+
+      <div class='form-group'>
+        <label for="user_username">Username</label>
+        <input
+          class="form-control"
+          id="user_username"
+          name="user[email]"
+          value="<%= @user.username %>"  
+          type="text">
+        </div>
+
+
+        
+      <div class='form-group'>
+        <label for="user_username">Email</label>
+        <input
+          class="form-control"
+          id="user_username"
+          name="user[email]"
+          value="<%= @user.email %>"  
+          type="text">
+        </div>
+        
+      <div class='form-group'>
+      <label for="user_password">Password</label>
+      <input
+        class="form-control"
+        id="user_password"
+        name="user[password]"
+        type="password">
+      </div>        
+        
+      <button type="submit" class="btn btn-success">Log In 
+      </button>
+    </form>
+  </div>
+</div>
