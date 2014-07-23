@@ -2,10 +2,9 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   template: JST['questions/show'],
 
   initialize: function () {
-    debugger
-    this.answers = this.model.answers();    
+    this.collection = this.model.answers();   
     this.listenTo(this.model, 'sync', this.render);    
-    this.listenTo(this.answers, 'add', this.render);
+    this.listenTo(this.collection, 'add', this.addAnswer);
   },
 
   render: function () {
@@ -19,12 +18,12 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   renderAnswers: function () {
-    this.answers.each(this.addAnswer.bind(this));
+    this.collection.each(this.addAnswer.bind(this));
   },
   
   addAnswer: function (answer) {
     var view = new SOC.Views.ShowAnswer({
-      model: question
+      model: answer
     });
     this.addSubview(".answers", view);
   }

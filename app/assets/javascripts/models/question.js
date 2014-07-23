@@ -3,15 +3,16 @@ SOC.Models.Question = Backbone.Model.extend({
   
   answers: function () {
     if(!this._answers) {
-      this._answers = new SOC.Collections.Answers([], { model: this });
+      this._answers = new SOC.Collections.Answers([], { question: this });
     }
     return this._answers;
   },
   
   
   parse: function (response) {
-    if(response.lists) {
+    if(response.answers) {
       this.answers().set(response.answers, { parse: true });
+      debugger
       delete response.answers;
     }
 
