@@ -3,7 +3,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.collection = this.model.answers();   
-    this.listenTo(this.model, 'sync', this.render);    
+    this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addAnswer);
   },
 
@@ -19,6 +19,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
   renderAnswers: function () {
     this.collection.each(this.addAnswer.bind(this));
+    
   },
   
   addAnswer: function (answer) {

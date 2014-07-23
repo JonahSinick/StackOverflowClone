@@ -22,31 +22,31 @@ SOC.Routers.Router = Backbone.Router.extend({
 
 
   showQuestion: function(id){
-    var that = this;
-    this._getQuestion(id, function(question){
-      var showView = new SOC.Views.ShowQuestion({model: question})
-      that._swapView(showView);
-    })
+    question = new SOC.Models.Question({
+      id: id
+    });
+    question.fetch()
+    var showView = new SOC.Views.ShowQuestion({model: question});
+    this._swapView(showView);
   },
 
   //
-  _getQuestion: function (id, callback) {
-    var question = SOC.questions.get(id);
-    if (!question) {
-      question = new SOC.Models.Question({
-        id: id
-      });
-
-      question.fetch({
-        success: function () {
-          SOC.questions.add(question);
-          callback(question);
-        }
-      });
-    } else {
-      callback(question);
-    }
-  },
+  // _getQuestion: function (id, callback) {
+  //   var question = SOC.questions.get(id);
+  //   if (!question) {
+  //     question = new SOC.Models.Question({
+  //       id: id
+  //     });
+  //     question.fetch({
+  //       success: function () {
+  //         SOC.questions.add(question);
+  //         callback(question);
+  //       }
+  //     });
+  //   } else {
+  //     callback(question);
+  //   }
+  // },
 
   
   _swapView: function(view){
