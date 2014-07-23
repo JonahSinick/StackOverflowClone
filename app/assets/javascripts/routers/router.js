@@ -1,7 +1,8 @@
 SOC.Routers.Router = Backbone.Router.extend({
   
   routes: {
-    "users" : "userIndex"
+    "" : "questionsIndex",
+    "/questions/:id" : "showQuestion"
   },
 
   initialize: function (options) {
@@ -9,30 +10,29 @@ SOC.Routers.Router = Backbone.Router.extend({
     that = this;
   },
   
-  userIndex: function(){
-    that = this
-    
-    SOC.users.fetch({
-      success: function(){
-        usersView = new SOC.Views.UsersIndex({
-          collection: SOC.users
-        });
-        that._swapView(usersView);        
-      }
+  questionsIndex: function(){
+    debugger
+    SOC.questions.fetch();
+
+    var view = new SOC.Views.QuestionsIndex({
+      collection: SOC.questions
     });
+
+    this._swapView(view);
   },
 
-  show: function(id){
+
+  showQuestion: function(id){
     var that = this;
-    this._getUser(id, function(user){
-      var showView = new SOC.Views.ShowUser({model: user})
+    this._getQuestion(id, function(question){
+      var showView = new SOC.Views.ShowQuestion({model: question})
       that._swapView(showView);
     })
 
   },
 
-  
-  _getUser: function (id, callback) {
+  //
+  _getQuestion: function (id, callback) {
     var user = SOC.users.get(id);
     if (!user) {
       user = new SOC.Models.User({

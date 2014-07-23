@@ -4,10 +4,11 @@ window.SOC = {
   Views: {},
   Routers: {},
   initialize: function() {
-    SOC.users = new SOC.Collections.Users();
+    SOC.questions = new SOC.Collections.Questions();
     new SOC.Routers.Router({
       $rootEl: $("#main")
     });
+    Backbone.history.start();
   }
 };
 
