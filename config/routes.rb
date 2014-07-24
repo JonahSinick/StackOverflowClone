@@ -1,6 +1,8 @@
 SOC::Application.routes.draw do
 
 
+  resources :comments
+
   root to: 'pages#root'
 
 

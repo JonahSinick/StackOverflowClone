@@ -4,11 +4,11 @@
   <h2 class="space">Your Question</h2>
 
   <div class="form-group">Title
-    <input class="form-control" id="new-title" type="text"> </input>
+    <input class="form-control" id="new-title" name="question[title]" type="text" value=<%=question.escape("title")%>> </input>
   </div>
 
   <div class="form-group">Body
-    <textarea class="form-control" rows="10"></textarea>
+    <textarea class="form-control" name="question[body]" rows="10" value='<%= question.escape("body")%>' > </textarea>
   </div>
 
 

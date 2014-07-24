@@ -1,18 +1,21 @@
 SOC.Views.NewAnswer = Backbone.CompositeView.extend({
   template: JST['answers/new'],
   
+  
+  
 
   events: {
-    'click .btn-success': 'submit'
+    'submit form': 'submit'
   },
 
   initialize: function(options){
+    this.question = options.question;
     
   },
 
   render: function () {
     var content = this.template({
-      question: this.model
+      question: this.question
     });
     this.$el.html(content);
     this.delegateEvents();
@@ -24,18 +27,11 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
   submit: function (event) {
     that = this;
     event.preventDefault();
-    var newAnswer = new SOC.Models.Answer({
-      body: this.$('textarea').val(),
-      question_id: this.model.id
-    })
-    
-    this.collection.create({
-      body: this.$('textarea').val(),
-      question_id: this.model.id
-    },  
-    {
+    var params = $(event.currentTarget).serializeJSON();
+    this.model.set(params);
+    this.collection.create(params, {
       success: function(model, response){
-        Backbone.history.navigate("questions/" + model.id, {trigger:true})
+        Backbone.history.navigate("questions/" + that.question.id, {trigger:true})
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;

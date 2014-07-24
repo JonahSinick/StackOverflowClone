@@ -9,8 +9,6 @@ module Api
       @answer.author_name = current_user.username
       if @answer.save
         render json: @answer
-      else
-        render json: @answer.errors.full_messages, status: :unprocessable_entity
       end
     end
 

@@ -37,9 +37,11 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderNewAnswerForm: function () {
+    var answer  = new SOC.Models.Answer()
     var view = new SOC.Views.NewAnswer({
-      model: this.model,      
-      collection: this.collection
+      question: this.model,      
+      collection: this.collection,
+      model: answer
     });
     this.addSubview("#answer-form", view);
   }
