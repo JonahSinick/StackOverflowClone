@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
   
   include SessionsHelper
-  
-  before_action :check_signed_in
-  
+    
   def root
   end
   

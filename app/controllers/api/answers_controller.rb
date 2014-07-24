@@ -28,6 +28,7 @@ module Api
 
     private
 
+
     def current_question
       if params[:answer]
         @question = Question.find(params[:answer][:question_id])

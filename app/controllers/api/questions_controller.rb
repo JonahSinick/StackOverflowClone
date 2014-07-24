@@ -3,7 +3,7 @@ module Api
     def create
       @question = Question.new(question_params)
 
-      if @board.save
+      if @question.save
         render json: @question
       else
         render json: @question.errors.full_messages, status: :unprocessable_entity
@@ -17,7 +17,7 @@ module Api
     # end
 
     def index
-      @questions = Question.order("id").page(params[:page]).per(15)
+      @questions = Question.order("id DESC").page(params[:page]).per(15)
       render json: @questions
     end
 

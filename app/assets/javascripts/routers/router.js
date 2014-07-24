@@ -3,6 +3,8 @@ SOC.Routers.Router = Backbone.Router.extend({
   routes: {
     "" : "questionsIndex",
     ":pageNum" : "questionsIndex",
+    "questions/new" : "newQuestion",
+
     "questions/:id" : "showQuestion",
     "users/:id" : "showUser"
   },
@@ -25,6 +27,17 @@ SOC.Routers.Router = Backbone.Router.extend({
       pageNum: pageNum
     });
     this._swapView(view);
+  },
+
+
+  newQuestion: function(){
+    currentUser = new SOC.Models.User({id: SOC.currentUserId});
+    currentUser.fetch()
+    var newView = new SOC.Views.NewQuestion({
+      currentUser: currentUser
+    });
+    this._swapView(newView);
+    
   },
 
 

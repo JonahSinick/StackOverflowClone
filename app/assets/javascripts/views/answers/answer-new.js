@@ -7,7 +7,8 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
   },
 
   initialize: function(options){
-    this.currentUser = options.currentUser
+    this.currentUser = options.currentUser;
+    
   },
 
   render: function () {
@@ -24,7 +25,6 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
 
   submit: function (event) {
     event.preventDefault();
-    
       this.collection.create({
         body: this.$('textarea').val(),
         author_id: this.$('#author_id').val(),
