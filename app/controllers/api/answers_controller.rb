@@ -1,8 +1,12 @@
 module Api
   class AnswersController < ApiController
     
+
+    
     def create
       @answer = current_question.answers.new(answer_params)
+      @answer.author_id = current_user.id
+      @answer.author_name = current_user.username
       if @answer.save
         render json: @answer
       else
@@ -36,7 +40,7 @@ module Api
     end
 
     def answer_params
-      params.require(:answer).permit(:body, :author_id, :author_name, :question_id)
+      params.require(:answer).permit(:body, :question_id)
     end
   end
 end

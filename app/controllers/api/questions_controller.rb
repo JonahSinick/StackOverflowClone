@@ -2,6 +2,8 @@ module Api
   class QuestionsController < ApiController
     def create
       @question = Question.new(question_params)
+      @question.author_id = current_user.id
+      @question.author_name = current_user.username
 
       if @question.save
         render json: @question
@@ -17,8 +19,12 @@ module Api
     # end
 
     def index
-      @questions = Question.order("id DESC").page(params[:page]).per(15)
-      render json: @questions
+      if params[:page] = - 1
+        @questions = Question.all
+      else
+        @questions = Question.order("id DESC").page(params[:page]).per(15)
+      end
+      render json: @questions      
     end
 
     def show
@@ -29,7 +35,7 @@ module Api
     private
 
     def question_params
-      params.require(:question).permit(:title, :body, :author_id, :author_name)
+      params.require(:question).permit(:title, :body)
     end
   end
 end

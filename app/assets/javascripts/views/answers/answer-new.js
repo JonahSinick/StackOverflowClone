@@ -7,14 +7,12 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
   },
 
   initialize: function(options){
-    this.currentUser = options.currentUser;
     
   },
 
   render: function () {
     var content = this.template({
-      question: this.model,
-      current_user: this.currentUser
+      question: this.model
     });
     this.$el.html(content);
     this.delegateEvents();
@@ -24,15 +22,25 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
 
 
   submit: function (event) {
+    that = this;
     event.preventDefault();
-      this.collection.create({
-        body: this.$('textarea').val(),
-        author_id: this.$('#author_id').val(),
-        author_name: this.$('#author_name').val(),
-        question_id: this.model.id
-      }, { wait: true });
-      this.$('textarea').val('');
-      this.$('textarea').focus();
+    var newAnswer = new SOC.Models.Answer({
+      body: this.$('textarea').val(),
+      question_id: this.model.id
+    })
+    
+    this.collection.create({
+      body: this.$('textarea').val(),
+      question_id: this.model.id
+    },  
+    {
+      success: function(model, response){
+        Backbone.history.navigate("questions/" + model.id, {trigger:true})
+      },
+      error: function (model, response, opts) {
+        that.errors = response.responseJSON;
+        that.render();
+      }
+    });
   }
-  
 });

@@ -12,6 +12,10 @@
 
 class Answer < ActiveRecord::Base
   
+
+  validates_uniqueness_of :author_id, :scope => :question_id
+
+  
   belongs_to :author,
   class_name: "User",
   primary_key: :id,

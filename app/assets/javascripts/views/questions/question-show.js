@@ -2,20 +2,16 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   template: JST['questions/show'],
 
   initialize: function (options) {
-    this.currentUser = options.currentUser;
     
     this.collection = this.model.answers();   
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addAnswer);
-    this.listenTo(this.currentUser, 'sync', this.render);
-
 
   },
 
   render: function () {
     var content = this.template({
-      question: this.model,
-      current_user: SOC.users.get(SOC.currentUserId)
+      question: this.model
     });
     this.$el.html(content);
     this.renderAnswers();
@@ -43,7 +39,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   renderNewAnswerForm: function () {
     var view = new SOC.Views.NewAnswer({
       model: this.model,      
-      currentUser: this.currentUser,
       collection: this.collection
     });
     this.addSubview("#answer-form", view);

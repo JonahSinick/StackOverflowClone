@@ -31,19 +31,13 @@ SOC.Routers.Router = Backbone.Router.extend({
 
 
   newQuestion: function(){
-    currentUser = new SOC.Models.User({id: SOC.currentUserId});
-    currentUser.fetch()
-    var newView = new SOC.Views.NewQuestion({
-      currentUser: currentUser
-    });
+    var newView = new SOC.Views.NewQuestion();
     this._swapView(newView);
     
   },
 
 
   showQuestion: function(id){
-    currentUser = new SOC.Models.User({id: SOC.currentUserId});
-    currentUser.fetch()
     var question = SOC.questions.get(id);
     if(!question || question.answers().length === 0){
       var question = new SOC.Models.Question({
@@ -53,7 +47,7 @@ SOC.Routers.Router = Backbone.Router.extend({
       SOC.questions.remove(id);
       SOC.questions.add(question);
     }
-    var showView = new SOC.Views.ShowQuestion({model: question, currentUser: currentUser});
+    var showView = new SOC.Views.ShowQuestion({model: question});
     this._swapView(showView);
   },
 
