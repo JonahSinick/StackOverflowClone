@@ -1,9 +1,9 @@
 SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
   template: JST['questions/index'],
 
-  initialize: function () {
+  initialize: function (options) {
+    this.pageNum = options.pageNum
     this.listenTo(this.collection, 'sync', this.render);
-
   },
 
   render: function () {
@@ -11,7 +11,10 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
       questions: this.collection
     });
     this.$el.html(content);
-    this.renderQuestions()
+    var $pager = this.generatePageChange()
+    this.renderQuestions();
+    // $pager.appendTo(this.$el)
+    this.$('.pager').html($pager)
     return this;
   },
   
@@ -24,5 +27,19 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
       model: question
     });
     this.addSubview("#questions", view);
+  },
+  
+  generatePageChange: function(){
+    var pageNum = parseInt(this.pageNum);
+    var $pager = $('<div />', {"class": 'pager'})
+    $pager.append('<span class="page-numbers current">' + pageNum + '</span>')
+    for (var i = pageNum + 1; i < pageNum + 5; i++) {
+      var a = '<a href=#' + i + '>' + '<span class="page-numbers">' + i + '</span>' + '</a>';
+      $pager.append(a);
+    }
+    $pager.append('<span class="page-numbers dots">…</span>')
+    var numPages = this.collection;
+    $pager.append('<a href=#' + pageNum + 1 + '>' + '<span class="page-numbers next">next</span>' + '</a>');
+    return $pager
   }
 });

@@ -9,8 +9,7 @@ module SessionsHelper
     user.session_token = SecureRandom.base64
     session[:session_token] = nil
     redirect_to new_session_url
-  end
-  
+  end  
   
   
 end
