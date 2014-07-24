@@ -1,5 +1,14 @@
 
 
 <div class="backdrop">
-  <div id="main" class="container"></div>
+  <div id="main" class="container">
+  </div>
 </div>
+
+<div id="current_user_id" data-current-user-id="<%= current_user.id%>"></div>
+
+<script>
+$(document).ready(function(){
+  SOC.initialize();
+});  
+</script>

@@ -3,7 +3,7 @@ module Api
     
     def create
       @answer = current_question.answers.new(answer_params)
-      if $answer.save
+      if @answer.save
         render json: @answer
       else
         render json: @answer.errors.full_messages, status: :unprocessable_entity
@@ -35,7 +35,7 @@ module Api
     end
 
     def answer_params
-      params.require(:answer).permit(:body, :author_id, :author, :question_id)
+      params.require(:answer).permit(:body, :author_id, :author_name, :question_id)
     end
   end
 end

@@ -3,13 +3,15 @@ SOC.Routers.Router = Backbone.Router.extend({
   routes: {
     "" : "questionsIndex",
     ":pageNum" : "questionsIndex",
-    "questions/:id" : "showQuestion"
+    "questions/:id" : "showQuestion",
+    "users/:id" : "showUser"
   },
 
   initialize: function (options) {
-    this.$rootEl = options.$rootEl;
-    that = this;
+    this.$rootEl = options.$rootEl;    
   },
+  
+
   
   questionsIndex: function(pageNum){
     if(pageNum===null){
@@ -27,6 +29,8 @@ SOC.Routers.Router = Backbone.Router.extend({
 
 
   showQuestion: function(id){
+    currentUser = new SOC.Models.User({id: SOC.currentUserId});
+    currentUser.fetch()
     var question = SOC.questions.get(id);
     if(!question || question.answers().length === 0){
       var question = new SOC.Models.Question({
@@ -36,13 +40,26 @@ SOC.Routers.Router = Backbone.Router.extend({
       SOC.questions.remove(id);
       SOC.questions.add(question);
     }
-    var showView = new SOC.Views.ShowQuestion({model: question});
+    var showView = new SOC.Views.ShowQuestion({model: question, currentUser: currentUser});
     this._swapView(showView);
   },
 
+  // showUser: function(id){
+  //   var user = SOC.users.get(id);
+  //   if(!user || user.answers().length === 0){
+  //     var user = new SOC.Models.User({
+  //       id: id
+  //     });
+  //     user.fetch();
+  //     SOC.users.remove(id);
+  //     SOC.users.add(user);
+  //   }
+  // },
+  
+
   //
   // _getQuestion: function (id, callback) {
-  //   var question = SOC.questions.get(id);
+  //   var user = SOC.users.get(id);
   //   if (!question) {
   //     question = new SOC.Models.Question({
   //       id: id

@@ -39,7 +39,8 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
     }
     $pager.append('<span class="page-numbers dots">…</span>')
     var numPages = this.collection;
-    $pager.append('<a href=#' + pageNum + 1 + '>' + '<span class="page-numbers next">next</span>' + '</a>');
+    var next = pageNum + 1
+    $pager.append('<a href=#' + next + '>' + '<span class="page-numbers next">next</span>' + '</a>');
     return $pager
   }
 });
