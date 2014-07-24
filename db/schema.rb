@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720000802) do
+ActiveRecord::Schema.define(version: 20140724020207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20140720000802) do
     t.integer  "question_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "author_name", null: false
   end
 
   add_index "answers", ["author_id", "question_id"], name: "index_answers_on_author_id_and_question_id", unique: true, using: :btree
@@ -29,11 +30,12 @@ ActiveRecord::Schema.define(version: 20140720000802) do
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "questions", force: true do |t|
-    t.string   "title",      null: false
-    t.text     "body",       null: false
+    t.string   "title",       null: false
+    t.text     "body",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "author_id",  null: false
+    t.integer  "author_id",   null: false
+    t.string   "author_name", null: false
   end
 
   add_index "questions", ["author_id"], name: "index_questions_on_author_id", using: :btree

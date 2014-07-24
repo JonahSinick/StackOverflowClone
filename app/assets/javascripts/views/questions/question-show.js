@@ -26,6 +26,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var view = new SOC.Views.ShowAnswer({
       model: answer
     });
-    this.addSubview(".answers", view);
+    this.addSubview("#answers", view);
   }
 });

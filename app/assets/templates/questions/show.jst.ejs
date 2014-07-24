@@ -1,16 +1,25 @@
-<h1><%= question.escape("title") %></h1>
+<div id="question-header">
+	<h1 itemprop="name"><%= question.escape("title") %></h1>
+</div>
 
-<p><%= question.escape("body") %></p>
 
-<br>
-<br>
-<br>
-<br>
 
-<h2>Answers</h2>
+
 <div class="container">
   <div class="row">
-    <div class="answers">
+    <div id="mainbar">
+      <div class="post-text" itemprop="text">
+        <p><%= question.escape("body") %></p>
+        <p><b>Author: <%= question.escape("author_name") %> </b></p>
+        
+      </div>
+      <div id="answers">
+        <div id="answers-header">
+          <div class="subheader answers-subheader">
+            <h2><%=question.answers().length + ' Answers'%></h2>
+          </div>        
+        </div>
+      </div>
     </div>
   </div>
 </div>

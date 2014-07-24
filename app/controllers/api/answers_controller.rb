@@ -35,7 +35,7 @@ module Api
     end
 
     def answer_params
-      params.require(:answer).permit(:body, :author_id, :question_id)
+      params.require(:answer).permit(:body, :author_id, :author, :question_id)
     end
   end
 end

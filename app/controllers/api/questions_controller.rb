@@ -29,7 +29,7 @@ module Api
     private
 
     def question_params
-      params.require(:question).permit(:title)
+      params.require(:question).permit(:title, :body, :author_id, :author_name)
     end
   end
 end

@@ -5,6 +5,9 @@ window.SOC = {
   Routers: {},
   initialize: function() {
     SOC.questions = new SOC.Collections.Questions();
+    SOC.users = new SOC.Collections.Users();
+
+
     new SOC.Routers.Router({
       $rootEl: $("#main")
     });
