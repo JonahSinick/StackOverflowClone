@@ -15,5 +15,9 @@
 class Comment < ActiveRecord::Base
   
   validates :body, :author_id, :author_name, :commentable_id, :commentable_type, presence: true
+
   belongs_to :commentable, polymorphic: true
+
+  has_many :votes, as: :votable
+
 end

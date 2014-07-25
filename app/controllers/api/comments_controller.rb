@@ -3,9 +3,9 @@ module Api
 
     def create
       @comment = Comment.new(comment_params)
-      if @comment.commentable_type == "question"
+      if @comment.commentable_type == "Question"
         @comment = current_question.comments.new(comment_params)
-      elsif @comment.commentable_type == "answer"
+      elsif @comment.commentable_type == "Answer"
         @comment = current_answer.comments.new(comment_params)
       end
       @comment.author_name = current_user.username

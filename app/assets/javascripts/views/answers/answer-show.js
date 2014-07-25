@@ -56,7 +56,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       collection: this.comments,
       model: comment,
       superView: this,
-      commentable_type: "answer",
+      commentable_type: "Answer",
       commentable_id: that.model.id,
       question_id: that.model.escape("question_id")
     });

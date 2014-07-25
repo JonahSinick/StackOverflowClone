@@ -88,7 +88,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       collection: this.comments,
       model: comment,
       superView: this,
-      commentable_type: "question",
+      commentable_type: "Question",
       commentable_id: this.model.id,
       question_id: this.model.id
     });

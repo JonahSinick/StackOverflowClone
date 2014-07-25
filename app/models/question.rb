@@ -28,5 +28,6 @@ validates :title, :body, :author_id, presence: true
   foreign_key: :question_id    
 
   has_many :comments, as: :commentable
+  has_many :votes, as: :votable
   
 end

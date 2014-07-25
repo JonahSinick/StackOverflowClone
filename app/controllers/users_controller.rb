@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-
-  include UsersHelper
   
   def new
     @user = User.new
@@ -28,5 +26,11 @@ class UsersController < ApplicationController
     @users = User.all
     render json: @users
   end
+
+
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :session_token)
+  end
+
   
 end

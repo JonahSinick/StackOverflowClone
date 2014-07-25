@@ -19,7 +19,7 @@ module Api
     # end
 
     def index
-      if params[:page] = - 1
+      if params[:page] == - 1
         @questions = Question.all
       else
         @questions = Question.order("id DESC").page(params[:page]).per(15)
