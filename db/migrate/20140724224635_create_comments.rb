@@ -1,4 +1,4 @@
-# class CreateComments < ActiveRecord::Migration
+class CreateComments < ActiveRecord::Migration
 #   def change
 #     drop_table :comments
 #
@@ -12,4 +12,4 @@
 #     end
 #     add_index :comments, :author_id
 #   end
-# end
+end
