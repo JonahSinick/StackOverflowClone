@@ -1,11 +1,17 @@
 SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   template: JST['answers/show'],
   
-  
-  
+  initialize: function (options) {
+    this.superView = options.superView;  
+    this.comments = this.model.comments();   
+    this.commentFormLinkedClicked = false
+    this.listenTo(this.comments, 'create', this.addComment);
+    this.listenTo(this.comments, 'sync', this.render);
+
+  },  
 
   events: {
-    'click #new-question-comment-link': 'renderNewCommentForm'
+    'click #new-answer-comment-link': 'renderNewCommentForm'
   },
   
 
@@ -14,31 +20,47 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       answer: this.model
     });
     this.$el.html(content);
+    this.renderComments();
+    if(this.commentFormLinkedClicked === false){
+      this.renderCommentFormLink();
+    };
     return this;
-  }
+  },
+
+  renderComments: function () {
+    this.comments.each(this.addComment.bind(this));
+  },
+  
+  addComment: function (comment) {
+    var view = new SOC.Views.ShowComment({
+      model: comment
+    });
+    this.addSubview("#answer-comments", view);
+  },
 
   renderCommentFormLink: function () {
-    var template = "<a id='new-question-comment-link'>Add comment</a>";
+    var template = "<a id='new-answer-comment-link'>Add comment</a>";
     var view = new Backbone.CompositeView();
     view.$el.append(template)
-    this.addSubview("#question-commment-form", view);
+    this.addSubview("#answer-commment-form", view);
   },
 
 
   
   renderNewCommentForm: function () {
+    that = this
     this.commentFormLinkedClicked = true
-    this.$("#question-commment-form").empty()
+    this.$("#answer-commment-form").empty()
     var comment  = new SOC.Models.Comment()
     var view = new SOC.Views.NewComment({
       collection: this.comments,
       model: comment,
       superView: this,
-      commentable_type: "question",
-      commentable_id: this.model.id,
-      question_id: this.model.id
+      commentable_type: "answer",
+      commentable_id: that.model.id,
+      question_id: that.model.escape("question_id")
     });
-    this.addSubview("#question-commment-form", view);
+    this.addSubview("#answer-commment-form", view);
   }
   
 });

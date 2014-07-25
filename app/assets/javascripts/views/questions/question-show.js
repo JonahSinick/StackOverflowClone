@@ -38,7 +38,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
   addAnswer: function (answer) {
     var view = new SOC.Views.ShowAnswer({
-      model: answer
+      model: answer,
+      superView: this
     });
     this.addSubview("#answers", view);
     var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
