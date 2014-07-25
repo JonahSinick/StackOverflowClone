@@ -22,8 +22,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var content = this.template({
       question: this.model
     });
-
     this.$el.html(content);
+    this.renderCurrentUserVote();
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
@@ -31,6 +31,20 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       this.renderCommentFormLink();
     };
     return this;
+  },
+  
+  renderCurrentUserVote: function(){
+    var v = SOC.currentUser.votes().get({votable_type: "Question", votable_id: this.model.id })
+    if(!v){
+      this.$("#upvote").addClass("not_clicked")
+      this.$("#downvote").addClass("not_clicked")
+    } else if (v.get("value")===10){
+      this.$("#upvote").addClass("up_clicked")
+      this.$("#downvote").addClass("not_clicked")
+    } else {
+      this.$("#upvote").addClass("not_clicked")
+      this.$("#downvote").addClass("up_clicked")
+    }
   },
   
   renderAnswers: function () {

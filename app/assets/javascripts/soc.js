@@ -6,7 +6,9 @@ window.SOC = {
   initialize: function() {
     SOC.questions = new SOC.Collections.Questions();
     SOC.users = new SOC.Collections.Users();
-    SOC.signedIn = $("#signed_in").data("signed-in")
+    SOC.currentUserId = $("#current-user-id").data("current-user-id");
+    SOC.currentUser = new SOC.Models.User({id: SOC.currentUserId});
+    SOC.currentUser.fetch();
     SOC.requireSignedIn = function(){
       if(SOC.signedIn === false){
         alert("You must be signed in to do that!");

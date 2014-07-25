@@ -17,8 +17,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.includes(:questions, :answers, :comments, :votes).find(params[:id])
-    render json: @users
+    @user = User.includes(:authored_questions, :authored_answers, :authored_comments, :cast_votes).find(params[:id])
+    render json: @user
   end
   
   
