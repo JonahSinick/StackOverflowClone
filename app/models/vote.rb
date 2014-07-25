@@ -13,7 +13,7 @@
 
 class Vote < ActiveRecord::Base
   
-  validates_uniqueness_of :voter_id, :scope => [:votable_id, :votable_type]
+  # validates :voter_id, :uniquness, :scope => [:votable_id, :votable_type]
   validates :voter_id, :sign, :votable_id, :votable_type, unique: true
 
   belongs_to :votable, polymorphic: true  

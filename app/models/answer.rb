@@ -14,7 +14,7 @@
 class Answer < ActiveRecord::Base
   
 
-  validates_uniqueness_of :author_id, :scope => :question_id
+  # validates_uniqueness_of :author_id, :scope => :question_id
 
   
   belongs_to :author,
