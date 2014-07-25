@@ -5,22 +5,29 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     
     this.answers = this.model.answers();   
     this.comments = this.model.comments();   
+    this.commentFormLinkedClicked = false
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.answers, 'create', this.addAnswer);
-
+    this.listenTo(this.comments, 'add', this.addComment);
   },
+  
+  events: {
+    'click #new-question-comment-link': 'renderNewCommentForm'
+  },
+  
 
   render: function () {
     var content = this.template({
       question: this.model
     });
+
     this.$el.html(content);
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
-
-    this.renderNewCommentForm();
-    
+    if(this.commentFormLinkedClicked === false){
+      this.renderCommentFormLink();
+    };
     return this;
   },
   
@@ -53,8 +60,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
   
   renderComments: function () {
-    this.comments.each(this.addAnswer.bind(this));
-    
+    this.comments.each(this.addComment.bind(this));
   },
   
   addComment: function (comment) {
@@ -64,15 +70,26 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.addSubview("#question-comments", view);
   },
 
+  renderCommentFormLink: function () {
+    var template = "<a id='new-question-comment-link'>Add comment</a>";
+    var view = new Backbone.CompositeView();
+    view.$el.append(template)
+    this.addSubview("#question-commment-form", view);
+  },
+
+
   
   renderNewCommentForm: function () {
+    this.commentFormLinkedClicked = true
+    this.$("#question-commment-form").empty()
     var comment  = new SOC.Models.Comment()
     var view = new SOC.Views.NewComment({
       collection: this.comments,
       model: comment,
       superView: this,
       commentable_type: "question",
-      commentable_id: this.model.id
+      commentable_id: this.model.id,
+      question_id: this.model.id
     });
     this.addSubview("#question-commment-form", view);
   }

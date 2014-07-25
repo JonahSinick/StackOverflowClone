@@ -12,6 +12,7 @@ SOC.Views.NewComment = Backbone.CompositeView.extend({
     this.superView = options.superView
     this.collection = options.collection;
     this.model = options.model;
+    this.question_id = options.question_id
   },
 
   render: function () {
@@ -24,25 +25,25 @@ SOC.Views.NewComment = Backbone.CompositeView.extend({
 
 
   submit: function (event) {
-    var that = this;
+    var that = this;    
     event.preventDefault();
-    var params = $(event.currentTarget).serializeJSON();
-    
-    event.preventDefault();
-    this.collection.create({
-      body: this.$('textarea').val(),
-      commentable_type: this.commentable_type,
-      commentable_id: this.commentable_id
-    }, { wait: true });
+    var params = { 
+      comment: {
+        body: $('textarea').val(),
+        commentable_type: that.commentable_type,
+        commentable_id: that.commentable_id
+      }
+    };
     this.collection.create(params, {
       success: function(model, response){
-        Backbone.history.navigate("questions/" + that.question.id, {trigger:true})
+        Backbone.history.navigate("questions/" + that.question_id, {trigger:true})
+        that.superView.commentFormLinkedClicked = false;
+        that.superView.render()   
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;
         that.render();
       }
-    });
+    })
   }
-  
 });

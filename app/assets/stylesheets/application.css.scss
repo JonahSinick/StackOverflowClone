@@ -208,3 +208,27 @@ height: 34px;
 clear: both;
 margin-bottom: 15px;
 }
+
+.comments {
+  -webkit-tap-highlight-color: rgba(255,255,255,0)
+};
+
+
+.comment{
+  border-top: 1px solid #aaa;
+  width: 600px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 120%;
+  
+}
+.author_name {
+  float: right;
+}
+
+.comments-header{
+  width: 728px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}

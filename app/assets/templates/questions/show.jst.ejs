@@ -10,14 +10,17 @@
     <div id="mainbar">
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
-        <p><b>Author: <%= question.escape("author_name") %> </b></p>
+        <p><i> <%= question.escape("author_name") %> </i></p>
         
       </div>
-      <div 
-        id="question-commments">
+      <div class="comments-header container">
+      <b>Comments:</b>
       </div>
       <div 
-        id="question-commment-form">
+        id="question-comments" class="comments container">
+      </div>
+      <div 
+        id="question-commment-form" class="comment-form">
       </div>
       <div id="answers">
         <div id="answers-header">
