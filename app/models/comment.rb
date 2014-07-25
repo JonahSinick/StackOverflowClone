@@ -10,6 +10,7 @@
 #  commentable_type :string(255)      not null
 #  created_at       :datetime
 #  updated_at       :datetime
+#  vote_total       :integer          default(0)
 #
 
 class Comment < ActiveRecord::Base

@@ -8,6 +8,11 @@
 <div class="container">
   <div class="row">
     <div id="mainbar">
+    <div class="votecell">
+      <div id="upvote" class="vote not-clicked">Up</div>
+      <div class="votefiller"></div>
+      <div id="downvote"class="vote not-clicked">Down</div>
+    </div>
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
         <p><i> <%= question.escape("author_name") %> </i></p>

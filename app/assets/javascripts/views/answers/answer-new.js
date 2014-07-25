@@ -27,6 +27,7 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
 
 
   submit: function (event) {
+    SOC.requireSignedIn()
     var that = this;
     event.preventDefault();
     var params = $(event.currentTarget).serializeJSON();

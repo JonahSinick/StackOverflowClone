@@ -5,14 +5,16 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     
     this.answers = this.model.answers();   
     this.comments = this.model.comments();   
-    this.commentFormLinkedClicked = false
+    this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.answers, 'create', this.addAnswer);
     this.listenTo(this.comments, 'add', this.addComment);
   },
   
   events: {
-    'click #new-question-comment-link': 'renderNewCommentForm'
+    'click #new-question-comment-link': 'renderNewCommentForm',
+    'click #upvote': 'plusVote',
+    'click #downvote': 'minusVote'
   },
   
 
@@ -93,7 +95,66 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       question_id: this.model.id
     });
     this.addSubview("#question-commment-form", view);
-  }
+  },
   
+  
+  plusVote: function(){
+    that = this;
+    SOC.requireSignedIn();
+    var $currentTarget = $("#upvote");
+    if($currentTarget.hasClass("up-clicked")){
+      var vote = new SOC.Models.Vote({
+        votable_type: "Question",
+        votable_id: this.model.id,
+        value: 10
+      });
+      vote.destroy()
+      $currentTarget.removeClass("up-clicked");
+      $currentTarget.addClass("not-clicked");
+    }else{
+      if($("#downvote").hasClass("up_clicked")){
+        that.minusVote;
+      }
+      var vote = new SOC.Models.Vote({
+        votable_type: "Question",
+        votable_id: this.model.id,
+        value: 10
+      });
+      vote.save();
+      $currentTarget.addClass("up-clicked");
+      $currentTarget.removeClass("not-clicked");
+      
+    }
+  },
+  
+  minusVote: function(){
+    that = this;
+    SOC.requireSignedIn();
+    var $currentTarget = $("#downvote");
+    if($currentTarget.hasClass("up-clicked")){
+      var vote = new SOC.Models.Vote({
+        votable_type: "Question",
+        votable_id: this.model.id,
+        value: -10
+      });
+      vote.destroy()
+      $currentTarget.removeClass("up-clicked");
+      $currentTarget.addClass("not-clicked");
+    }else{
+      if($("#upvote").hasClass("up_clicked")){
+        that.plusVote;
+      }
+      
+      var vote = new SOC.Models.Vote({
+        votable_type: "Question",
+        votable_id: this.model.id,
+        value: -10
+      });
+      vote.save();
+      $currentTarget.addClass("up-clicked");
+      $currentTarget.removeClass("not-clicked"); 
+         
 
+    }
+  },
 });

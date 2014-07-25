@@ -9,6 +9,7 @@
 #  updated_at  :datetime
 #  author_id   :integer          not null
 #  author_name :string(255)      not null
+#  vote_total  :integer          default(0)
 #
 
 class Question < ActiveRecord::Base
