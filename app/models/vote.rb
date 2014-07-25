@@ -13,8 +13,9 @@
 
 class Vote < ActiveRecord::Base
   
-  # validates :voter_id, :uniquness, :scope => [:votable_id, :votable_type]
-  validates :voter_id, :sign, :votable_id, :votable_type, uniqueness: true
+  validates :voter_id, uniqueness: {scope: [:votable_id, :votable_type], message: "Voter can cast only one vote!" }
+  
+  validates :voter_id, :sign, :votable_id, :votable_type, presence: true
 
   belongs_to :votable, polymorphic: true  
   
