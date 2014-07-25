@@ -8,12 +8,24 @@ SOC.Models.Question = Backbone.Model.extend({
     return this._answers;
   },
   
-  
+  comments: function () {
+    if(!this._comments) {
+      this._comments = new SOC.Collections.Comments([], { question: this });
+    }
+    return this._comments;
+  },
+    
   parse: function (response) {
     if(response.answers) {
       this.answers().set(response.answers, { parse: true });
       delete response.answers;
     }
+
+    if(response.comments) {
+      this.comments().set(response.comments, { parse: true });
+      delete response.comments;
+    }
+
 
     return response;
   }

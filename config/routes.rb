@@ -1,7 +1,6 @@
 SOC::Application.routes.draw do
 
 
-  resources :comments
 
   root to: 'pages#root'
 
@@ -14,6 +13,7 @@ SOC::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :questions, except: [:new, :edit]
     resources :answers, only: [:create, :update, :destroy]
+    resources :comments, only: [:create, :update, :destroy]
   end
   
 end

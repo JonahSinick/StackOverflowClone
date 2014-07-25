@@ -1,5 +1,9 @@
 SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   template: JST['questions/new'],
+  
+  initialize: function(){
+    this.errors = []
+  },
 
 
   events: {
@@ -9,7 +13,7 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
 
 
   render: function () {
-    var content = this.template({question: this.model});
+    var content = this.template({question: this.model, errors: this.errors});
     this.$el.html(content);
     this.delegateEvents();
     return this;

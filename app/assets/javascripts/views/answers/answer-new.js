@@ -10,12 +10,14 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
 
   initialize: function(options){
     this.question = options.question;
-    
+    this.superView = options.superView;
+    this.errors = [];
   },
 
   render: function () {
     var content = this.template({
-      question: this.question
+      question: this.question,
+      errors: this.errors
     });
     this.$el.html(content);
     this.delegateEvents();
@@ -25,13 +27,14 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
 
 
   submit: function (event) {
-    that = this;
+    var that = this;
     event.preventDefault();
     var params = $(event.currentTarget).serializeJSON();
     this.model.set(params);
     this.collection.create(params, {
       success: function(model, response){
         Backbone.history.navigate("questions/" + that.question.id, {trigger:true})
+        that.superView.render();
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;

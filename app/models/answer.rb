@@ -8,6 +8,7 @@
 #  question_id :integer          not null
 #  created_at  :datetime
 #  updated_at  :datetime
+#  author_name :string(255)      not null
 #
 
 class Answer < ActiveRecord::Base
@@ -26,6 +27,6 @@ class Answer < ActiveRecord::Base
   primary_key: :id,
   foreign_key: :question_id
   
-  
+  has_many :comments, as: :commentable  
 
 end
