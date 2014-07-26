@@ -14,6 +14,14 @@ SOC.Models.Question = Backbone.Model.extend({
     }
     return this._comments;
   },
+
+  votes: function () {
+    if(!this._votes) {
+      this._votes = new SOC.Collections.Votes([], { question: this });
+    }
+    return this._votes;
+  },
+
     
   parse: function (response) {
     if(response.answers) {
@@ -26,6 +34,10 @@ SOC.Models.Question = Backbone.Model.extend({
       delete response.comments;
     }
 
+    if(response.votes) {
+      this.votes().set(response.votes, { parse: true });
+      delete response.comments;
+    }
 
     return response;
   }
