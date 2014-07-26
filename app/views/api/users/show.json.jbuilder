@@ -4,7 +4,6 @@ json.extract! @user, :id, :username, :description
 json.questions @user.questions do |question|
   json.extract! question, :id,
     :title,
-    :question_id,
     :created_at,
     :updated_at
 end 
@@ -21,5 +20,6 @@ end
 json.votes @user.votes do |vote|
   json.extract! vote, :id,
     :votable_id,
-    :votable_type
+    :votable_type,
+    :value
 end 

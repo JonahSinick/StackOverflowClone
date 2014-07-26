@@ -17,37 +17,22 @@ class User < ActiveRecord::Base
   validates :username, :email, :password_digest, :session_token, presence: true
   validates :username, :email, uniqueness: true
   
-  has_many :authored_questions,
+  has_many :questions,
   class_name: "Question",
   primary_key: :id,
   foreign_key: :author_id
   
-  has_many :authored_answers,
+  has_many :answers,
   class_name: "Answer",
   primary_key: :id,
   foreign_key: :author_id
 
-  has_many :authored_comments,
+  has_many :comments,
   class_name: "Comment",
   primary_key: :id,
   foreign_key: :author_id
 
-  has_many :cast_votes,
-  class_name: "Vote",
-  primary_key: :id,
-  foreign_key: :voter_id
-
-  has_many :questions_voted_on, :through => :cast_votes, :source => :votable, :source_type => 'Question'
-  has_many :answers_voted_on, :through => :cast_votes, :source => :votable, :source_type => 'Answer'
-
-
-
-  has_many :questions_upvoted,
-  class_name: "Vote",
-  primary_key: :id,
-  foreign_key: :voter_id
-
-
+  has_many :votes
   
     
   def password=(password)

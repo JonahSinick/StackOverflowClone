@@ -1,5 +1,5 @@
 SOC.Models.User = Backbone.Model.extend({
-  urlRoot: "/users",
+  urlRoot: "api/users",
   
   questions: function () {
     if(!this._questions) {
@@ -24,7 +24,7 @@ SOC.Models.User = Backbone.Model.extend({
   
   votes: function() {
     if(!this._votes) {
-      this._votes = new SOC.Collections.Votes([], { voter_id: this.id });
+      this._votes = new SOC.Collections.Votes([], { user_id: this.id });
     }
     return this._votes;
     
@@ -32,25 +32,25 @@ SOC.Models.User = Backbone.Model.extend({
     
   parse: function (response) {
 
-    if(response.authored_questions) {
-      this.questions().set(response.authored_questions, { parse: true });
-      delete response.authored_questions;
+    if(response.questions) {
+      this.questions().set(response.questions, { parse: true });
+      delete response.questions;
     }
 
 
-    if(response.authored_answers) {
-      this.answers().set(response.authored_answers, { parse: true });
-      delete response.authored_answers;
+    if(response.answers) {
+      this.answers().set(response.answers, { parse: true });
+      delete response.answers;
     }
 
-    if(response.authored_comments) {
-      this.comments().set(response.authored_comments, { parse: true });
-      delete response.authored_comments;
+    if(response.comments) {
+      this.comments().set(response.comments, { parse: true });
+      delete response.comments;
     }
 
-    if(response.cast_votes) {
-      this.votes().set(response.cast_votes, { parse: true });
-      delete response.cast_votes;
+    if(response.votes) {
+      this.votes().set(response.votes, { parse: true });
+      delete response.votes;
     }
 
 

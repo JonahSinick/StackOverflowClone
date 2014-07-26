@@ -9,7 +9,7 @@ module Api
         @vote = current_answer.votes.new(vote_params)
       end
       
-      @vote.voter_id = current_user.id
+      @vote.user_id = current_user.id
       if @vote.save
         render json: @vote
       else
@@ -21,11 +21,6 @@ module Api
       @vote = Vote.find_by(vote_params)
       @vote.destroy
       render json: {}
-    end
-
-    def show
-      @vote = Vote.find(params[:id])
-      render json: @vote
     end
 
 

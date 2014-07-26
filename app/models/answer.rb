@@ -18,7 +18,7 @@ class Answer < ActiveRecord::Base
   validates :author_id, uniqueness: {scope: :question_id, message: "User can only post one answer per question."}
 
   
-  belongs_to :author,
+  belongs_to :user,
   class_name: "User",
   primary_key: :id,
   foreign_key: :author_id

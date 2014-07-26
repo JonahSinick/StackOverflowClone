@@ -1,5 +1,6 @@
 SOC.Collections.Users = Backbone.Collection.extend({
-  url: "/users",
+  url: "/api/users",
+  
   model: SOC.Models.User  
 })
 

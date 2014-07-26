@@ -9,6 +9,10 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.answers, 'create', this.addAnswer);
     this.listenTo(this.comments, 'add', this.addComment);
+    this.listenTo(SOC.currentUser, 'sync', this.render);
+    if(SOC.currentUser.votes().length === 0){
+      SOC.currentUser.fetch()
+    };
   },
   
   events: {
@@ -33,19 +37,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     return this;
   },
   
-  renderCurrentUserVote: function(){
-    var v = SOC.currentUser.votes().get({votable_type: "Question", votable_id: this.model.id })
-    if(!v){
-      this.$("#upvote").addClass("not_clicked")
-      this.$("#downvote").addClass("not_clicked")
-    } else if (v.get("value")===10){
-      this.$("#upvote").addClass("up_clicked")
-      this.$("#downvote").addClass("not_clicked")
-    } else {
-      this.$("#upvote").addClass("not_clicked")
-      this.$("#downvote").addClass("up_clicked")
-    }
-  },
   
   renderAnswers: function () {
     this.answers.each(this.addAnswer.bind(this));
@@ -109,6 +100,27 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       question_id: this.model.id
     });
     this.addSubview("#question-commment-form", view);
+  },
+
+  getCurrentUserVote: function(){
+    var votes = SOC.currentUser.votes()
+    var v = votes.where({ votable_type: 'Question', votable_id: 542 })[0];
+    return v;
+  },
+
+  renderCurrentUserVote: function(){
+    var v = this.getCurrentUserVote()
+    that = this;
+    if(!v){
+      that.$("#upvote").addClass("not_clicked");
+      that.$("#downvote").addClass("not_clicked");
+    } else if (v.get("value")===10){
+      that.$("#upvote").addClass("up_clicked");
+      that.$("#downvote").addClass("not_clicked");
+    } else {
+      that.$("#upvote").addClass("not_clicked");
+      that.$("#downvote").addClass("up_clicked");
+    }
   },
   
   

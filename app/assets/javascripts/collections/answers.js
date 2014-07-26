@@ -1,5 +1,5 @@
 SOC.Collections.Answers = Backbone.Collection.extend({
-  urlRoot: "api/answers",
+  url: "api/answers",
   model: SOC.Models.Answer,
   
   initialize: function (models, options) {
