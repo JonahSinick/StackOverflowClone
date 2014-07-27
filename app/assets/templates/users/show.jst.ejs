@@ -1,4 +1,3 @@
-<div class="comment container">
-<p><%= user.escape("username") %></p>
-
-</div>
+<% if (user ){%>
+<p><%= user.escape("username")%></p>
+<% }%>

@@ -3,7 +3,6 @@ SOC.Routers.Router = Backbone.Router.extend({
   routes: {
     "" : "questionsIndex",
     "users" : "usersIndex",
-    
     ":pageNum" : "questionsIndex",
     "questions/new" : "newQuestion",
 
@@ -71,6 +70,22 @@ SOC.Routers.Router = Backbone.Router.extend({
     var showView = new SOC.Views.ShowQuestion({model: question});
     this._swapView(showView);
   },
+
+
+  showUser: function(id){
+    var user = SOC.users.get(id);
+    if(!user || user.answers().length === 0){
+      var user = new SOC.Models.User({
+        id: id
+      });
+      user.fetch();
+      SOC.users.remove(id);
+      SOC.users.add(user);
+    }
+    var showView = new SOC.Views.ShowUser({model: user});
+    this._swapView(showView);
+  },
+
 
   // showUser: function(id){
   //   var user = SOC.users.get(id);
