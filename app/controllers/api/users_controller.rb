@@ -3,7 +3,7 @@ module Api
 
 
     def show
-      @user = User.includes(:questions, :answers, :votes).find(params[:id])
+      @user = User.includes(:questions, :answers, :comments, :votes).find(params[:id])
       render "show"
     end
 

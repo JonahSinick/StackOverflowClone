@@ -2,18 +2,37 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   template: JST['answers/show'],
   
   initialize: function (options) {
-    this.superView = options.superView;  
+    this.superView = options.superView;
+    this.question = this.superView.model;
     this.comments = this.model.comments();   
-    this.commentFormLinkedClicked = false
+    this.commentFormLinkedClicked = false;
     this.listenTo(this.comments, 'create', this.addComment);
     this.listenTo(this.comments, 'sync', this.render);
 
   },  
 
   events: {
-    'click #new-answer-comment-link': 'renderNewCommentForm'
+    'click #new-answer-comment-link': 'renderNewCommentForm',
+    'click .answer-destroy': 'deleteAnswer',
+    'click .answer-edit': 'editAnswerForm'
+    
   },
   
+  
+  deleteAnswer: function(){
+    this.model.destroy(),
+    this.remove()
+  },
+
+  editAnswerForm: function(){
+    var view = new SOC.Views.NewAnswer({
+      question: this.question,      
+      collection: this.collection,
+      model: this.model,
+      superView: this
+    });
+    this.$el.html(view.render().$el);
+  },
 
   render: function () {
     var content = this.template({

@@ -12,11 +12,11 @@ module Api
       end
     end
 
-    # def destroy
-    #   @question = Question.find(params[:id])
-    #   @board.try(:destroy)
-    #   render json: {}
-    # end
+    def destroy
+      @question = Question.find(params[:id])
+      @question.try(:destroy)
+      render json: {}
+    end
 
     def index
       if params[:page] == - 1
@@ -28,7 +28,7 @@ module Api
     end
 
     def show
-      @question = Question.includes(:answers).find(params[:id])
+      @question = Question.includes(:answers, :comments).find(params[:id])
       render :show
     end
 

@@ -3,6 +3,12 @@
 <p><b>Author: <%= answer.escape("author_name") %> </b></p>
 </div>
 
+<% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
+<button type="button" class="btn btn-danger answer-destroy">Delete</button>
+<button type="button" class="btn btn-primary answer-edit">Edit</button>
+<% } %>
+
+
 <div class="comments-header container">
 <b>Comments:</b>
 </div>

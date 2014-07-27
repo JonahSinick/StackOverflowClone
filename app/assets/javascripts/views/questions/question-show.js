@@ -13,7 +13,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   events: {
-    'click #new-question-comment-link': 'renderNewCommentForm'
+    'click #new-question-comment-link': 'renderNewCommentForm',
+    'click .question-destroy' : 'deleteQuestion'
   },
   
 
@@ -29,23 +30,28 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
-    this.renderVoteCell();    
+    // this.renderVoteCell();
     return this;
     
-
   },
   
-  renderVoteCell: function(){
-    var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
-
-    var showVoteView = new SOC.Views.ShowVote({
-      model: vote,
-      superView: this
-    });
-    showVoteView.render()
-    debugger    
-    this.addSubview("#vote_cell", showVoteView);
+  deleteQuestion: function(){
+    this.model.destroy(),
+    this.remove()
+    Backbone.history.navigate("", {trigger:true})    
   },
+  
+  // renderVoteCell: function(){
+  //   var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
+  //
+  //   var showVoteView = new SOC.Views.ShowVote({
+  //     model: vote,
+  //     superView: this
+  //   });
+  //   showVoteView.render()
+  //   debugger
+  //   this.addSubview("#vote_cell", showVoteView);
+  // },
 
   
   renderAnswers: function () {
@@ -54,9 +60,11 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   addAnswer: function (answer) {
+    
     var view = new SOC.Views.ShowAnswer({
       model: answer,
-      superView: this
+      superView: this,
+      collection: this.answers
     });
     this.addSubview("#answers", view);
     var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")

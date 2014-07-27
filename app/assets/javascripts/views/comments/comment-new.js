@@ -25,6 +25,7 @@ SOC.Views.NewComment = Backbone.CompositeView.extend({
 
 
   submit: function (event) {
+    SOC.requireSignedIn()
     var that = this;    
     event.preventDefault();
     var params = { 

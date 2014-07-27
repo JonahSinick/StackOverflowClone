@@ -13,7 +13,9 @@
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
         <p><i> <%= question.escape("author_name") %> </i></p>
-        
+        <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
+        <button type="button" class="btn btn-danger question-destroy">Delete</button>
+        <% } %>
       </div>
       <div class="comments-header container">
       <b>Comments:</b>
