@@ -2,6 +2,8 @@ SOC.Routers.Router = Backbone.Router.extend({
   
   routes: {
     "" : "questionsIndex",
+    "users" : "usersIndex",
+    
     ":pageNum" : "questionsIndex",
     "questions/new" : "newQuestion",
 
@@ -29,6 +31,21 @@ SOC.Routers.Router = Backbone.Router.extend({
     });
     this._swapView(view);
   },
+
+  usersIndex: function(pageNum){
+    if(pageNum===null){
+      var pageNum = 1;
+    }
+    SOC.users.reset()
+    SOC.users.fetch({ data: $.param({ page: pageNum}) });
+
+    var view = new SOC.Views.UsersIndex({
+      collection: SOC.users,
+      pageNum: pageNum
+    });
+    this._swapView(view);
+  },
+
 
 
   newQuestion: function(){

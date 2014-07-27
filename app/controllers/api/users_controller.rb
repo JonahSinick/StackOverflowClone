@@ -9,8 +9,12 @@ module Api
 
 
     def index
-      @users = User.all
-      render json: @users
+      if params[:page] == - 1
+        @users = User.all
+      else
+        @users = User.order("id DESC").page(params[:page]).per(15)
+      end
+      render json: @users      
     end
     
 

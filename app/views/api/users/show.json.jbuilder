@@ -16,6 +16,19 @@ json.answers @user.answers do |answer|
 end 
 
 
+json.comments @user.comments do |comment|
+  json.extract! comment, :id,
+    :commentable_id,
+    :commentable_type,
+    :body,
+    :author_name,
+    :author_id,
+    :created_at,
+    :updated_at
+end
+
+
+
 
 json.votes @user.votes do |vote|
   json.extract! vote, :id,

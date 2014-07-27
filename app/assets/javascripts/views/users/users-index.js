@@ -12,9 +12,9 @@ SOC.Views.UsersIndex = Backbone.CompositeView.extend({
     });
     this.$el.html(content);
     var $pager = this.generatePageChange()
-    this.renderQuestions();
+    this.renderUsers();
     // $pager.appendTo(this.$el)
-    this.$('.pager').html($pager)
+    this.$('.pager').html($pager);
     return this;
   },
   
@@ -22,11 +22,11 @@ SOC.Views.UsersIndex = Backbone.CompositeView.extend({
     this.collection.each(this.addUser.bind(this));
   },
   
-  addUser: function (question) {
-    var view = new SOC.Views.QuestionRow({
-      model: question
+  addUser: function (user) {
+    var view = new SOC.Views.UserRow({
+      model: user
     });
-    this.addSubview("#questions", view);
+    this.addSubview("#users", view);
   },
   
   generatePageChange: function(){

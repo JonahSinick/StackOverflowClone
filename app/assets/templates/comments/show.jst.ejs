@@ -3,6 +3,8 @@
 <p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
 <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
 <button type="button" class="btn btn-danger comment-destroy">Delete</button>
+<button type="button" class="btn btn-primary comment-edit">Edit</button>
+
 <% } %>
 
 

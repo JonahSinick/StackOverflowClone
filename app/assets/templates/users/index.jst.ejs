@@ -1,15 +1,19 @@
-<br>
-<br>
-<br>
-<br>
-<h1> Users </h1>
+<div id="content">
+<div id="mainbar">
 
-<ul>
 
-<% users.each(function(user){ %>
-  <li> <a href="#users/<%= user.id%>"><%= user.escape("username") %></a> </li>
-  
-<% }); %>
-</ul>
+  <div class="subheader">
+    <h1>Users</h1>
+  </div>
 
-<a href="#boards/new">Create a new board</a>
+
+    <div class="container" id="question-mini-list">
+      <div class="row">
+        <div id="users"></div>
+    </div>
+    <div class="pager fl"></div>        
+    
+</div>
+</div>
+
+
