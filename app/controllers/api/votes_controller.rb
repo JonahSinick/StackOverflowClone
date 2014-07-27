@@ -17,7 +17,7 @@ module Api
     end
 
     def destroy
-      @vote = Vote.find_by(vote_params)
+      @vote = Vote.find(params[:id])
       @vote.destroy
       render json: {}
     end

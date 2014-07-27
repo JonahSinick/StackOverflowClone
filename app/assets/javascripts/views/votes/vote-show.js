@@ -43,7 +43,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   renderCurrentUserVote: function(){
     var vote = this.model;
     var that = this;
-    debugger
     if(!vote.id){
       that.$("#upvote").addClass("not-clicked");
       that.$("#downvote").addClass("not-clicked");
@@ -62,61 +61,44 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     SOC.requireSignedIn();
     var vote = that.model
     var $currentTarget = $("#upvote");
-    if(that.currentUserVoteId){
-      var params = vote.attributes()
-      vote.destroy({success: function(){
-        that.setModel()
-      }})
-      that.currentUserVoted = false
+    if(vote.id){
+      vote.destroy();
+      vote.unset({id: null, value: null})
       $currentTarget.removeClass("up-clicked");
       $currentTarget.addClass("not-clicked");
       that.render()
-      }else{
+    }else{
       // if($("#downvote").hasClass("up-clicked")){
       //   that.minusVote();
       // }
       vote.set({value: 10});
-      that.currentUserVoted = true
       vote.save()
       $currentTarget.addClass("up-clicked");
       $currentTarget.removeClass("not-clicked");
+    }
+  },
+  //
+  minusVote: function(){
+    var that = this;
+    SOC.requireSignedIn();
+    var vote = that.model
+    var $currentTarget = $("#downvote");
+    if(vote.id){
+      vote.destroy();
+      vote.unset({id: null, value: null})
+      $currentTarget.removeClass("up-clicked");
+      $currentTarget.addClass("not-clicked");
       that.render()
+    }else{
+      // if($("#downvote").hasClass("up-clicked")){
+      //   that.minusVote();
+      // }
+      vote.set({value: 10});
+      vote.save()
+      $currentTarget.addClass("up-clicked");
+      $currentTarget.removeClass("not-clicked");
     }
   }
-  //
-  // minusVote: function(){
-  //   that = this;
-  //   SOC.requireSignedIn();
-  //   var $currentTarget = $("#downvote");
-  //   if($currentTarget.hasClass("up-clicked")){
-  //     var vote = that.currentUserVote;
-  //     vote.destroy();
-  //     that.currentUserVote = new SOC.Models.Vote()
-  //     $currentTarget.removeClass("up-clicked");
-  //     $currentTarget.addClass("not-clicked");
-  //   }else{
-  //     if($("#upvote").hasClass("up_clicked")){
-  //       that.plusVote();
-  //     }
-  //     var vote = new SOC.Models.Vote({
-  //       votable_type: "Question",
-  //       votable_id: that.model.id,
-  //       value: -10
-  //     });
-  //     vote.save();
-  //     that.currentUserVote = vote;
-  //     $currentTarget.addClass("up-clicked");
-  //     $currentTarget.removeClass("not-clicked");
-  //   }
-  // }
-  //
-  // setCurrentUserVote: function(){
-  //   debugger
-  //   that = this;
-  //   var votes = SOC.currentUser.votes().where({ votable_type: 'Question', votable_id: that.model.id }, {wait: true});
-  //   that.currentUserVote = votes[0]
-  //   that.render();
-  // },
 
 
 })
