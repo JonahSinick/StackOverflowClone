@@ -46,10 +46,9 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
 
     var showVoteView = new SOC.Views.ShowVote({
-      model: vote,
-      superView: this
+      model: vote
     });
-    this.addSubview("#vote_cell", showVoteView);
+    this.addSubview("#votecell", showVoteView);
   },
 
   
@@ -75,7 +74,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var a = this.answers.select(function (model) {
         return model.get("author_id") === SOC.currentUser.id;
     });
-    if(!a){
+
+    if(a.length === 0){
       var answer  = new SOC.Models.Answer()
       var view = new SOC.Views.NewAnswer({
         question: this.model,      
