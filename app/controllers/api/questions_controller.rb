@@ -36,7 +36,10 @@ module Api
 
     def show
       @question = Question.includes(:answers, :comments).find(params[:id])
-      @question.user_vote_id = Vote.where({votable_id: @question.id, user_id: current_user.id})[0].id
+      current_user_vote = Vote.where({votable_id: @question.id, user_id: current_user.id})[0]
+      if current_user_vote
+        @question.current_user_vote = current_user_vote
+      end
       render :show
     end
 

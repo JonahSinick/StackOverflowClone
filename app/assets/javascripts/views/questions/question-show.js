@@ -5,8 +5,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     that = this
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
-
-    this.votes = this.model.votes();
     this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.renderVoteCell);
@@ -37,7 +35,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       this.renderCommentFormLink();
     };
     return this;
-    
+
   },
   
   deleteQuestion: function(){
@@ -47,10 +45,10 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   renderVoteCell: function(){
-    this.currentUserVoteId = this.model.escape("user_vote_id");
-    that = this;
+  
+    var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Question", votable_id: that.model.id, currentUserVoteId: that.currentUserVoteId
+      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.model.attributes.current_user_vote, questionShow: this
     });
     this.addSubview("#votecell", showVoteView)
   },

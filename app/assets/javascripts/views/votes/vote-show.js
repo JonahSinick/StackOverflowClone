@@ -13,21 +13,25 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
-    this.currentUserVoteId = options.currentUserVoteId
+    this.questionShow = options.questionShow;
+    this.currentUserVote = parseInt(options.currentUserVote);
     this.setModel();
-    this.superView = options.superView;
-    this.currentUserVoted = SOC.currentUser.votes().select(function(vote){return that.votable_id === vote.votable_id}).length;
-    this.listenTo(this.currentUserVoteId, 'change', this.render)
+    // this.listenTo(this.currentUserVoteId, 'change', this.render)
+    // this.listenTo(this.currentUserVoteId, 'sync', this.render)
 
   },
 
 
   setModel: function(){
+    var that = this;
     this.model = new SOC.Models.Vote({votable_type: that.votable_type, votable_id: that.votable_id});
+    if(that.currentUserVote){
+      that.model.set({user_id: that.currentUserVote})
+    }
   },
 
   render: function () {
-    that = this
+    var that = this
     console.log(that.currentUserVoteId)
     var content = this.template({});
     this.$el.html(content);
@@ -40,7 +44,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   renderCurrentUserVote: function(){
     v = this.model;
     var that = this;
-    if(!that.currentUserVoted){
+    debugger
+    if(!that.currentUserVoteId){
       that.$("#upvote").addClass("not-clicked");
       that.$("#downvote").addClass("not-clicked");
     } else if (v.get("value")===10){
@@ -58,7 +63,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     SOC.requireSignedIn();
     var vote = that.model
     var $currentTarget = $("#upvote");
-    if(that.currentUserVoted){
+    if(that.currentUserVoteId){
       var params = vote.attributes()
       vote.destroy({success: function(){
         that.setModel()

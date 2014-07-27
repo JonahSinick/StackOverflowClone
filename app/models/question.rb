@@ -13,14 +13,14 @@
 
 class Question < ActiveRecord::Base
 
-  attr_accessor :user_vote_id
+  attr_accessor :current_user_vote
 
 
   validates :title, :body, :author_id, presence: true
   
   
     def initialize
-      @user_vote_id
+      @current_user_vote
     end
   
   
