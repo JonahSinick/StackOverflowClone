@@ -60,6 +60,7 @@ SOC.Routers.Router = Backbone.Router.extend({
 
 
   showQuestion: function(id){
+    SOC.currentUser.fetch();
     var question = SOC.questions.get(id);
     if(!question || question.answers().length === 0){
       var question = new SOC.Models.Question({

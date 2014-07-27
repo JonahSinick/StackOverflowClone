@@ -17,7 +17,6 @@ module Api
     end
 
     def destroy
-      fail
       @vote = Vote.find_by(vote_params)
       @vote.destroy
       render json: {}

@@ -5,11 +5,16 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     that = this
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
+
     this.votes = this.model.votes();
     this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'sync', this.renderVoteCell);
+
     this.listenTo(this.answers, 'create', this.addAnswer);
+    this.listenTo(this.answers, "remove", this.removeAnswer);
     this.listenTo(this.comments, 'add', this.addComment);
+
     this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
   },
   
@@ -17,7 +22,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     'click #new-question-comment-link': 'renderNewCommentForm',
     'click .question-destroy' : 'deleteQuestion'
   },
-  
+    
 
   render: function () {
     console.log("rendering!")
@@ -31,7 +36,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
-    this.renderVoteCell();
     return this;
     
   },
@@ -43,9 +47,10 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   renderVoteCell: function(){
+    this.currentUserVoteId = this.model.escape("user_vote_id");
     that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Question", votable_id: that.model.id
+      votable_type: "Question", votable_id: that.model.id, currentUserVoteId: that.currentUserVoteId
     });
     this.addSubview("#votecell", showVoteView)
   },
@@ -68,6 +73,21 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.$('.answers-subheader').html($newhead)
   },
 
+
+
+  removeAnswer: function (answer) {
+    var subview = _.find(
+      this.subviews("#answers"),
+      function (subview) {
+        return subview.model === answer;
+      }
+    );
+
+    this.removeSubview("#answers", subview);
+    var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
+    this.$('.answers-subheader').html($newhead)
+    this.renderNewAnswerForm();
+  },
   
   renderNewAnswerForm: function () {
     var a = this.answers.select(function (model) {

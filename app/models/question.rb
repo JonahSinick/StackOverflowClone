@@ -13,8 +13,16 @@
 
 class Question < ActiveRecord::Base
 
+  attr_accessor :user_vote_id
 
-validates :title, :body, :author_id, presence: true
+
+  validates :title, :body, :author_id, presence: true
+  
+  
+    def initialize
+      @user_vote_id
+    end
+  
   
   belongs_to :author,
   class_name: "User",
@@ -30,5 +38,5 @@ validates :title, :body, :author_id, presence: true
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
-  
+
 end

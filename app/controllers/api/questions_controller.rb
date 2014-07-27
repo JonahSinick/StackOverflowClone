@@ -36,6 +36,7 @@ module Api
 
     def show
       @question = Question.includes(:answers, :comments).find(params[:id])
+      @question.user_vote_id = Vote.where({votable_id: @question.id, user_id: current_user.id})[0].id
       render :show
     end
 
@@ -44,5 +45,7 @@ module Api
     def question_params
       params.require(:question).permit(:title, :body)
     end
+    
+
   end
 end

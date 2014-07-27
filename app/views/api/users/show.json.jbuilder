@@ -6,6 +6,7 @@ json.questions @user.questions do |question|
     :title,
     :created_at,
     :updated_at
+    :current_user_vote_id
 end 
 
 json.answers @user.answers do |answer|

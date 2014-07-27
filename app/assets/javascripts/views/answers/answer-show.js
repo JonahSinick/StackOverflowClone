@@ -20,8 +20,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
   
   deleteAnswer: function(){
-    this.model.destroy(),
-    this.remove()
+    event.preventDefault();
+    this.model.destroy();
   },
 
   editAnswerForm: function(){
