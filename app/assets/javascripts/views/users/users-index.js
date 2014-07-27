@@ -32,15 +32,20 @@ SOC.Views.UsersIndex = Backbone.CompositeView.extend({
   generatePageChange: function(){
     var pageNum = parseInt(this.pageNum);
     var $pager = $('<div />', {"class": 'pager'})
+    if(pageNum > 1){
+      var previous = pageNum - 1
+      $pager.append('<a href=#users/page/' + previous + '>' + '<span class="page-numbers next">previous</span>' + '</a>');      
+    }
+
     $pager.append('<span class="page-numbers current">' + pageNum + '</span>')
     for (var i = pageNum + 1; i < pageNum + 5; i++) {
-      var a = '<a href=#' + i + '>' + '<span class="page-numbers">' + i + '</span>' + '</a>';
+      var a = '<a href=#users/page/' + i + '>' + '<span class="page-numbers">' + i + '</span>' + '</a>';
       $pager.append(a);
     }
     $pager.append('<span class="page-numbers dots">…</span>')
     var numPages = this.collection;
     var next = pageNum + 1
-    $pager.append('<a href=#' + next + '>' + '<span class="page-numbers next">next</span>' + '</a>');
+    $pager.append('<a href=#users/page/' + next + '>' + '<span class="page-numbers next">next</span>' + '</a>');
     return $pager
   }
 });

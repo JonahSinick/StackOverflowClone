@@ -2,13 +2,13 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   template: JST['questions/show'],
 
   initialize: function (options) {
+    that = this
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
     this.votes = this.model.votes();
     this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.answers, 'create', this.addAnswer);
-
     this.listenTo(this.comments, 'add', this.addComment);
   },
   
@@ -73,14 +73,19 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderNewAnswerForm: function () {
-    var answer  = new SOC.Models.Answer()
-    var view = new SOC.Views.NewAnswer({
-      question: this.model,      
-      collection: this.answers,
-      model: answer,
-      superView: this
+    var a = this.answers.select(function (model) {
+        return model.get("author_id") === SOC.currentUser.id;
     });
-    this.addSubview("#answer-form", view);
+    if(!a){
+      var answer  = new SOC.Models.Answer()
+      var view = new SOC.Views.NewAnswer({
+        question: this.model,      
+        collection: this.answers,
+        model: answer,
+        superView: this
+      });
+      this.addSubview("#answer-form", view);      
+    }
   },
   
   

@@ -1,7 +1,14 @@
-<p>Name: <%= user.escape("username")%></p>
+<h1>Name: <%= user.escape("username")%></h1>
 
-
+  
   <div class="subheader">
+
+  <div class="description">
+  <p><%= user.escape("description")%><p>
+
+    </div>
+
+  <div class="questions">
     <h1>Questions</h1>
   </div>
 
@@ -11,6 +18,6 @@
         <div id="questions"></div>
     </div>
     <div class="pager fl"></div>        
-    
-</div>
+
+    </div>
 </div>

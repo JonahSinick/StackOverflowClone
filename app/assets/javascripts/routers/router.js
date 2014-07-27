@@ -3,6 +3,8 @@ SOC.Routers.Router = Backbone.Router.extend({
   routes: {
     "" : "questionsIndex",
     "users" : "usersIndex",
+    "users/page/:pageNum" : "usersIndex",
+
     ":pageNum" : "questionsIndex",
     "questions/new" : "newQuestion",
 

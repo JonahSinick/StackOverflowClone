@@ -19,10 +19,13 @@ module Api
     end
 
     def index
-      if params[:page] == - 1
-        @questions = Question.all
-      else
-        @questions = Question.order("id DESC").page(params[:page]).per(15)
+      @questions = Question.all
+      if params[:author_id]
+        @questions = @questions.where(author_id: Integer(params[:author_id]))
+      end
+      
+      if params[:page]
+        @questions = @questions.order("id DESC").page(params[:page]).per(15)
       end
       render json: @questions      
     end
