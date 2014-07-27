@@ -37,18 +37,17 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   deleteQuestion: function(){
-    this.model.destroy(),
-    this.remove()
-    Backbone.history.navigate("", {trigger:true})    
+    this.model.destroy();
+    this.remove();
+    Backbone.history.navigate("", {trigger:true});
   },
   
   renderVoteCell: function(){
-    var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
-
+    that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      model: vote
+      votable_type: "Question", votable_id: that.model.id
     });
-    this.addSubview("#votecell", showVoteView);
+    this.addSubview("#votecell", showVoteView)
   },
 
   

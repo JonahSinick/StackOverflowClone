@@ -7,11 +7,9 @@ module Api
         @vote = current_question.votes.new(vote_params)
       elsif @vote.votable_type == "Answer"
         @vote = current_answer.votes.new(vote_params)
-      end
-      
+      end      
       @vote.user_id = current_user.id
       if @vote.save
-        @
         render json: @vote
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
@@ -19,12 +17,13 @@ module Api
     end
 
     def destroy
+      fail
       @vote = Vote.find_by(vote_params)
       @vote.destroy
       render json: {}
     end
-
-
+    #
+    #
     def current_question
       return Question.find(vote_params[:votable_id])
     end
@@ -36,8 +35,8 @@ module Api
     def current_object
       current_question || current_answer
     end
-
-    
+    # #
+    # #
     def vote_params
       params.permit(:votable_id, :votable_type, :value)
     end
