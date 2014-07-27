@@ -10,6 +10,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.answers, 'create', this.addAnswer);
     this.listenTo(this.comments, 'add', this.addComment);
+    this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
   },
   
   events: {
@@ -30,7 +31,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
-    // this.renderVoteCell();
+    this.renderVoteCell();
     return this;
     
   },
@@ -41,17 +42,15 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     Backbone.history.navigate("", {trigger:true})    
   },
   
-  // renderVoteCell: function(){
-  //   var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
-  //
-  //   var showVoteView = new SOC.Views.ShowVote({
-  //     model: vote,
-  //     superView: this
-  //   });
-  //   showVoteView.render()
-  //   debugger
-  //   this.addSubview("#vote_cell", showVoteView);
-  // },
+  renderVoteCell: function(){
+    var vote  = new SOC.Models.Vote({votable_type: "Question", votable_id: this.model.id});
+
+    var showVoteView = new SOC.Views.ShowVote({
+      model: vote,
+      superView: this
+    });
+    this.addSubview("#vote_cell", showVoteView);
+  },
 
   
   renderAnswers: function () {

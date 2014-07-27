@@ -24,6 +24,10 @@ module Api
         @questions = @questions.where(author_id: Integer(params[:author_id]))
       end
       
+      if params[:search]
+        @questions = @questions.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%")
+      end
+      
       if params[:page]
         @questions = @questions.order("id DESC").page(params[:page]).per(15)
       end

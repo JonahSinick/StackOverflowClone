@@ -21,7 +21,6 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
       errors: this.errors
     });
     this.$el.html(content);
-    this.delegateEvents();
     
     return this;
   },

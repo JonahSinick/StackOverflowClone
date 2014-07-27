@@ -6,9 +6,9 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.question = this.superView.model;
     this.comments = this.model.comments();   
     this.commentFormLinkedClicked = false;
+    this.listenTo(this.comments, 'sync', this.renderComments);
     this.listenTo(this.comments, 'create', this.addComment);
-    this.listenTo(this.comments, 'sync', this.render);
-
+    this.listenTo(this.model, 'sync', this.render);
   },  
 
   events: {
@@ -46,8 +46,10 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     return this;
   },
 
-  renderComments: function () {
+  renderComments: function (e) {
     this.comments.each(this.addComment.bind(this));
+    this.trigger("commentsRendered");
+    console.log("commentsRendered!")
   },
   
   addComment: function (comment) {

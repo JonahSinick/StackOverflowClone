@@ -11,6 +11,7 @@ module Api
       
       @vote.user_id = current_user.id
       if @vote.save
+        @
         render json: @vote
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
@@ -31,6 +32,11 @@ module Api
     def current_answer
       return Answer.find(vote_params[:votable_id])
     end
+
+    def current_object
+      current_question || current_answer
+    end
+
     
     def vote_params
       params.permit(:votable_id, :votable_type, :value)

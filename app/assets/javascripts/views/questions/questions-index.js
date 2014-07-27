@@ -5,6 +5,17 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
     this.pageNum = options.pageNum
     this.listenTo(this.collection, 'sync', this.render);
   },
+  
+  events: {
+    "click .search" : "search",
+    "keyUp .search" : "search"
+  },
+  
+  search: function() {
+    var searched = $('.search-bar').val()
+    this.collection.reset()
+    this.collection.fetch({ data: $.param({ search: searched}) });
+  },
 
   render: function () {
     var content = this.template({
