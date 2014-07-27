@@ -26,7 +26,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   renderCurrentUserVote: function(){
     v = this.model;
     var that = this;
-    if(!v){
+    if(!v.id){
       that.$("#upvote").addClass("not-clicked");
       that.$("#downvote").addClass("not-clicked");
     } else if (v.get("value")===10){

@@ -8,6 +8,7 @@
 <div class="container">
   <div class="row">
     <div id="mainbar">
+    <div id="votecell"> </div>
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
         <p><i> <%= question.escape("author_name") %> </i></p>
@@ -15,9 +16,7 @@
         <button type="button" class="btn btn-danger question-destroy">Delete</button>
         <% } %>
       </div>
-      
-      <div id="votecell">
-      </div>
+    
       
       <div class="comments-header container">
       <b>Comments:</b>
