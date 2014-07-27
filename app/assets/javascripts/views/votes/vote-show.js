@@ -24,7 +24,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
 
   renderCurrentUserVote: function(){
-    debugger
     v = this.model;
     var that = this;
     if(!v){
