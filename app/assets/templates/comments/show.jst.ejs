@@ -1,4 +1,5 @@
 <div class="comment container">
+<div id="comment-votecell" class="votecell"> </div>
 <p><%= comment.escape("body") %></p>
 <p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
 <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>

@@ -43,8 +43,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   renderSubviews: function(){
     this.currentUserVote = this.currentUserVotes.select(function (vote) {
         return vote.get("votable_id") === that.model.id;
-    })[0];
-    // this.renderVoteCell();
+    })[0]; 
+    this.renderVoteCell();
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
