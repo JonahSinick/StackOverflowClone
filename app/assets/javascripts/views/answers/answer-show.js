@@ -14,9 +14,18 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   events: {
     'click #new-answer-comment-link': 'renderNewCommentForm',
     'click .answer-destroy': 'deleteAnswer',
-    'click .answer-edit': 'editAnswerForm'
-    
+    'click .answer-edit': 'editAnswerForm'    
   },
+
+  renderVoteCell: function(){
+  
+    var that = this;
+    var showVoteView = new SOC.Views.ShowVote({
+      votable_type: "Answer", votable_id: that.model.id, currentUserVote: that.superView.currentUserVote, score: that.model.escape("score") 
+    });
+    this.addSubview("#answer-votecell", showVoteView)
+  },
+
   
   
   deleteAnswer: function(){
@@ -43,6 +52,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
+    this.renderVoteCell();
     return this;
   },
 
@@ -65,6 +75,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     view.$el.append(template)
     this.addSubview("#answer-commment-form", view);
   },
+
+
 
 
   

@@ -13,7 +13,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
-    this.score = options.score;
+    this.score = parseInt(options.score);
     this.magnitude;
     this.questionShow = options.questionShow;
     this.currentUserVote = options.currentUserVote;
@@ -71,13 +71,17 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
         vote.set({value: that.magnitude});
         $currentTarget.addClass("up-clicked");
         $otherTarget.removeClass("up-clicked");
+        that.score += 2
       } else{
         vote.set({value: 0});
         $currentTarget.removeClass("up-clicked");
+        that.score -= 1
       }
     } else{
       vote.set({value: that.magnitude});
       $currentTarget.addClass("up-clicked");
+      that.score += 1
+      
     }
     vote.save();
   },
@@ -94,13 +98,18 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
         vote.set({value: -that.magnitude});
         $currentTarget.addClass("up-clicked");
         $otherTarget.removeClass("up-clicked");
+        that.score -= 2
+        
       } else{
         vote.set({value: 0});
         $currentTarget.removeClass("up-clicked");
+        that.score += 1
+        
       }
     } else{
       vote.set({value: - that.magnitude});
       $currentTarget.addClass("up-clicked");
+      that.score -= 1
     }
     vote.save();
   }

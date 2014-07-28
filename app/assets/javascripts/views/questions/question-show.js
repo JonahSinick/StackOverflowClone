@@ -7,13 +7,17 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.comments = this.model.comments();
     this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.model, 'sync', this.renderVoteCell);
+    this.currentUserVote;
+    this.listenTo(this.model, 'sync', this.setCurrentUserVote);
+    
+    this.listenTo(this.model, 'sync', this.renderSubviews);
 
     this.listenTo(this.answers, 'create', this.addAnswer);
     this.listenTo(this.answers, "remove", this.removeAnswer);
     this.listenTo(this.comments, 'add', this.addComment);
 
     this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
+    this.delegateEvents();
   },
   
   events: {
@@ -23,19 +27,23 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     
 
   render: function () {
-    console.log("rendering!")
     var content = this.template({
       question: this.model
     });
     this.$el.html(content);
+    return this;
+
+  },
+  
+  renderSubviews: function(){
+    this.currentUserVote = this.model.attributes.current_user_vote
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
-    return this;
-
+    this.renderVoteCell();
   },
   
   deleteQuestion: function(){
@@ -45,12 +53,12 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   renderVoteCell: function(){
-  
+    this.currentUserVote = this.model.attributes.current_user_vote
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.model.attributes.current_user_vote, score: that.model.escape("score") 
+      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.currentUserVote, score: that.model.escape("score") 
     });
-    this.addSubview("#votecell", showVoteView)
+    this.addSubview("#question-votecell", showVoteView)
   },
 
   
