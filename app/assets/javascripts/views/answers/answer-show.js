@@ -19,7 +19,6 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
 
   renderVoteCell: function(){
-    this.currentUserVote = this.model.current_user_vote;
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
       votable_type: "Answer", votable_id: that.model.id, currentUserVote: that.currentUserVote, score: that.model.escape("score") 
@@ -45,15 +44,20 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
 
   render: function () {
+    var that = this;
     var content = this.template({
       answer: this.model
     });
     this.$el.html(content);
-    this.renderComments();
-    if(this.commentFormLinkedClicked === false){
-      this.renderCommentFormLink();
-    };
-    this.renderVoteCell();
+    if(this.model.escape("body")){
+      that.currentUserVote = that.model.current_user_vote();
+      that.renderComments();
+      if(that.commentFormLinkedClicked === false){
+        that.renderCommentFormLink();
+      };
+      that.renderVoteCell();
+      
+    }
     return this;
   },
 

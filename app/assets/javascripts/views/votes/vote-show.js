@@ -38,6 +38,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   },
 
   render: function () {
+    debugger
+    
     var that = this
     var content = this.template({score: this.score});
     this.$el.html(content);
@@ -61,6 +63,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
 
   plusVote: function(){
+    debugger
     var that = this;
     SOC.requireSignedIn();
     var vote = that.model;
