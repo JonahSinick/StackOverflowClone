@@ -2,11 +2,15 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   template: JST['answers/show'],
   
   initialize: function (options) {
+    var that = this
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
     this.commentFormLinkedClicked = false;
-    this.currentUserVote;
+    this.currentUserVotes = SOC.currentUser.votes();
+    this.currentUserVote = this.currentUserVotes.select(function (vote) {
+        return vote.get("votable_id") === that.model.id;
+    })[0];
     this.listenTo(this.comments, 'sync', this.renderComments);
     this.listenTo(this.comments, 'create', this.addComment);
     this.listenTo(this.model, 'sync', this.render);
@@ -21,11 +25,13 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   renderVoteCell: function(){
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Answer", votable_id: that.model.id, currentUserVote: that.currentUserVote, score: that.model.escape("score") 
+      votable_type: "Answer", 
+      votable_id: that.model.id, 
+      currentUserVote: that.currentUserVote, 
+      score: that.model.escape("score") 
     });
     this.addSubview("#answer-votecell", showVoteView)
   },
-
   
   
   deleteAnswer: function(){
@@ -50,7 +56,6 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     });
     this.$el.html(content);
     if(this.model.escape("body")){
-      that.currentUserVote = that.model.current_user_vote();
       that.renderComments();
       if(that.commentFormLinkedClicked === false){
         that.renderCommentFormLink();

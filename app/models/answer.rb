@@ -38,9 +38,6 @@ class Answer < ActiveRecord::Base
 
   has_many :votes, as: :votable, dependent: :destroy
 
-  def score 
-    self.votes.length
-  end
 
 
   def current_user_vote_get(user)

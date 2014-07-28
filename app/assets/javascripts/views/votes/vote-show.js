@@ -16,16 +16,17 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
     this.currentUserVote = options.currentUserVote;
-    that.score = options.score
-    if(that.currentUserVote.escape("value")===""){
+    if(!that.currentUserVote || that.currentUserVote.escape("value")===""){
       that.voteValue = 0
     }else{
       that.voteValue = parseInt(that.currentUserVote.escape("value"));      
     }
+    this.score = options.score
     this.scoreFromOthers = this.score - this.voteValue;
     this.questionShow = options.questionShow;
 
     this.setModel();
+    
     this.listenTo(this.model, 'changeVote', this.updatePage);
 
   },
@@ -36,7 +37,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model = new SOC.Models.Vote({votable_type: that.votable_type, votable_id: that.votable_id});
     if(that.currentUserVote){
       that.model.set({id: that.currentUserVote.id, value: that.currentUserVote.value})
-    }
+    }    
   },
 
   render: function () {
