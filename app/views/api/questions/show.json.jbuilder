@@ -13,8 +13,7 @@ json.answers @question.answers do |answer|
       :author_id,
       :created_at,
       :updated_at,
-      :score,
-      :current_user_vote
+      :score
   end
 
 end
