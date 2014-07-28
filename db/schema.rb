@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725225122) do
+ActiveRecord::Schema.define(version: 20140728011725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,11 +23,13 @@ ActiveRecord::Schema.define(version: 20140725225122) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "author_name", null: false
+    t.integer  "score"
   end
 
   add_index "answers", ["author_id", "question_id"], name: "index_answers_on_author_id_and_question_id", unique: true, using: :btree
   add_index "answers", ["author_id"], name: "index_answers_on_author_id", using: :btree
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+  add_index "answers", ["score"], name: "index_answers_on_score", using: :btree
 
   create_table "comments", force: true do |t|
     t.text     "body",             null: false
@@ -37,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140725225122) do
     t.string   "commentable_type", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "score"
   end
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
@@ -48,9 +51,11 @@ ActiveRecord::Schema.define(version: 20140725225122) do
     t.datetime "updated_at"
     t.integer  "author_id",   null: false
     t.string   "author_name", null: false
+    t.integer  "score"
   end
 
   add_index "questions", ["author_id"], name: "index_questions_on_author_id", using: :btree
+  add_index "questions", ["score"], name: "index_questions_on_score", using: :btree
   add_index "questions", ["title"], name: "index_questions_on_title", unique: true, using: :btree
 
   create_table "users", force: true do |t|
@@ -61,9 +66,11 @@ ActiveRecord::Schema.define(version: 20140725225122) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.integer  "karma"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["karma"], name: "index_users_on_karma", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "votes", force: true do |t|

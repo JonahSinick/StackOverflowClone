@@ -10,10 +10,12 @@
 #  commentable_type :string(255)      not null
 #  created_at       :datetime
 #  updated_at       :datetime
+#  score            :integer
 #
 
 class Comment < ActiveRecord::Base
   
+  include VotesHelper  
   validates :body, :author_id, :author_name, :commentable_id, :commentable_type, presence: true
 
   belongs_to :commentable, polymorphic: true
@@ -24,5 +26,17 @@ class Comment < ActiveRecord::Base
   foreign_key: :author_id
 
   has_many :votes, as: :votable, dependent: :destroy
+  after_initialize :default_values
 
+
+  def score
+    self.votes.length
+  end
+  private
+
+
+  
+    def default_values
+      self.score ||= 0
+    end    
 end

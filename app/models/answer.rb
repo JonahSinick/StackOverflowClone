@@ -9,11 +9,13 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  author_name :string(255)      not null
+#  score       :integer
 #
 
 class Answer < ActiveRecord::Base
   
-
+  include VotesHelper
+  after_initialize :default_values
 
   validates :author_id, uniqueness: {scope: :question_id, message: "User can only post one answer per question."}
 
@@ -32,4 +34,14 @@ class Answer < ActiveRecord::Base
 
   has_many :votes, as: :votable, dependent: :destroy
 
+  def score 
+    self.votes.length
+  end
+
+
+  private
+  
+    def default_values
+      self.score ||= 0
+    end    
 end

@@ -36,6 +36,10 @@ module Api
     end
     #
     #
+    
+    private
+    
+    
     def current_question
       return Question.find(vote_params[:votable_id])
     end
@@ -43,15 +47,24 @@ module Api
     def current_answer
       return Answer.find(vote_params[:votable_id])
     end
+    
+    def current_comment
+      return Comment.find(vote_params[:votable_id])
+    end
+    
 
     def current_object
-      current_question || current_answer
+      current_question || current_answer || current_comment
     end
-    # #
-    # #
+
+    def author
+      User.find(current_object.author_id)
+    end
+
     def vote_params
       params.permit(:votable_id, :votable_type, :value, :user_id)
     end
+    
 
   end
 end

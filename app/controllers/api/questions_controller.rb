@@ -1,7 +1,9 @@
 module Api
   class QuestionsController < ApiController
+    
     def create
       @question = Question.new(question_params)
+
       @question.author_id = current_user.id
       @question.author_name = current_user.username
 
@@ -46,7 +48,7 @@ module Api
     private
 
     def question_params
-      params.require(:question).permit(:title, :body)
+      params.require(:question).permit(:title, :body, :score)
     end
     
 

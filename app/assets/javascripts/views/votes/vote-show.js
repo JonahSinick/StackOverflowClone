@@ -1,6 +1,6 @@
 SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
-  template: JST["votes/cell"],
+  template: JST["votes/show"],
 
   events: {
     'click #upvote': 'plusVote',
@@ -13,6 +13,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
+    this.score = options.score;
     this.magnitude;
     this.questionShow = options.questionShow;
     this.currentUserVote = options.currentUserVote;
@@ -38,7 +39,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
   render: function () {
     var that = this
-    var content = this.template({});
+    var content = this.template({score: this.score});
     this.$el.html(content);
     this.renderCurrentUserVote();
     return this;
@@ -63,7 +64,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     var that = this;
     SOC.requireSignedIn();
     var vote = that.model;
-    debugger
     var $currentTarget = $("#upvote");
     var $otherTarget = $("#downvote");
     if(vote.id && (vote.escape("value") != 0)){
@@ -87,7 +87,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     var that = this;
     SOC.requireSignedIn();
     var vote = that.model;
-    debugger    
     var $currentTarget = $("#downvote");
     var $otherTarget = $("#upvote");
     if(vote.id && (vote.escape("value") != 0)){

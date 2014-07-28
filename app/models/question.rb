@@ -9,19 +9,25 @@
 #  updated_at  :datetime
 #  author_id   :integer          not null
 #  author_name :string(255)      not null
+#  score       :integer
 #
+
+
+
 
 class Question < ActiveRecord::Base
 
+  include VotesHelper
+
   attr_accessor :current_user_vote
+  after_initialize :default_values
+  
+
 
 
   validates :title, :body, :author_id, presence: true
   
   
-    def initialize
-      @current_user_vote
-    end
   
   
   belongs_to :author,
@@ -38,5 +44,14 @@ class Question < ActiveRecord::Base
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
+  
 
+
+
+  private
+  
+    def default_values
+      self.score ||= 0
+      @current_user_vote = Vote.new
+    end
 end

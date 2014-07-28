@@ -48,7 +48,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.model.attributes.current_user_vote, questionShow: this
+      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.model.attributes.current_user_vote, score: that.model.escape("score") 
     });
     this.addSubview("#votecell", showVoteView)
   },
