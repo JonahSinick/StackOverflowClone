@@ -21,6 +21,14 @@ SOC.Models.Question = Backbone.Model.extend({
     }
     return this._votes;
   },
+  
+  current_user_vote: function () {
+    if(!this._current_user_vote) {
+      this._current_user_vote = new SOC.Models.Vote([], { question: this });
+    }
+    return this._current_user_vote;
+  },
+  
 
     
   parse: function (response) {
@@ -38,6 +46,12 @@ SOC.Models.Question = Backbone.Model.extend({
       this.votes().set(response.votes, { parse: true });
       delete response.comments;
     }
+
+    if(response.current_user_vote) {
+      this.current_user_vote().set(response.current_user_vote, { parse: true });
+      delete response.current_user_vote;
+    }
+
 
     return response;
   }

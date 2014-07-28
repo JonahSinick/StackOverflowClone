@@ -8,9 +8,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.commentFormLinkedClicked = false;
     this.listenTo(this.model, 'sync', this.render);
     this.currentUserVote;
-    this.listenTo(this.model, 'sync', this.setCurrentUserVote);
     
-    this.listenTo(this.model, 'sync', this.renderSubviews);
+    this.listenTo(this.model, 'sync', this.render);
 
     this.listenTo(this.answers, 'create', this.addAnswer);
     this.listenTo(this.answers, "remove", this.removeAnswer);
@@ -27,23 +26,27 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     
 
   render: function () {
+    this.$el.empty();
+    var that = this;
     var content = this.template({
       question: this.model
     });
     this.$el.html(content);
+    if(this.model.escape("body")){
+      that.renderSubviews();
+    }
     return this;
-
   },
   
   renderSubviews: function(){
-    this.currentUserVote = this.model.attributes.current_user_vote
+    this.renderVoteCell();
+    this.currentUserVote = this.model.current_user_vote
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
     if(this.commentFormLinkedClicked === false){
       this.renderCommentFormLink();
     };
-    this.renderVoteCell();
   },
   
   deleteQuestion: function(){
@@ -51,12 +54,18 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.remove();
     Backbone.history.navigate("", {trigger:true});
   },
+
+
   
   renderVoteCell: function(){
-    this.currentUserVote = this.model.attributes.current_user_vote
+    this.currentUserVote = this.model.current_user_vote
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      votable_type: "Question", votable_id: that.model.id, currentUserVote: that.currentUserVote, score: that.model.escape("score") 
+      el: $("#question-votecell"),
+      votable_type: "Question", 
+      votable_id: that.model.id, 
+      currentUserVote: that.currentUserVote, 
+      score: that.model.escape("score") 
     });
     this.addSubview("#question-votecell", showVoteView)
   },

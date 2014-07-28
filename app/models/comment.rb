@@ -16,6 +16,13 @@
 class Comment < ActiveRecord::Base
   
   include VotesHelper  
+  
+  attr_accessor :current_user_vote
+  attr_accessor :current_user_vote_get
+
+
+  after_initialize :default_values
+  
   validates :body, :author_id, :author_name, :commentable_id, :commentable_type, presence: true
 
   belongs_to :commentable, polymorphic: true
@@ -29,14 +36,24 @@ class Comment < ActiveRecord::Base
   after_initialize :default_values
 
 
+
   def score
     self.votes.length
   end
+
+
+  def current_user_vote_get(user)
+    current_user_vote = Vote.where({votable_id: self.id, user_id: user.id})[0]
+    if current_user_vote
+      self.current_user_vote = current_user_vote
+    end
+  end
+
+  
   private
-
-
   
     def default_values
       self.score ||= 0
-    end    
+      @current_user_vote = nil
+    end
 end
