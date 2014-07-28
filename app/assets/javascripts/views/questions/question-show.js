@@ -59,7 +59,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderVoteCell: function(){
-    this.currentUserVote = this.model.current_user_vote
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
       el: $("#question-votecell"),

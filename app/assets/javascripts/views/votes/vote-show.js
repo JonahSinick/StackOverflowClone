@@ -5,6 +5,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   events: {
     'click #upvote': 'plusVote',
     'click #downvote': 'minusVote',
+    "changeVote" : "updatePage"
+
   },
 
 
@@ -14,17 +16,13 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
     this.score = parseInt(options.score);
-    this.magnitude;
-    this.questionShow = options.questionShow;
     this.currentUserVote = options.currentUserVote;
+    this.voteValue = parseInt(this.currentUserVote.escape("value"));
+    this.scoreFromOthers = this.score - this.voteValue;
+    this.questionShow = options.questionShow;
+
     this.setModel();
-    if(that.votable_type === "Question" || that.votable_type === "Answer"){
-      that.magnitude = 10
-    } else{
-      that.magnitude = 1
-    }
-    this.listenTo(this.model, 'change', this.render);
-    // this.listenTo(this.currentUserVoteId, 'sync', this.render)
+    this.listenTo(this.model, 'changeVote', this.updatePage);
 
   },
 
@@ -38,13 +36,19 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    debugger
-    
-    var that = this
+    this.score = this.scoreFromOthers + this.voteValue;
     var content = this.template({score: this.score});
     this.$el.html(content);
     this.renderCurrentUserVote();
     return this;
+  },
+  
+  updatePage: function(){
+    var vote = this.model;    
+    var that = this;
+    vote.set({value: that.voteValue});
+    vote.save();
+    this.render();
   },
 
 
@@ -52,69 +56,72 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   renderCurrentUserVote: function(){
     var vote = this.model;
     var that = this;
-    if(vote.id && (vote.escape("value") != 0)){
-      if (vote.get("value")===10){
-        that.$("#upvote").addClass("up-clicked");
-      }else {
-        that.$("#downvote").addClass("up-clicked");
-      }      
+    if(that.voteValue === 1){
+      that.$("#upvote").addClass("up-clicked");
+      that.$("#downvote").removeClass("up-clicked");
+    }else if (that.voteValue === -1){
+      that.$("#downvote").addClass("up-clicked");
+      that.$("#upvote").removeClass("up-clicked");
+    } else{
+      that.$("#upvote").removeClass("up-clicked");      
+      that.$("#downvote").removeClass("up-clicked");
     }
   },
 
 
   plusVote: function(){
-    debugger
     var that = this;
     SOC.requireSignedIn();
-    var vote = that.model;
-    var $currentTarget = $("#upvote");
-    var $otherTarget = $("#downvote");
-    if(vote.id && (vote.escape("value") != 0)){
-      if(vote.escape("value") < 0){
-        vote.set({value: that.magnitude});
-        $currentTarget.addClass("up-clicked");
-        $otherTarget.removeClass("up-clicked");
-        that.score += 2
-      } else{
-        vote.set({value: 0});
-        $currentTarget.removeClass("up-clicked");
-        that.score -= 1
-      }
-    } else{
-      vote.set({value: that.magnitude});
-      $currentTarget.addClass("up-clicked");
-      that.score += 1
-      
+    if(that.voteValue === 1){
+      that.voteValue = 0;
+    }else{
+      that.voteValue = 1;
     }
-    vote.save();
+    this.model.trigger("changeVote");
+      // if(vote.escape("value") < 0){
+      //   vote.set({value: that.magnitude});
+      //   $currentTarget.addClass("up-clicked");
+      //   $otherTarget.removeClass("up-clicked");
+      //   that.sign = 1;
+      // } else{
+      //   vote.set({value: 0});
+      //   $currentTarget.removeClass("up-clicked");
+      // }
+    // } else{
+    //   vote.save();
   },
   //
 
   minusVote: function(){
     var that = this;
     SOC.requireSignedIn();
-    var vote = that.model;
-    var $currentTarget = $("#downvote");
-    var $otherTarget = $("#upvote");
-    if(vote.id && (vote.escape("value") != 0)){
-      if(vote.escape("value") > 0){
-        vote.set({value: -that.magnitude});
-        $currentTarget.addClass("up-clicked");
-        $otherTarget.removeClass("up-clicked");
-        that.score -= 2
-        
-      } else{
-        vote.set({value: 0});
-        $currentTarget.removeClass("up-clicked");
-        that.score += 1
-        
-      }
-    } else{
-      vote.set({value: - that.magnitude});
-      $currentTarget.addClass("up-clicked");
-      that.score -= 1
+    if(that.voteValue === -1){
+      that.voteValue = 0;
+    }else{
+      that.voteValue = -1;
     }
-    vote.save();
+    this.model.trigger("changeVote");
+
+    // var $currentTarget = $("#downvote");
+    // var $otherTarget = $("#upvote");
+    // if(vote.id && (vote.escape("value") != 0)){
+    //   if(vote.escape("value") > 0){
+    //     vote.set({value: -that.magnitude});
+    //     $currentTarget.addClass("up-clicked");
+    //     $otherTarget.removeClass("up-clicked");
+    //     that.score -= 2
+    //
+    //   } else{
+    //     vote.set({value: 0});
+    //     $currentTarget.removeClass("up-clicked");
+    //     that.score += 1
+    //
+    //   }
+    // } else{
+    //   vote.set({value: - that.magnitude});
+    //   $currentTarget.addClass("up-clicked");
+    //   that.score -= 1
+    // }
   }
   //
 

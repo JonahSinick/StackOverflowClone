@@ -54,7 +54,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: SOC_production
+  database: SOC_development
   pool: 5
   username: jonahsinick
   password:
