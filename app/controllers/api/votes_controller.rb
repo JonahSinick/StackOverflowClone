@@ -16,6 +16,19 @@ module Api
       end
     end
 
+    def update
+      @vote = Vote.find(params[:id])
+      if @vote.update_attributes(vote_params)
+        render json: @vote
+      else
+        render json: @vote.errors.full_messages, status: :unprocessable_entity
+      end
+    end
+
+
+
+
+
     def destroy
       @vote = Vote.find(params[:id])
       @vote.destroy
@@ -37,7 +50,7 @@ module Api
     # #
     # #
     def vote_params
-      params.permit(:votable_id, :votable_type, :value)
+      params.permit(:votable_id, :votable_type, :value, :user_id)
     end
 
   end

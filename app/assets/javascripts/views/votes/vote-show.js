@@ -4,7 +4,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
   events: {
     'click #upvote': 'plusVote',
-    'click #downvote': 'minusVote'
+    'click #downvote': 'minusVote',
   },
 
 
@@ -13,10 +13,16 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
+    this.magnitude;
     this.questionShow = options.questionShow;
     this.currentUserVote = options.currentUserVote;
     this.setModel();
-    // this.listenTo(this.currentUserVoteId, 'change', this.render)
+    if(that.votable_type === "Question" || that.votable_type === "Answer"){
+      that.magnitude = 10
+    } else{
+      that.magnitude = 1
+    }
+    this.listenTo(this.model, 'change', this.render);
     // this.listenTo(this.currentUserVoteId, 'sync', this.render)
 
   },
@@ -43,15 +49,12 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   renderCurrentUserVote: function(){
     var vote = this.model;
     var that = this;
-    if(!vote.id){
-      that.$("#upvote").addClass("not-clicked");
-      that.$("#downvote").addClass("not-clicked");
-    } else if (vote.get("value")===10){
-      that.$("#upvote").addClass("up-clicked");
-      that.$("#downvote").addClass("not-clicked");
-    } else {
-      that.$("#upvote").addClass("not-clicked");
-      that.$("#downvote").addClass("up-clicked");
+    if(vote.id && (vote.escape("value") != 0)){
+      if (vote.get("value")===10){
+        that.$("#upvote").addClass("up-clicked");
+      }else {
+        that.$("#downvote").addClass("up-clicked");
+      }      
     }
   },
 
@@ -59,46 +62,74 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   plusVote: function(){
     var that = this;
     SOC.requireSignedIn();
-    var vote = that.model
+    var vote = that.model;
+    debugger
     var $currentTarget = $("#upvote");
-    if(vote.id){
-      vote.destroy();
-      vote.unset({id: null, value: null})
-      $currentTarget.removeClass("up-clicked");
-      $currentTarget.addClass("not-clicked");
-      that.render()
-    }else{
-      // if($("#downvote").hasClass("up-clicked")){
-      //   that.minusVote();
-      // }
-      vote.set({value: 10});
-      vote.save()
+    var $otherTarget = $("#downvote");
+    if(vote.id && (vote.escape("value") != 0)){
+      if(vote.escape("value") < 0){
+        vote.set({value: that.magnitude});
+        $currentTarget.addClass("up-clicked");
+        $otherTarget.removeClass("up-clicked");
+      } else{
+        vote.set({value: 0});
+        $currentTarget.removeClass("up-clicked");
+      }
+    } else{
+      vote.set({value: that.magnitude});
       $currentTarget.addClass("up-clicked");
-      $currentTarget.removeClass("not-clicked");
     }
+    vote.save();
   },
   //
+
   minusVote: function(){
     var that = this;
     SOC.requireSignedIn();
-    var vote = that.model
+    var vote = that.model;
+    debugger    
     var $currentTarget = $("#downvote");
-    if(vote.id){
-      vote.destroy();
-      vote.unset({id: null, value: null})
-      $currentTarget.removeClass("up-clicked");
-      $currentTarget.addClass("not-clicked");
-      that.render()
-    }else{
-      // if($("#downvote").hasClass("up-clicked")){
-      //   that.minusVote();
-      // }
-      vote.set({value: 10});
-      vote.save()
+    var $otherTarget = $("#upvote");
+    if(vote.id && (vote.escape("value") != 0)){
+      if(vote.escape("value") > 0){
+        vote.set({value: -that.magnitude});
+        $currentTarget.addClass("up-clicked");
+        $otherTarget.removeClass("up-clicked");
+      } else{
+        vote.set({value: 0});
+        $currentTarget.removeClass("up-clicked");
+      }
+    } else{
+      vote.set({value: - that.magnitude});
       $currentTarget.addClass("up-clicked");
-      $currentTarget.removeClass("not-clicked");
     }
+    vote.save();
   }
+  //
+
+
+
+  // minusVote: function(){
+  //   var that = this;
+  //   SOC.requireSignedIn();
+  //   var vote = that.model
+  //   var $currentTarget = $("#downvote");
+  //   if(vote.id){
+  //     vote.destroy();
+  //     vote.unset({id: null, value: null})
+  //     $currentTarget.removeClass("up-clicked");
+  //     $currentTarget.addClass("not-clicked");
+  //     that.render()
+  //   }else{
+  //     // if($("#downvote").hasClass("up-clicked")){
+  //     //   that.minusVote();
+  //     // }
+  //     vote.set({value: 10});
+  //     vote.save()
+  //     $currentTarget.addClass("up-clicked");
+  //     $currentTarget.removeClass("not-clicked");
+  //   }
+  // }
 
 
 })
