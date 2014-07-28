@@ -1,5 +1,7 @@
 SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
-  template: JST['answers/show'],
+  template: function(){
+    return this.editButtonClicked ? JST['answers/new'] : JST['answers/show']
+  },
   
   initialize: function (options) {
     var that = this
@@ -7,11 +9,12 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.question = this.superView.model;
     this.comments = this.model.comments();   
     this.commentFormLinkedClicked = false;
+    this.editButtonClicked = false;
     this.currentUserVotes = SOC.currentUser.votes();
     this.currentUserVote = this.currentUserVotes.select(function (vote) {
         return vote.get("votable_id") === that.model.id;
     })[0];
-    this.listenTo(this.comments, 'sync', this.renderComments);
+    this.listenTo(this.comments, 'add', this.addComment);
     this.listenTo(this.comments, 'create', this.addComment);
     this.listenTo(this.model, 'sync', this.render);
   },  
@@ -21,6 +24,24 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     'click .answer-destroy': 'deleteAnswer',
     'click .answer-edit': 'editAnswerForm'    
   },
+  
+  render: function () {
+    var that = this;
+    var content = this.template()({
+      answer: this.model
+    });
+    this.$el.html(content);
+    if(this.model.escape("body")){
+      that.renderComments();
+      if(that.commentFormLinkedClicked === false){
+        that.renderCommentFormLink();
+      };
+      that.renderVoteCell();
+      
+    }
+    return this;
+  },
+  
 
   renderVoteCell: function(){
     var that = this;
@@ -40,31 +61,11 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
 
   editAnswerForm: function(){
-    var view = new SOC.Views.NewAnswer({
-      question: this.question,      
-      collection: this.collection,
-      model: this.model,
-      superView: this
-    });
-    this.$el.html(view.render().$el);
+    this.editButtonClicked = true;
+    debugger
+    this.render();
   },
 
-  render: function () {
-    var that = this;
-    var content = this.template({
-      answer: this.model
-    });
-    this.$el.html(content);
-    if(this.model.escape("body")){
-      that.renderComments();
-      if(that.commentFormLinkedClicked === false){
-        that.renderCommentFormLink();
-      };
-      that.renderVoteCell();
-      
-    }
-    return this;
-  },
 
   renderComments: function (e) {
     this.comments.each(this.addComment.bind(this));
