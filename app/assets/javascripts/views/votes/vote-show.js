@@ -15,9 +15,13 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
-    this.score = parseInt(options.score);
     this.currentUserVote = options.currentUserVote;
-    this.voteValue = parseInt(this.currentUserVote.escape("value"));
+    that.score = options.score
+    if(that.currentUserVote.escape("value")===""){
+      that.voteValue = 0
+    }else{
+      that.voteValue = parseInt(that.currentUserVote.escape("value"));      
+    }
     this.scoreFromOthers = this.score - this.voteValue;
     this.questionShow = options.questionShow;
 
