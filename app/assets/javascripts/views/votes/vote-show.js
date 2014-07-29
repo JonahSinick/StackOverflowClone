@@ -26,10 +26,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.questionShow = options.questionShow;
 
     this.setModel();
-    
     this.listenTo(this.model, 'changeVote', this.updatePage);
-    this.listenTo(this.model, 'sync', this.updatePage);
-    this.listenTo(this.model, 'change', this.updatePage);
   },
 
 
@@ -84,6 +81,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }else{
       that.voteValue = 1;
     }
+    this.model.trigger("changeVote");
       // if(vote.escape("value") < 0){
       //   vote.set({value: that.magnitude});
       //   $currentTarget.addClass("up-clicked");
@@ -107,7 +105,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }else{
       that.voteValue = -1;
     }
-
+    this.model.trigger("changeVote");
     // var $currentTarget = $("#downvote");
     // var $otherTarget = $("#upvote");
     // if(vote.id && (vote.escape("value") != 0)){
