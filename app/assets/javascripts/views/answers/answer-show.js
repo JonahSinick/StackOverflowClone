@@ -12,7 +12,6 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.creatingComment = false;
 
     this.currentUserVotes = SOC.currentUser.votes();
-    this.listenTo(this.comments, 'add', this.addComment);
     this.listenTo(this.comments, 'add', this.renderCommentFormLink);
     
 
@@ -20,7 +19,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },  
 
   events: {
-    'click #new-answer-comment-link': 'newComment',
+    'click .newAnswerCommentLink': 'newComment',
     'click .answer-destroy': 'deleteAnswer',
     'click .answer-edit': 'editAnswerForm',
     'click .question-answer': 'submit'   
@@ -47,7 +46,10 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
 
   renderVoteCell: function(){
-    var that = this;
+    var that = this;    
+    this.currentUserVote = this.currentUserVotes.select(function (vote) {
+        return vote.get("votable_id") === that.model.id;
+    })[0]; 
     var showVoteView = new SOC.Views.ShowVote({
       votable_type: "Answer", 
       votable_id: that.model.id, 
@@ -61,6 +63,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   deleteAnswer: function(){
     event.preventDefault();
     this.model.destroy();
+    this.remove();
   },
 
   editAnswerForm: function(){
@@ -96,12 +99,13 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview(".answer-comment-new-show-edit", view);
+    this.addSubview(".answerCommentNewShowEdit", view);
   },
   
   
   
   newComment: function(){
+    event.preventDefault();    
     this.removeCommentFormLink();
     var that = this;
     var view = new SOC.Views.CommentNewShowEdit({
@@ -114,15 +118,14 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       superView: that,
       action: "new"
     });
-    this.addSubview(".answer-comment-new-show-edit", view);
+    this.addSubview(".answerCommentNewShowEdit", view);
   },
 
 
 
   
   renderCommentFormLink: function(){
-    var that = this;
-    this.addSubview(".answer-comment-form-link", that.newCommentLink);
+    this.$(".newAnswerComment").html("<a class='newAnswerCommentLink'>Add comment</a>");
     
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
     
@@ -130,8 +133,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
   
   removeCommentFormLink: function () {
-    var that = this
-    this.removeSubview(".answer-comment-form-link", that.newCommentLink)
+    this.$(".newAnswerComment").empty();
   }
   
   
@@ -139,7 +141,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
 
 
 SOC.Views.NewAnswerCommentLink = Backbone.CompositeView.extend({
-  template: $("<a id='new-answer-comment-link'>Add comment</a>"),
+  template: $("<a class='newAnswerCommentLink'>Add comment</a>"),
   
   render: function(){
     var content = this.template

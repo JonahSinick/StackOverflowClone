@@ -23,7 +23,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
 
   events: {
-    'click #new-question-comment-link': 'newComment',
+    'click .newQuestionCommentLink': 'newComment',
     'click .question-destroy' : 'deleteQuestion'
   },
     
@@ -55,6 +55,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
   
   deleteQuestion: function(){
+    event.preventDefault();
     this.model.destroy();
     this.remove();
     Backbone.history.navigate("", {trigger: true});
@@ -86,12 +87,14 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview(".question-comment-new-show-edit", view);
+    this.addSubview(".questionCommentNewShowEdit", view);
   },
   
   
   
   newComment: function(){
+    SOC.requireSignedIn();
+    event.preventDefault();
     this.removeCommentFormLink();
     var that = this;
     var view = new SOC.Views.CommentNewShowEdit({
@@ -105,22 +108,19 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       action: "new"
 
     });
-    this.addSubview(".question-comment-new-show-edit", view);
+    this.addSubview(".questionCommentNewShowEdit", view);
   },
 
   
   renderCommentFormLink: function(){
-    var that = this;
-    this.addSubview(".question-comment-form-link", that.newCommentLink);
-    
+    this.$(".newQuestionComment").html("<a class='newQuestionCommentLink'>Add comment</a>");
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
     
 
   },
   
   removeCommentFormLink: function () {
-    var that = this
-    this.removeSubview(".question-comment-form-link", that.newCommentLink)
+    this.$(".newQuestionComment").empty();
   },
   
 
@@ -181,7 +181,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 })
 
 SOC.Views.NewQuestionCommentLink = Backbone.CompositeView.extend({
-  template: $("<a id='new-question-comment-link'>Add comment</a>"),
+  template: $("<a class='newQuestionCommentLink'>Add comment</a>"),
   
   render: function(){
     var content = this.template

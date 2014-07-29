@@ -3,8 +3,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   template: JST["votes/show"],
 
   events: {
-    'click #upvote': 'plusVote',
-    'click #downvote': 'minusVote',
+    'click .upvote': 'plusVote',
+    'click .downvote': 'minusVote',
     "changeVote" : "updatePage"
 
   },
@@ -28,7 +28,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.setModel();
     
     this.listenTo(this.model, 'changeVote', this.updatePage);
-
+    this.listenTo(this.model, 'sync', this.updatePage);
+    this.listenTo(this.model, 'change', this.updatePage);
   },
 
 
@@ -62,19 +63,20 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     var vote = this.model;
     var that = this;
     if(that.voteValue === 1){
-      that.$("#upvote").addClass("up-clicked");
-      that.$("#downvote").removeClass("up-clicked");
+      that.$(".upvote").addClass("up-clicked");
+      that.$(".downvote").removeClass("up-clicked");
     }else if (that.voteValue === -1){
-      that.$("#downvote").addClass("up-clicked");
-      that.$("#upvote").removeClass("up-clicked");
+      that.$(".downvote").addClass("up-clicked");
+      that.$(".upvote").removeClass("up-clicked");
     } else{
-      that.$("#upvote").removeClass("up-clicked");      
-      that.$("#downvote").removeClass("up-clicked");
+      that.$(".upvote").removeClass("up-clicked");      
+      that.$(".downvote").removeClass("up-clicked");
     }
   },
 
 
-  plusVote: function(){
+  plusVote: function(event){
+    event.preventDefault()
     var that = this;
     SOC.requireSignedIn();
     if(that.voteValue === 1){
@@ -82,7 +84,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }else{
       that.voteValue = 1;
     }
-    this.model.trigger("changeVote");
       // if(vote.escape("value") < 0){
       //   vote.set({value: that.magnitude});
       //   $currentTarget.addClass("up-clicked");
@@ -97,7 +98,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   },
   //
 
-  minusVote: function(){
+  minusVote: function(event){
+    event.preventDefault();
     var that = this;
     SOC.requireSignedIn();
     if(that.voteValue === -1){
@@ -105,7 +107,6 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }else{
       that.voteValue = -1;
     }
-    this.model.trigger("changeVote");
 
     // var $currentTarget = $("#downvote");
     // var $otherTarget = $("#upvote");

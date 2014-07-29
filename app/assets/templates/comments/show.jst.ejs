@@ -1,10 +1,10 @@
 <div class="comment container">
-<div id="comment-votecell" class="votecell"> </div>
+<div class="votecell commentVoteCell"> </div>
 <p><%= comment.escape("body") %></p>
 <p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
 <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
-<button type="button" class="btn btn-danger comment-destroy">Delete</button>
-<button type="button" class="btn btn-primary comment-edit">Edit</button>
+<button type="button" class="btn btn-danger commentDestroy">Delete</button>
+<button type="button" class="btn btn-primary commentEdit">Edit</button>
 
 <% } %>
 </div>

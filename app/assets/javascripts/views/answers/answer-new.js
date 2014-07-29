@@ -33,7 +33,7 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
     
     var params = { 
       answer: {
-        body: $('textarea').val(),
+        body: $('#answer-body').val(),
         question_id: this.question.id
       }
     };
