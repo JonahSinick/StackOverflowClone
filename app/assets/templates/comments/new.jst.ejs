@@ -2,9 +2,9 @@
 
 <form class="form">
   <div class="form-group">
-    <textarea class="form-control" rows="4"></textarea>
+    <textarea class="form-control" rows="4"><%= comment.escape("body") %></textarea>
   </div>
-  <button class="btn btn-failure" id="new-comment-button">Add</button>
+  <button class="btn btn-failure" id="create-update-comment">Add</button>
   <a href="#" class="close close-lg">&times;</a>
 </form>
 

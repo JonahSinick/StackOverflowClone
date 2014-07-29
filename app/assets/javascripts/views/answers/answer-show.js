@@ -1,6 +1,6 @@
 SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   template: function(){
-    return this.editButtonClicked ? JST['answers/new'] : JST['answers/show']
+    return this.editButtonClicked ? JST['answers/new'] : JST['answers/show'];
   },
   
   initialize: function (options) {
@@ -8,27 +8,31 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
-    this.commentFormLinkedClicked = false;
-    this.editButtonClicked = false;
+    this.creatingComment = false;
+
     this.currentUserVotes = SOC.currentUser.votes();
-    this.currentUserVote = this.currentUserVotes.select(function (vote) {
-        return vote.get("votable_id") === that.model.id;
-    })[0];
     this.listenTo(this.comments, 'add', this.addComment);
-    this.listenTo(this.comments, 'create', this.addComment);
+    this.listenTo(this.comments, 'add', this.renderCommentFormLink);
+    
+
     this.listenTo(this.model, 'sync', this.render);
   },  
 
   events: {
-    'click #new-answer-comment-link': 'renderNewCommentForm',
+    'click #new-question-comment-link': 'newComment',
     'click .answer-destroy': 'deleteAnswer',
-    'click .answer-edit': 'editAnswerForm'    
+    'click .answer-edit': 'editAnswerForm',
+    'click .question-answer': 'submit'   
   },
   
   render: function () {
     var that = this;
     var content = this.template()({
-      answer: this.model
+      answer: this.model,
+      question: this.question,
+      collection: this.superView.answers,
+      superView: this.superView,
+      errors: []
     });
     this.$el.html(content);
     if(this.model.escape("body")){
@@ -62,49 +66,70 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
 
   editAnswerForm: function(){
     this.editButtonClicked = true;
-    debugger
+    this.render();
+  },
+  
+  submit: function(){
+    this.editButtonClicked = false;
+    
+    event.preventDefault();
+    
+    var params = { 
+      answer: {
+        body: $('textarea').val(),
+        question_id: this.question.id
+      }
+    };
+    this.model.set(params);
+    this.model.save();
     this.render();
   },
 
 
-  renderComments: function (e) {
+  renderComments: function () {
     this.comments.each(this.addComment.bind(this));
-    this.trigger("commentsRendered");
-    console.log("commentsRendered!")
   },
   
   addComment: function (comment) {
-    var view = new SOC.Views.ShowComment({
-      model: comment
+    var view = new SOC.Views.CommentNewShowEdit({
+      model: comment,
+      superView: this,
+      creating: false,
+      action: "show"
     });
-    this.addSubview("#answer-comments", view);
+    this.addSubview(".comment-new-show-edit", view);
   },
+  
+  
+  
+  newComment: function(){
+    this.removeCommentFormLink();
+    var that = this;
+    var view = new SOC.Views.CommentNewShowEdit({
+      creating: true,
+      collection: that.comments,
+      model: new SOC.Models.Comment({      
+        commentable_type: "Answer",
+        commentable_id: that.model.id,
+      }),
+      superView: that,
+      action: "new"
 
-  renderCommentFormLink: function () {
-    var template = "<a id='new-answer-comment-link'>Add comment</a>";
-    var view = new Backbone.CompositeView();
-    view.$el.append(template)
-    this.addSubview("#answer-commment-form", view);
+    });
+    this.addSubview(".comment-new-show-edit", view);
   },
-
 
 
 
   
-  renderNewCommentForm: function () {
-    that = this
-    this.commentFormLinkedClicked = true
-    this.$("#answer-commment-form").empty()
-    var comment  = new SOC.Models.Comment()
-    var view = new SOC.Views.NewComment({
-      collection: this.comments,
-      model: comment,
-      superView: this,
-      commentable_type: "Answer",
-      commentable_id: that.model.id,
-      question_id: that.model.escape("question_id")
-    });
-    this.addSubview("#answer-commment-form", view);
+  renderCommentFormLink: function(){
+    var view = new SOC.Views.newCommentLink();
+    this.addSubview(".comment-form-link", view);
+  },
+  
+  removeCommentFormLink: function () {
+    this.$(".comment-form-link").empty();
   }
+  
   
 });
