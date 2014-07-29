@@ -15,7 +15,8 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
 
 
   events: {
-    'click #create-update-comment': 'submit',
+    'click #question-create-update-comment': 'questionCommentSubmit',
+    'click #answer-create-update-comment': 'answerCommentSubmit',
     'click .comment-destroy': 'deleteComment',
     'click .comment-edit': 'swapTemplates'
   },
@@ -24,7 +25,22 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     this.creatingOrEditing = true;
     this.render();
   },
+  
+  questionCommentSubmit: function(){
+    event.preventDefault();
+    if(this.model.escape("commentable_type")==="Question"){
+     this.submit(); 
+    }
+  },
 
+
+  answerCommentSubmit: function(){
+    event.preventDefault();
+    if(this.model.escape("commentable_type")==="Answer"){
+     this.submit(); 
+    }
+  },
+  
   render: function () {
     var that = this;
     var content = this.template()({
@@ -66,6 +82,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
   submit: function(){
     event.preventDefault();
     this.creatingOrEditing = false;
+    
     var params = {
       body: $('textarea').val(),
       commentable_type: this.model.escape("commentable_type"),
