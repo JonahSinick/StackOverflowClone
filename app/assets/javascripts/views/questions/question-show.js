@@ -6,7 +6,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
     this.creatingComment = false;
-    this.newCommentLink = new SOC.Views.NewCommentLink();    
+    this.newCommentLink = new SOC.Views.NewQuestionCommentLink();    
     this.listenTo(this.model, 'sync', this.render);
     this.currentUserVote;
     this.currentUserVotes = SOC.currentUser.votes();
@@ -24,8 +24,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   events: {
     'click #new-question-comment-link': 'newComment',
-    'click .question-destroy' : 'deleteQuestion',
-    'click #new-comment-button': 'submit'
+    'click .question-destroy' : 'deleteQuestion'
   },
     
 
@@ -49,8 +48,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     })[0]; 
 
     this.renderVoteCell();
-    // this.renderAnswers();
-    // this.renderNewAnswerForm();
+    this.renderAnswers();
+    this.renderNewAnswerForm();
     this.renderComments();
     this.renderCommentFormLink()
   },
@@ -87,7 +86,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview(".comment-new-show-edit", view);
+    this.addSubview(".question-comment-new-show-edit", view);
   },
   
   
@@ -106,13 +105,13 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       action: "new"
 
     });
-    this.addSubview(".comment-new-show-edit", view);
+    this.addSubview(".question-comment-new-show-edit", view);
   },
 
   
   renderCommentFormLink: function(){
     var that = this;
-    this.addSubview(".comment-form-link", that.newCommentLink);
+    this.addSubview(".question-comment-form-link", that.newCommentLink);
     
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
     
@@ -121,67 +120,67 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
   removeCommentFormLink: function () {
     var that = this
-    this.removeSubview(".comment-form-link", that.newCommentLink)
-  }
+    this.removeSubview(".question-comment-form-link", that.newCommentLink)
+  },
   
 
 
 
-  // enderAnswers: function () {
-//     this.answers.each(this.addAnswer.bind(this));
-//
-//   }
+  renderAnswers: function () {
+    this.answers.each(this.addAnswer.bind(this));
 
-  // addAnswer: function (answer) {
-  //
-  //   var view = new SOC.Views.ShowAnswer({
-  //     model: answer,
-  //     superView: this,
-  //     collection: this.answers
-  //   });
-  //   this.addSubview("#answers", view);
-  //   var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
-  //   this.$('.answers-subheader').html($newhead)
-  // },
-  //
-  //
-  //
-  // removeAnswer: function (answer) {
-  //   var subview = _.find(
-  //     this.subviews("#answers"),
-  //     function (subview) {
-  //       return subview.model === answer;
-  //     }
-  //   );
-  //
-  //   this.removeSubview("#answers", subview);
-  //   var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
-  //   this.$('.answers-subheader').html($newhead)
-  //   this.renderNewAnswerForm();
-  // },
-  //
-  // renderNewAnswerForm: function () {
-  //   var a = this.answers.select(function (model) {
-  //       return model.get("author_id") === SOC.currentUser.id;
-  //   });
-  //
-  //   if(a.length === 0){
-  //     var answer  = new SOC.Models.Answer()
-  //     var view = new SOC.Views.NewAnswer({
-  //       question: this.model,
-  //       collection: this.answers,
-  //       model: answer,
-  //       superView: this
-  //     });
-  //     this.addSubview("#answer-form", view);
-  //   }
-  // }
-  //
+  },
+
+  addAnswer: function (answer) {
+
+    var view = new SOC.Views.ShowAnswer({
+      model: answer,
+      superView: this,
+      collection: this.answers
+    });
+    this.addSubview("#answers", view);
+    var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
+    this.$('.answers-subheader').html($newhead)
+  },
+
+
+
+  removeAnswer: function (answer) {
+    var subview = _.find(
+      this.subviews("#answers"),
+      function (subview) {
+        return subview.model === answer;
+      }
+    );
+
+    this.removeSubview("#answers", subview);
+    var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
+    this.$('.answers-subheader').html($newhead)
+    this.renderNewAnswerForm();
+  },
+
+  renderNewAnswerForm: function () {
+    var a = this.answers.select(function (model) {
+        return model.get("author_id") === SOC.currentUser.id;
+    });
+
+    if(a.length === 0){
+      var answer  = new SOC.Models.Answer()
+      var view = new SOC.Views.NewAnswer({
+        question: this.model,
+        collection: this.answers,
+        model: answer,
+        superView: this
+      });
+      this.addSubview("#answer-form", view);
+    }
+  }
+
   
 
 })
 
-SOC.Views.NewCommentLink = Backbone.CompositeView.extend({
+SOC.Views.NewQuestionCommentLink = Backbone.CompositeView.extend({
   template: $("<a id='new-question-comment-link'>Add comment</a>"),
   
   render: function(){

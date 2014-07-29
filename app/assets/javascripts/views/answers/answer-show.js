@@ -5,6 +5,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
   initialize: function (options) {
     var that = this
+    this.newCommentLink = new SOC.Views.NewAnswerCommentLink();    
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
@@ -19,7 +20,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },  
 
   events: {
-    'click #new-question-comment-link': 'newComment',
+    'click #new-answer-comment-link': 'newComment',
     'click .answer-destroy': 'deleteAnswer',
     'click .answer-edit': 'editAnswerForm',
     'click .question-answer': 'submit'   
@@ -37,9 +38,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.$el.html(content);
     if(this.model.escape("body")){
       that.renderComments();
-      if(that.commentFormLinkedClicked === false){
-        that.renderCommentFormLink();
-      };
+      that.renderCommentFormLink();
       that.renderVoteCell();
       
     }
@@ -97,7 +96,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview(".comment-new-show-edit", view);
+    this.addSubview(".answer-comment-new-show-edit", view);
   },
   
   
@@ -115,20 +114,36 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       superView: that,
       action: "new"
     });
-    this.addSubview(".comment-new-show-edit", view);
+    this.addSubview(".answer-comment-new-show-edit", view);
   },
 
 
 
   
   renderCommentFormLink: function(){
-    var view = new SOC.Views.newCommentLink();
-    this.addSubview(".comment-form-link", view);
+    var that = this;
+    this.addSubview(".answer-comment-form-link", that.newCommentLink);
+    
+    // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
+    
+
   },
   
   removeCommentFormLink: function () {
-    this.$(".comment-form-link").empty();
+    var that = this
+    this.removeSubview(".answer-comment-form-link", that.newCommentLink)
   }
   
   
 });
+
+
+SOC.Views.NewAnswerCommentLink = Backbone.CompositeView.extend({
+  template: $("<a id='new-answer-comment-link'>Add comment</a>"),
+  
+  render: function(){
+    var content = this.template
+    this.$el.html(content);
+    return this
+  }
+})
