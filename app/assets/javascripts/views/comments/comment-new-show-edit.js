@@ -9,6 +9,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     this.creatingOrEditing = this.creating ? true : false;
     this.collection = options.collection;
     this.superView = options.superView;
+    this.errors = [];
     this.listenTo(this.model, 'change', this.render)
   },
 
@@ -16,8 +17,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
 
 
   events: {
-    'click .questionCreateUpdateComment': 'questionCommentSubmit',
-    'click .answerCreateUpdateComment': 'answerCommentSubmit',
+    'click .createUpdateComment': 'submit',
     'click .commentDestroy': 'deleteComment',
     'click .commentEdit': 'swapTemplates'
   },
@@ -28,25 +28,12 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     this.render();
   },
   
-  questionCommentSubmit: function(event){
-    event.preventDefault();
-    if(this.model.escape("commentable_type")==="Question"){
-     this.submit({type: ".questionTextToCreateUpdateComment"}); 
-    }
-  },
-
-
-  answerCommentSubmit: function(event){
-    event.preventDefault();
-    if(this.model.escape("commentable_type")==="Answer"){
-     this.submit({type: ".answerTextToCreateUpdateComment"}); 
-    }
-  },
   
   render: function () {
     var that = this;
     var content = this.template()({
-      comment: that.model
+      comment: that.model,
+      errors: that.errors
     });
     this.$el.html(content);
     if(!that.creatingOrEditing){
@@ -60,7 +47,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
   
   
   renderVoteCell: function(){
-    this.$(".commentVoteCell").empty();
+    this.$(".votecell").empty();
     var that = this;
     this.currentUserVote = SOC.currentUser.votes().select(function (vote) {
         return vote.get("votable_id") === that.model.id;
@@ -72,7 +59,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       currentUserVote: currentUserVote, 
       score: that.model.escape("score") 
     });
-    this.addSubview(".commentVoteCell", showVoteView)
+    this.addSubview(".votecell", showVoteView)
   }, 
     
   
@@ -83,28 +70,34 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
   },
 
 
-  submit: function(options){
-    
+  submit: function(){
     var that = this;
     event.preventDefault();
-    this.creatingOrEditing = false;
     
     var params = {
-      body: this.$(options.type).val(),
+      body: this.$(".textToCreateUpdateComment").val(),
       commentable_type: this.model.escape("commentable_type"),
       commentable_id: this.model.escape("commentable_id"),
       author_id: SOC.currentUser.id,
       author_name: SOC.currentUser.escape("username")
       };
-    if(this.creating){
-      this.model.save(params, {})
-      this.collection.add(that.model)
-    }
-    else {
-      that.model.set(params);
-      that.model.save();
-    }
-    that.creating = false;
-    that.creatingOrEditing = false;
+
+    that.model.set(params);
+    that.model.save(null, {
+      success: function(model, response){
+        if(that.creating){          
+          that.collection.add(that.model)
+          that.creating = false;
+        }
+        that.creatingOrEditing = false;      
+        that.errors = []
+        that.render();
+      },
+      error: function (model, response, opts) {
+        that.errors = response.responseJSON;
+        that.render();        
+      }
+    })
   }
 });
+

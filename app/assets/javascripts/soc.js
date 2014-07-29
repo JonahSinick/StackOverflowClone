@@ -9,7 +9,7 @@ window.SOC = {
     SOC.currentUserId = $("#current-user-id").data("current-user-id");
     SOC.currentUser = new SOC.Models.User({id: SOC.currentUserId});
     SOC.requireSignedIn = function(){
-      if(SOC.signedIn === false){
+      if(!SOC.currentUserId){
         alert("You must be signed in to do that!");
         return false;
       }

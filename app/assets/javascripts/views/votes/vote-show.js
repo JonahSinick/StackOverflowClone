@@ -73,9 +73,11 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
 
   plusVote: function(event){
+    if(SOC.requireSignedIn()===false){
+      return false;
+    };    
     event.preventDefault()
     var that = this;
-    SOC.requireSignedIn();
     if(that.voteValue === 1){
       that.voteValue = 0;
     }else{
@@ -97,9 +99,11 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   //
 
   minusVote: function(event){
+    if(SOC.requireSignedIn()===false){
+      return false;
+    };
     event.preventDefault();
     var that = this;
-    SOC.requireSignedIn();
     if(that.voteValue === -1){
       that.voteValue = 0;
     }else{

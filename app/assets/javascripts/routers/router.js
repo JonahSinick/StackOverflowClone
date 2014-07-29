@@ -2,10 +2,10 @@ SOC.Routers.Router = Backbone.Router.extend({
   
   routes: {
     "" : "questionsIndex",
+    ":pageNum" : "questionsIndex",
+
     "users" : "usersIndex",
     "users/page/:pageNum" : "usersIndex",
-
-    ":pageNum" : "questionsIndex",
     "questions/new" : "newQuestion",
 
     "questions/:id" : "showQuestion",

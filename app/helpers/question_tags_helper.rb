@@ -1,0 +1,2 @@
+module QuestionTagsHelper
+end
