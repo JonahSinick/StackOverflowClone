@@ -19,10 +19,14 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     'click .comment-destroy': 'deleteComment',
     'click .comment-edit': 'swapTemplates'
   },
+  
+  swapTemplates: function(){
+    this.creatingOrEditing = true;
+    this.render();
+  },
 
   render: function () {
     var that = this;
-
     var content = this.template()({
       comment: that.model
     });
@@ -38,11 +42,6 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       return this;
     }
     
-  },
-  
-  swapTemplates: function(){
-    this.creatingOrEditing = true;
-    this.render();
   },
   
   

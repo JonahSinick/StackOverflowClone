@@ -114,7 +114,6 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       }),
       superView: that,
       action: "new"
-
     });
     this.addSubview(".comment-new-show-edit", view);
   },
