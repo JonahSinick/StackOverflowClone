@@ -15,7 +15,6 @@
 
 class User < ActiveRecord::Base
   
-  attr_accessor :karma
   
   validates :username, :email, :password_digest, :session_token, presence: true
   validates :username, :email, uniqueness: true
@@ -49,21 +48,6 @@ class User < ActiveRecord::Base
   end
   
   
-  def karma
-    karma = 0
-    self.questions.each do |question|
-      karma += 10 * question.score
-    end
-    
-    self.answers.each do |answer|
-      karma += 10 * answer.score
-    end
-
-    self.comments.each do |comment|
-      karma += 10 * comment.score
-    end
-    self.karma = karma
-  end
 
   private
   

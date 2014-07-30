@@ -45,12 +45,17 @@ module Api
     end  
     
     def set_score_and_karma
+      if votable_type = "Question" || "Answer"
+        magnitude = 10
+      elsif votable_type = "Comment"
+        magnitude = 0
+      end
+      
       score_from_others = Integer(params[:score_from_others])
       new_score = score_from_others + @vote.value
-      new_karma = score_from_others + @vote.value
+      new_karma = score_from_others + @vote.value * magnitude
       object_author.update_attributes({karma: new_karma})
-      current_object.update_attributes({score: new_karma})
-      fail
+      current_object.update_attributes({score: new_score})
     end
     
     def object_author
