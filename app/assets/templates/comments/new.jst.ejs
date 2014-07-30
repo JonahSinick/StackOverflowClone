@@ -1,23 +1,23 @@
 <div class="row">
-  <div class="comments">
+  <div class="new-answer">
 
 
-<%if(errors.length > 0){%>
-<ul>
-<% errors.forEach(function(error){%>
-  <li><%= error%></li>
-<% });%>
-</ul>
-<% }%>
+    <%if(errors.length > 0){%>
+    <ul>
+    <% errors.forEach(function(error){%>
+      <li><%= error%></li>
+    <% });%>
+    </ul>
+    <% }%>
 
-<form class="form">
-  <div class="form-group">
-    <textarea class="form-control textToCreateUpdateComment" rows="4"><%= comment.escape("body") %></textarea>
-  </div>
-  <button class="btn btn-failure createUpdateComment">Add</button>
-  <button class="btn btn-failure cancelCreateUpdateComment">Cancel</button>
-  <a href="#" class="close close-lg">&times;</a>
-</form>
+    <form class="form">
+      <div class="form-group">
+        <textarea class="form-control textToCreateUpdateComment" rows="4"><%= comment.escape("body") %></textarea>
+      </div>
+      <button class="btn btn-failure createUpdateComment">Add</button>
+      <button class="btn btn-failure cancelCreateUpdateComment">Cancel</button>
+      <a href="#" class="close close-lg">&times;</a>
+    </form>
 
 
   </div>

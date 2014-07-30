@@ -1,13 +1,24 @@
-<div class="row">
+<div class="row comments">
+  <div class="votecell"></div>
+    <div class="post-text" itemprop="text">  
+      <p><%= comment.escape("body") %></p>
+    </div>
+</div>
 
-
-  <div class="comments">
-    <div class="votecell"> </div>
-    <p><%= comment.escape("body") %></p>
-    <p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
+<div class="row comments2">    
+  <div class="author-info">
+    <div class="pull-right">
+      <div class="question-hyperlink col-xs-1">
+        <a href=<%= "#users/" + comment.escape("author_id") %>><%= comment.escape("author_name")%></a>
+      </div>
+    </div>
+  </div>
+  <div class="">
     <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
-      <button type="button" class="btn btn-danger commentDestroy">Delete</button>
-      <button type="button" class="btn btn-primary commentEdit">Edit</button>
-    <% } %>
+      <div class="question-hyperlink commentEdit col-xs-1"><a>Edit</a></div>
+      <div class="question-hyperlink commentDestroy col-xs-1"><a>Delete</a></div>
+    <% } %>  
   </div>
 </div>
+
+

@@ -162,8 +162,16 @@ clear: both;
 padding-top: 10px;
 }
 
+.newQuestionComment {
+  
+
+margin-bottom: 50px;
+}
+
+
 
 #answers-header {
+  
 margin-top: 10px;
 margin-bottom: 10px;
 }
@@ -174,11 +182,15 @@ margin-bottom: -10px;
 
 
 .answer-subheader h2 {
-float: left;
 font-size: 18px;
 line-height: 34px;
 margin-bottom: 0;
+display: table-cell;
+
 }
+
+
+
 
 .answer {
 border-bottom: 1px solid #aaa;
@@ -193,6 +205,7 @@ width: 80%;
 padding-bottom: 20px;
 padding-top: 20px;
 margin-right: 10%;
+margin-bottom: 0px;
 font-size: 100%;
 }
 
@@ -203,10 +216,20 @@ clear: both;
 margin-bottom: 15px;
 }
 
-.comments {
+.comments2 {
   border-bottom: 1px solid #aaa;
   width: 80%;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+
+  font-size: 100%;
+
+}
+
+.comments {
+  width: 80%;
   padding-top: 20px;
   margin-left: 20%;
   margin-right: 20%;
@@ -214,6 +237,16 @@ margin-bottom: 15px;
   font-size: 100%;
 
 }
+
+.new-answer {
+  padding-top: 20px;
+
+  font-size: 100%;
+
+}
+
+
+
 
 .author_info{
   display: table-cell;

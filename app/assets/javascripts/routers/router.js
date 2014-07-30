@@ -2,9 +2,10 @@ SOC.Routers.Router = Backbone.Router.extend({
   
   routes: {
     "" : "questionsIndex",
+    "users" : "usersIndex",
+
     ":pageNum" : "questionsIndex",
 
-    "users" : "usersIndex",
     "users/page/:pageNum" : "usersIndex",
     "questions/new" : "newQuestion",
 
@@ -34,6 +35,7 @@ SOC.Routers.Router = Backbone.Router.extend({
   },
 
   usersIndex: function(pageNum){
+    debugger
     if(pageNum===null){
       var pageNum = 1;
     }
