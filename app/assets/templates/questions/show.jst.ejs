@@ -16,7 +16,7 @@
         <p><%= question.escape("body") %></p>
       </div>
     </div>
-    <div class="row">    
+    <div class="row bordered">    
       <div class="author-info">
         <div class="pull-right">
           <div class="question-hyperlink"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
@@ -26,12 +26,10 @@
           </div>
         </div>
       </div>
-    <div>
-  </div>
-  <div class="mainbar col-xs-5 comments">
     <div class="row">
+      <div class="comments">
         <b>Comments:</b>
-    </div>
+      </div>
   </div>
 </div>
 

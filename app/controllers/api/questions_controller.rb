@@ -46,7 +46,5 @@ module Api
     def question_params
       params.require(:question).permit(:title, :body, :score)
     end
-    
-
   end
 end

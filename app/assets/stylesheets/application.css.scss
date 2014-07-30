@@ -194,7 +194,6 @@ width: 80%;
 padding-bottom: 20px;
 padding-top: 20px;
 margin-right: 20%;
-
 font-size: 100%;
 }
 
@@ -217,6 +216,11 @@ margin-bottom: 15px;
 
 .author_info{
   display: table-cell;
+  border-bottom: 1px solid #aaa;  
+}
+
+.bordered{
+  border-bottom: 1px solid #aaa;  
 }
 
 .down-display-bar{

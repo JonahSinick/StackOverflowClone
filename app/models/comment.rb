@@ -15,9 +15,6 @@
 
 class Comment < ActiveRecord::Base
   
-  include VotesHelper  
-  
-
 
   after_initialize :default_values
   
@@ -33,16 +30,10 @@ class Comment < ActiveRecord::Base
   has_many :votes, as: :votable, dependent: :destroy
   after_initialize :default_values
 
-
-
-
-
-
-  
   private
   
-    def default_values
+  
+  def default_values
       self.score ||= 0
-      @current_user_vote = nil
-    end
+  end
 end
