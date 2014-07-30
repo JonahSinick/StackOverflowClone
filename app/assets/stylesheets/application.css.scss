@@ -190,10 +190,11 @@ font-size: 100%;
 }
 
 .question {
-border-bottom: 1px solid #aaa;
-width: 100%;
+width: 80%;
 padding-bottom: 20px;
 padding-top: 20px;
+margin-right: 20%;
+
 font-size: 100%;
 }
 
@@ -205,26 +206,31 @@ margin-bottom: 15px;
 }
 
 .comments {
-  margin-left: 10%;
+  border-bottom: 1px solid #aaa;
+  width: 80%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin-left: 20%;
+  font-size: 100%;
+
 }
 
 .author_info{
-  margin: 10%;
   display: table-cell;
-  
 }
 
+.down-display-bar{
+  
+}
 .author_info p {
   font-size: 140%;
   background: rgb(192,192,192);
 }
 
 .comment{
-  border-top: 1px solid #aaa;
-  position: relative;
   
-  width: 90%;
-//  width: 600px;
+  border-top: 1px solid #aaa;
+  margin-left: 25%;
   padding-bottom: 5px;
   padding-top: 5px;
 }

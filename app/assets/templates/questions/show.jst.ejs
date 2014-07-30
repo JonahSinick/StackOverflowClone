@@ -1,38 +1,40 @@
-<div id="question-header">
-  <h1 itemprop="name"><%= question.escape("title") %></h1>
-</div>
 
 
 
 
 <div class="container">
   <div class="mainbar col-xs-5 question">
+    <div class="row">  
+      <div id="question-header">
+        <h1 itemprop="name"><%= question.escape("title") %></h1>
+      </div>
+    </div>  
+
     <div class="row">
-      <div id="question-votecell" class="votecell"> </div>
+      <div id="question-votecell" class="votecell"></div>
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
       </div>
     </div>
-  <div class="mainbar col-xs-5 question">
     <div class="row">    
-      <div class="author-info col-xs-10">
-      <div class="pull-right">
-        <div class="question-hyperlink"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
-          <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
-        <button type="button" class="btn btn-danger question-destroy">Delete</button>
-        <% } %>  
-      <div>
+      <div class="author-info">
+        <div class="pull-right">
+          <div class="question-hyperlink"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
+            <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
+                <button type="button" class="btn btn-danger question-destroy">Delete</button>
+            <% } %>  
+          </div>
+        </div>
       </div>
     <div>
   </div>
-</div>
-<div class="container">
-  <div class="mainbar col-xs-3 comment">
-    <div class="comments-header">
-      <b>Comments:</b>
+  <div class="mainbar col-xs-5 comments">
+    <div class="row">
+        <b>Comments:</b>
     </div>
   </div>
 </div>
+
     <div class="question-row">        
       <div class="questionCommentNewShowEdit"></div>
     </div>
