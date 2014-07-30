@@ -183,11 +183,10 @@ margin-bottom: 0;
 
 .answer {
 border-bottom: 1px solid #aaa;
-width: 1000px;
+width: 100%px;
 padding-bottom: 20px;
 padding-top: 20px;
-font-size: 140%;
-
+font-size: 100%;
 }
 
 .question {
@@ -195,8 +194,7 @@ border-bottom: 1px solid #aaa;
 width: 100%;
 padding-bottom: 20px;
 padding-top: 20px;
-font-size: 140%;
-display: table;
+font-size: 100%;
 }
 
 .subheader {
@@ -208,8 +206,6 @@ margin-bottom: 15px;
 
 .comments {
   margin-left: 10%;
-  position: relative;
-  
 }
 
 .author_info{
@@ -221,7 +217,7 @@ margin-bottom: 15px;
 .author_info p {
   font-size: 140%;
   background: rgb(192,192,192);
-};
+}
 
 .comment{
   border-top: 1px solid #aaa;
@@ -237,17 +233,17 @@ margin-bottom: 15px;
   float: right;
 }
 
-.comments-header{
-  width: 728px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  
-}
 
 .vote {
 text-align: center;
 background: rgb(192,192,192);
+}
 
+.vote p {
+text-align: center;
+display: inline-block;
+margin-top: 10%;
+margin-bottom: 10%;
 }
 
 .up-clicked {
@@ -270,11 +266,20 @@ display: table-cell;
 
 .votecell {
 vertical-align: top;
-width: 5%; 
+width: 6%; 
 margin-right: 3%; 
 float: left;
 display: table-cell;
 }
+
+.filler-for-atuhor-row {
+vertical-align: top;
+width: %; 
+margin-right: 3%; 
+float: left;
+display: table-cell;
+}
+
 
 
 .votefiller {

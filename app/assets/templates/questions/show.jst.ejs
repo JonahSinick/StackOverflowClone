@@ -1,39 +1,51 @@
 <div id="question-header">
-	<h1 itemprop="name"><%= question.escape("title") %></h1>
+  <h1 itemprop="name"><%= question.escape("title") %></h1>
 </div>
 
 
 
 
 <div class="container">
-    <div id="mainbar col-xs-5" class="question">
-    <div class="question-row">
-    <div id="question-votecell" class="votecell"> </div>
-    <div class="post-text" itemprop="text">
-      <p><%= question.escape("body") %></p>
-    </div>
-    </div>
-    <div class="author-info pull-right">
-      <%= question.escape("author_name") %> 
-      <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
-      <button type="button" class="btn btn-danger question-destroy">Delete</button>
-    <% } %>
-      
+  <div class="mainbar col-xs-5 question">
+    <div class="row">
+      <div id="question-votecell" class="votecell"> </div>
+      <div class="post-text" itemprop="text">
+        <p><%= question.escape("body") %></p>
       </div>
-      <div class="comments">
-        <div class="comments-header container">
-          <b>Comments:</b>
-        </div>
-        <div class="questionCommentNewShowEdit"></div>
-        <div class="newQuestionComment"></div>
-      </div>
-
-      <div id="answers">
-        <div id="answers-header">
-          <div class="subheader answers-subheader">
-          </div>        
-        </div>
-      </div>
-      <div id="answer-form">
     </div>
+  <div class="mainbar col-xs-5 question">
+    <div class="row">    
+      <div class="filler-for-author-row;"></div>
+      <div class="post-text" itemprop="text">
+        <%= question.escape("author_name") %> 
+          <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
+        <button type="button" class="btn btn-danger question-destroy">Delete</button>
+        <% } %>  
+      </div>
+    <div>
+  </div>
 </div>
+<div class="container">
+  <div class="mainbar col-xs-3 comment">
+    <div class="comments-header">
+      <b>Comments:</b>
+    </div>
+  </div>
+</div>
+    <div class="question-row">        
+      <div class="questionCommentNewShowEdit"></div>
+    </div>
+    <div class="question-row">        
+      <div class="newQuestionComment"></div>
+    </div>
+  </div>
+</div>
+  <div id="answers">
+    <div id="answers-header">
+      <div class="subheader answers-subheader">
+      </div>        
+    </div>
+  </div>
+  <div id="answer-form">
+    </div>
+  </div>
