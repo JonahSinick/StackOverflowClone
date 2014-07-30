@@ -5,7 +5,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var that = this
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
-    this.creatingComment = false;
     this.newCommentLink = new SOC.Views.NewQuestionCommentLink();    
     this.listenTo(this.model, 'sync', this.render);
     this.currentUserVote;
@@ -14,7 +13,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.listenTo(SOC.currentUser, 'sync', this.render);
     this.listenTo(this.answers, "remove", this.removeAnswer);
 
-    this.listenTo(this.comments, 'add', this.renderCommentFormLink);
+    this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);
     this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
     // this.listenTo(this.model, 'newCommentCreated', this.renderComments);
 

@@ -15,7 +15,6 @@
 @import "bootstrap";
 
 
-
 .question-summary {
 border-bottom: 1px solid #eaeaea;
 overflow: hidden;
@@ -147,7 +146,6 @@ border: 1px solid #fff;
 
 #question-header {
 font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
-width: 980px;
 margin-bottom: 20px;
 border-bottom: 1px solid #ccc;
 clear: both;
@@ -159,24 +157,14 @@ margin-bottom: 40px;
 width: 735px;
 }
 
-.post-text {
-word-wrap: break-word;
-width: 1000px;
-font-size: 140%;
-margin-bottom: 5px;
-margin-right: 5px;
-line-height: 130%;
-}
 
 #answers {
 clear: both;
 padding-top: 10px;
-width: 1000px;
 }
 
 
 #answers-header {
-width: 728px;
 margin-top: 10px;
 margin-bottom: 10px;
 }
@@ -202,6 +190,15 @@ font-size: 140%;
 
 }
 
+.question {
+border-bottom: 1px solid #aaa;
+width: 100%;
+padding-bottom: 20px;
+padding-top: 20px;
+font-size: 140%;
+display: table;
+}
+
 .subheader {
 border-bottom: 1px solid #ccc;
 height: 34px;
@@ -210,18 +207,32 @@ margin-bottom: 15px;
 }
 
 .comments {
-  -webkit-tap-highlight-color: rgba(255,255,255,0)
-};
+  margin-left: 10%;
+  position: relative;
+  
+}
 
+.author_info{
+  margin-right: 20%;
+  display: block;
+  position: relative;
+}
+
+.author_info p {
+  font-size: 140%;
+  background: rgb(192,192,192);
+};
 
 .comment{
   border-top: 1px solid #aaa;
-  width: 600px;
+  position: relative;
+  
+  width: 90%;
+//  width: 600px;
   padding-bottom: 5px;
   padding-top: 5px;
-  font-size: 120%;
-  
 }
+
 .author_name {
   float: right;
 }
@@ -244,9 +255,25 @@ background: rgb(255,255,0);
 }
 
 
+.post-text {
+word-wrap: break-word;
+width: 70%;
+float: center;
+font-size: 100%;
+margin-bottom: 5px;
+margin-right: 5px;
+line-height: 130%;
+display: table-cell;
+
+}
+
+
 .votecell {
-width: 60px;
 vertical-align: top;
+width: 5%; 
+margin-right: 3%; 
+float: left;
+display: table-cell;
 }
 
 

@@ -9,11 +9,9 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
-    this.creatingComment = false;
 
     this.currentUserVotes = SOC.currentUser.votes();
-    this.listenTo(this.comments, 'add', this.renderCommentFormLink);
-    
+    this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);    
 
     this.listenTo(this.model, 'sync', this.render);
   },  

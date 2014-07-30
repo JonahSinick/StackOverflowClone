@@ -18,14 +18,29 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
 
   events: {
     'click .createUpdateComment': 'submit',
+    'click .cancelCreateUpdateComment': 'cancelCreateOrEdit',
+
     'click .commentDestroy': 'deleteComment',
-    'click .commentEdit': 'swapTemplates'
+    'click .commentEdit': 'showEditView'
   },
   
-  swapTemplates: function(event){
+  showEditView: function(event){
     event.preventDefault();
     this.creatingOrEditing = true;
     this.render();
+  },
+  
+  cancelCreateOrEdit: function(event){
+    if(event){
+      event.preventDefault();
+    }
+    this.creatingOrEditing = false;
+    this.superView.model.trigger("revertToCommentFormLink")    
+    if(!this.model.id){
+      this.remove();
+    } else{
+      this.render();
+    }
   },
   
   
@@ -36,7 +51,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       errors: that.errors
     });
     this.$el.html(content);
-    if(!that.creatingOrEditing){
+    if(!that.creatingOrEditing && (that.model.id)){
       that.renderVoteCell();
     }
     if(this.action==="show" || this.action==="new"){
@@ -89,13 +104,11 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
           that.collection.add(that.model)
           that.creating = false;
         }
-        that.creatingOrEditing = false;      
         that.errors = []
-        that.render();
+        that.cancelCreateOrEdit();
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;
-        that.render();        
       }
     })
   }
