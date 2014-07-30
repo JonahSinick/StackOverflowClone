@@ -37,7 +37,6 @@ margin-bottom: 30px;
 #mainbar, .mainbar {
 float: left;
 margin-bottom: 40px;
-width: 735px;
 }
 
 #content {
@@ -169,7 +168,7 @@ margin-top: 10px;
 margin-bottom: 10px;
 }
 
-#answers .subheader {
+.subheader {
 margin-bottom: -10px;
 }
 
@@ -193,7 +192,7 @@ font-size: 100%;
 width: 80%;
 padding-bottom: 20px;
 padding-top: 20px;
-margin-right: 20%;
+margin-right: 10%;
 font-size: 100%;
 }
 
@@ -210,6 +209,8 @@ margin-bottom: 15px;
   padding-bottom: 20px;
   padding-top: 20px;
   margin-left: 20%;
+  margin-right: 20%;
+
   font-size: 100%;
 
 }
@@ -268,7 +269,7 @@ float: center;
 font-size: 100%;
 margin-bottom: 5px;
 margin-right: 5px;
-line-height: 130%;
+line-height: 1.4em;
 display: table-cell;
 
 }

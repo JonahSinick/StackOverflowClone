@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     if (@user && @user.is_password?(params[:user][:password]))
       sign_in(@user)
     else
+      @user = User.new
       flash.now[:errors] = ["Invalid credentials"]
       render :new
     end

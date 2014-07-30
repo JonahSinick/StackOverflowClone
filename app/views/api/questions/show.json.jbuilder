@@ -1,6 +1,8 @@
 
 json.extract! @question, :id, :title, :body, :author_name, :author_id, :created_at, :updated_at, :score
 
+
+
 json.answers @question.answers do |answer|
   json.extract! answer, :id, :body, :author_id, :question_id, :author_name, :created_at, :updated_at, :score
 
@@ -30,6 +32,8 @@ json.comments @question.comments do |comment|
     :updated_at,
     :score
 end
+
+
 
 
 

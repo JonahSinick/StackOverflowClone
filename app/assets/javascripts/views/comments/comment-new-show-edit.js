@@ -109,6 +109,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;
+        that.render();
       }
     })
   }

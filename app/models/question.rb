@@ -19,8 +19,6 @@ class Question < ActiveRecord::Base
   
 
   after_initialize :default_values
-  
-
 
 
   validates :title, :body, :author_id, presence: true
@@ -44,9 +42,7 @@ class Question < ActiveRecord::Base
   has_many :votes, as: :votable, dependent: :destroy
   
 
-
-
-
+  
   private
   
   def default_values

@@ -3,7 +3,7 @@
 
 
 <div class="container">
-  <div class="mainbar col-xs-5 question">
+  <div class="mainbar col-xs-6 question">
     <div class="row">  
       <div id="question-header">
         <h1 itemprop="name"><%= question.escape("title") %></h1>
@@ -19,32 +19,30 @@
     <div class="row bordered">    
       <div class="author-info">
         <div class="pull-right">
-          <div class="question-hyperlink col-xs-1"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
-          </div>
-        </div>
-        <div class="">
-            <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
-                <div class="question-hyperlink question-destroy"><a>Delete</a></div>
-            <% } %>  
+          <div class="question-hyperlink col-xs-1">
+            <a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a>
           </div>
         </div>
       </div>
+      <div class="">
+        <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
+          <div class="question-hyperlink question-destroy"><a>Delete</a></div>
+        <% } %>  
+      </div>
+    </div>
     <div class="row">
       <div class="comments">
         <b>Comments:</b>
       </div>
     </div>
     <div class="questionCommentNewShowEdit"></div>
-    <div class="row">        
-      <div class="newQuestionComment"></div>
+    <div class="newQuestionComment"></div>
+    <div class="row"
+      <div id="answers-header">
+        <div class="subheader answers-subheader"></div>        
+      </div>
     </div>
+    <div id="answers"></div>
+    <div id="answer-form"></div>
   </div>
-</div>
-  <div id="answers">
-    <div id="answers-header">
-      <div class="subheader answers-subheader">
-      </div>        
-    </div>
-  </div>
-  <div id="answer-form"></div>
 </div>

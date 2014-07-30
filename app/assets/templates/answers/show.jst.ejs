@@ -1,10 +1,14 @@
 
 
-<div class="question-row">
-<div class="answer">
 
+
+<div class="row">
   <div id="answer-votecell" class="votecell"></div>
-  <p><%= answer.escape("body") %></p>
+  <div class="post-text" itemprop="text">  
+    <p><%= answer.escape("body") %></p>
+  </div>
+</div>
+  
   <p><b>Author: <%= answer.escape("author_name") %> </b></p>
 </div>
 
@@ -23,3 +27,23 @@
   <div class="newAnswerComment"></div>      
 
   </div>
+  
+  
+  
+  <div class="row">
+    <div id="question-votecell" class="votecell"></div>
+    <div class="post-text" itemprop="text">
+      <p><%= question.escape("body") %></p>
+  </div>
+  <div class="row bordered">    
+    <div class="author-info">
+      <div class="pull-right">
+        <div class="question-hyperlink col-xs-1"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
+      </div>
+    </div>
+    <div class="">
+        <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
+          <div class="question-hyperlink question-destroy"><a>Delete</a></div>
+        <% } %>  
+      </div>
+    </div>
