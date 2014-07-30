@@ -8,42 +8,19 @@
     <p><%= answer.escape("body") %></p>
   </div>
 </div>
-  
-  <p><b>Author: <%= answer.escape("author_name") %> </b></p>
-</div>
-
-<% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
-  <button type="button" class="btn btn-danger answer-destroy">Delete</button>
-  <button type="button" class="btn btn-primary answer-edit">Edit</button>
-  <% } %>
-
-
-</div>
-
-<div class="comments-header container">
-  <b>Comments:</b>
-</div>
-  <div class="answerCommentNewShowEdit"></div>
-  <div class="newAnswerComment"></div>      
-
-  </div>
-  
-  
-  
-  <div class="row">
-    <div id="question-votecell" class="votecell"></div>
-    <div class="post-text" itemprop="text">
-      <p><%= question.escape("body") %></p>
-  </div>
-  <div class="row bordered">    
-    <div class="author-info">
-      <div class="pull-right">
-        <div class="question-hyperlink col-xs-1"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
+<div class="row bordered">    
+  <div class="author-info">
+    <div class="pull-right">
+      <div class="question-hyperlink col-xs-1">
+        <a href=<%= "#users/" + answer.escape("author_id") %>><%= answer.escape("author_name")%></a>
       </div>
     </div>
-    <div class="">
-        <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
-          <div class="question-hyperlink question-destroy"><a>Delete</a></div>
-        <% } %>  
-      </div>
-    </div>
+  </div>
+  <div class="">
+    <% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
+      <div class="question-hyperlink answer-edit col-xs-1"><a>Edit</a></div>
+      <div class="question-hyperlink answer-destroy col-xs-1"><a>Delete</a></div>
+    <% } %>  
+  </div>
+</div>
+
