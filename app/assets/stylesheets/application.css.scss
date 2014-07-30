@@ -209,9 +209,9 @@ margin-bottom: 15px;
 }
 
 .author_info{
-  margin-right: 20%;
-  display: block;
-  position: relative;
+  margin: 10%;
+  display: table-cell;
+  
 }
 
 .author_info p {
@@ -272,11 +272,10 @@ float: left;
 display: table-cell;
 }
 
-.filler-for-atuhor-row {
+.filler-for-author-row {
 vertical-align: top;
-width: %; 
+width: 6%; 
 margin-right: 3%; 
-float: left;
 display: table-cell;
 }
 

@@ -15,12 +15,13 @@
     </div>
   <div class="mainbar col-xs-5 question">
     <div class="row">    
-      <div class="filler-for-author-row;"></div>
-      <div class="post-text" itemprop="text">
-        <%= question.escape("author_name") %> 
+      <div class="author-info col-xs-10">
+      <div class="pull-right">
+        <div class="question-hyperlink"><a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a></div>
           <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
         <button type="button" class="btn btn-danger question-destroy">Delete</button>
         <% } %>  
+      <div>
       </div>
     <div>
   </div>
