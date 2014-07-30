@@ -50,7 +50,9 @@ SOC.Routers.Router = Backbone.Router.extend({
 
 
   newQuestion: function(){
-    SOC.requireSignedIn();
+    if(SOC.requireSignedIn()===false){
+      return false;
+    };    
     var question  = new SOC.Models.Question()
     
     var newView = new SOC.Views.NewQuestion({model: question});

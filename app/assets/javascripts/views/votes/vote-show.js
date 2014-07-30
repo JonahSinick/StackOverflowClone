@@ -47,9 +47,10 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   },
   
   updatePage: function(){
+    debugger
     var vote = this.model;    
     var that = this;
-    vote.set({value: that.voteValue});
+    vote.set({value: that.voteValue, score_from_others: that.scoreFromOthers});
     vote.save();
     this.render();
   },

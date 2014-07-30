@@ -2,14 +2,13 @@ module Api
   class VotesController < ApiController
 
     def create
+
       @vote = Vote.new(vote_params)
-      if @vote.votable_type == "Question"
-        @vote = current_question.votes.new(vote_params)
-      elsif @vote.votable_type == "Answer"
-        @vote = current_answer.votes.new(vote_params)
-      end      
+      current_object = self.current_object
+      @vote = current_object.votes.new(vote_params)
       @vote.user_id = current_user.id
       if @vote.save
+        set_score_and_karma
         render json: @vote
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
@@ -19,6 +18,7 @@ module Api
     def update
       @vote = Vote.find(params[:id])
       if @vote.update_attributes(vote_params)
+        self.set_score_and_karma
         render json: @vote
       else
         render json: @vote.errors.full_messages, status: :unprocessable_entity
@@ -27,44 +27,39 @@ module Api
 
 
 
-
-
     def destroy
       @vote = Vote.find(params[:id])
       @vote.destroy
       render json: {}
     end
-    #
-    #
-    
-    private
-    
-    
-    def current_question
-      return Question.find(vote_params[:votable_id])
-    end
-
-    def current_answer
-      return Answer.find(vote_params[:votable_id])
-    end
-    
-    def current_comment
-      return Comment.find(vote_params[:votable_id])
-    end
-    
-
+        
     def current_object
-      current_question || current_answer || current_comment
+      votable_id = @vote.votable_id
+      if @vote.votable_type == "Question"
+        return Question.find(votable_id)
+      elsif @vote.votable_type == "Answer"
+        return Answer.find(votable_id)
+      elsif @vote.votable_type == "Comment"
+        return Comment.find(votable_id)
+      end
+    end  
+    
+    def set_score_and_karma
+      score_from_others = Integer(params[:score_from_others])
+      new_score = score_from_others + @vote.value
+      new_karma = score_from_others + @vote.value
+      object_author.update_attributes({karma: new_karma})
+      current_object.update_attributes({score: new_karma})
+      fail
     end
-
-    def author
-      User.find(current_object.author_id)
+    
+    def object_author
+      User.find(self.current_object.author_id)
     end
-
+    
     def vote_params
       params.permit(:votable_id, :votable_type, :value, :user_id)
     end
-    
 
   end
 end

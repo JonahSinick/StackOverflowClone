@@ -14,8 +14,6 @@
 #
 
 class User < ActiveRecord::Base
-
-  include VotesHelper
   
   attr_accessor :karma
   

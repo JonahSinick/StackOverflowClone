@@ -34,6 +34,6 @@ class Comment < ActiveRecord::Base
   
   
   def default_values
-      self.score ||= 0
+    self.score ||= 0
   end
 end
