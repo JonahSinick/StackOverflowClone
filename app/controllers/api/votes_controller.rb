@@ -48,7 +48,7 @@ module Api
       if votable_type = "Question" || "Answer"
         magnitude = 10
       elsif votable_type = "Comment"
-        magnitude = 0
+        magnitude = 1
       end
       
       score_from_others = Integer(params[:score_from_others])

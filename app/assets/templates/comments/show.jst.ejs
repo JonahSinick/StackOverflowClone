@@ -1,14 +1,13 @@
-<div class="question-row">
+<div class="row">
 
 
-<div class="comment container">
-<div class="votecell"> </div>
-<p><%= comment.escape("body") %></p>
-<p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
-<% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
-<button type="button" class="btn btn-danger commentDestroy">Delete</button>
-<button type="button" class="btn btn-primary commentEdit">Edit</button>
-
-<% } %>
-</div>
+  <div class="comments">
+    <div class="votecell"> </div>
+    <p><%= comment.escape("body") %></p>
+    <p class="author_name"><i>-<%= comment.escape("author_name") %> </i></p>
+    <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
+      <button type="button" class="btn btn-danger commentDestroy">Delete</button>
+      <button type="button" class="btn btn-primary commentEdit">Edit</button>
+    <% } %>
+  </div>
 </div>
