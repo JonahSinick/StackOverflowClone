@@ -112,9 +112,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderCommentFormLink: function(){
-    this.$(".newQuestionComment").html("<a class='newQuestionCommentLink'>Add comment</a>");
+    this.$(".newQuestionComment").html("<a class='newQuestionCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div>");
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
-    
 
   },
   
