@@ -19,7 +19,8 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
 
   render: function () {
     var content = this.template({
-      questions: this.collection
+      questions: this.collection,
+      typeOfIndex: "All"
     });
     this.$el.html(content);
     var $pager = this.generatePageChange()
@@ -45,17 +46,13 @@ SOC.Views.QuestionsIndex = Backbone.CompositeView.extend({
     var $pager = $('<div />', {"class": 'pager'})
     if(pageNum > 1){
       var previous = pageNum - 1
-      $pager.append('<a href=#' + previous + '>' + '<span class="page-numbers next">previous</span>' + '</a>');      
+      $pager.append('<a href=#' + previous + " data-pageNum=" + previous + '>' + '<span class="page-numbers"' + " data-pageNum=" + previous +  '> previous</span>' + '</a>');
     }
     $pager.append('<span class="page-numbers current">' + pageNum + '</span>')
-    for (var i = pageNum + 1; i < pageNum + 5; i++) {
-      var a = '<a href=#' + i + '>' + '<span class="page-numbers">' + i + '</span>' + '</a>';
-      $pager.append(a);
+    if(this.collection.length >= 15){
+      var next = pageNum + 1
+      $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
     }
-    $pager.append('<span class="page-numbers dots">…</span>')
-    var numPages = this.collection;
-    var next = pageNum + 1
-    $pager.append('<a href=#' + next + '>' + '<span class="page-numbers next">next</span>' + '</a>');
     return $pager
   }
 });

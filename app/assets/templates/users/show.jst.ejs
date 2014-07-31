@@ -1,11 +1,21 @@
-<h1>Name: <%= user.escape("username")%></h1>
+<div class= "container">
+  <div class="mainbar col-xs-12">
+      <div class="row">
 
 
-<ul class="nav nav-pills">
-  <li><a id="description">Description</a></li>
-  <li><a id="questions-authored">Questions Authored</a></li>
-  <li><a id="questions-upvoted">Questions Upvoted</a></li>
-</ul>
+        <ul class="nav my-nav-pills col-xs-3">
+          <li><p><%= user.escape("username")%></p></li>
+        </ul>
 
-  
+
+        <ul class="nav my-nav-pills col-xs-9">
+        
+          <li><a id="description">Description</a></li>
+          <li><a id="questions-authored">Questions Authored</a></li>
+          <li><a id="questions-upvoted">Questions Upvoted</a></li>
+        </ul>
+
+    </div>
+  </div>
+</div>
 <div id="user-show-content"></div>

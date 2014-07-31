@@ -1,7 +1,15 @@
 <div id="content">
   <div id="mainbar">
       <div class="subheader">
-        <h1>Questions</h1>
+      <% if(typeOfIndex==="All") {%>
+        <h1>All Questions</h1>
+      <% } %>
+      <% if(typeOfIndex==="User upvoted") {%>
+        <h1>Upvoted Questions</h1>
+      <% } %>      
+      <% if(typeOfIndex==="User authored") {%>
+        <h1>Authored Questions</h1>
+      <% } %>      
       </div>
       <div class="container" id="question-mini-list">
         <table class="table" id="questions"></table>

@@ -185,6 +185,6 @@ SOC.Views.NewQuestionCommentLink = Backbone.CompositeView.extend({
   render: function(){
     var content = this.template
     this.$el.html(content);
-    return this
+    return this;
   }
 })

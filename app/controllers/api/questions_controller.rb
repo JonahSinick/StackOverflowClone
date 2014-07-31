@@ -24,10 +24,11 @@ module Api
 
       unless params[:all_titles]
         params[:page] ||= 1
-        if params[:author_id] && params[:type] = 
-          @questions = Question.where(author_id: Integer(params[:author_id])).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
-        elsif params[:voter_id]
-          @questions = Question.where(voter_id: Integer(params[:author_id])).pluck(:title).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+        if params[:user_id] && params[:type] == "authored"
+          @questions = Question.where(author_id: Integer(params[:user_id])).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+        elsif params[:user_id] && params[:type] == "upvoted"
+          @question_ids = Vote.where(votable_type: "Question", value: 1, user_id: Integer(params[:user_id])).pluck(:votable_id)
+          @questions = Question.where(id: @question_ids).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
         elsif params[:search] 
           @questions = Question.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
         else

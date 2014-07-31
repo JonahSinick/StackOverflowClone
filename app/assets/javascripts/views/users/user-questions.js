@@ -9,7 +9,7 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
     SOC.questions.reset();
     this.questions = SOC.questions;
     this.questionFetch();
-    this.listenTo(this.questions, 'sync', this.render);    
+    this.listenTo(this.questions, 'sync', this.render);
   },
   
   events: {
@@ -17,8 +17,8 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
   },
   
   questionFetch: function(){
-    var that = this
-    SOC.questions.fetch({ data: $.param({author_id: parseInt(that.model.escape("id")), page: that.pageNum, type: that.type}) }); 
+    var that = this;
+    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: that.pageNum, type: that.type}) }); 
   },
   
   pageSwitch: function(event){
@@ -32,6 +32,7 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
   
   render: function () {
     var content = this.template({
+      typeOfIndex: "User " + this.type,
       questions: this.questions
     });
     this.$el.html(content);
@@ -66,14 +67,10 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
       $pager.append('<a href=#userQuestionPageNum' + previous + " data-pageNum=" + previous + '>' + '<span class="page-numbers"' + " data-pageNum=" + previous +  '> previous</span>' + '</a>');
     }
     $pager.append('<span class="page-numbers current">' + pageNum + '</span>')
-    for (var i = pageNum + 1; i < pageNum + 5; i++) {
-      var a = '<a href=#userQuestionPageNum>' + '<span class="page-numbers"' + " data-pageNum=" + i +  '>' + i + '</span>' + '</a>';
-      $pager.append(a);
+    if(this.questions.length >= 15){
+      var next = pageNum + 1
+      $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
     }
-    $pager.append('<span class="page-numbers dots">…</span>')
-    var numPages = this.collection;
-    var next = pageNum + 1
-    $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
     return $pager
   }
 
