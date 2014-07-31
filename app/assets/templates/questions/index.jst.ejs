@@ -1,6 +1,6 @@
 <div id="content">
   <div id="mainbar">
-      <div class="subheader">
+    <div class="subheader index">
       <% if(typeOfIndex==="All") {%>
         <h1>All Questions</h1>
       <% } %>
@@ -10,12 +10,12 @@
       <% if(typeOfIndex==="User authored") {%>
         <h1>Authored Questions</h1>
       <% } %>      
-      </div>
-      <div class="container" id="question-mini-list">
-        <table class="table" id="questions"></table>
-        <div class="pager fl"></div>        
-      </div>      
     </div>
+    <div class="container" id="question-mini-list">
+      <table class="table table-striped"><tbody><div  id="questions"></div></tbody></table>
+      <div class="pager fl"></div>        
+    </div>      
+  </div>
 </div>
 
 

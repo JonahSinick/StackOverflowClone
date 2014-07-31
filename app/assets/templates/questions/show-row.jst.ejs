@@ -1,12 +1,17 @@
 
 
-
-<tr class="question-summary narrow table-striped">
+<tr>
   <td>
-    <div class="votes">
-    <div>score</div>
-
-      <div class="mini-counts"><span title="1 vote"><%=question.escape("score")%></span></div>
+    <div class="votes ">
+      <div>
+        score
+      </div>
+      <div class="mini-counts"><span><%=question.escape("score")%></span></div>
     </div>
-  <td class="question-hyperlink"><a href=<%= "#questions/" + question.escape("id") %>><%= question.escape("title")%></a></td>
+  </td>  
+  <td class="question-hyperlink">
+    <a href=<%= "#questions/" + question.escape("id") %>><%= question.escape("title")%></a>
+  </td>
 </tr>
+
+
