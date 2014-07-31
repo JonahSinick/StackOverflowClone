@@ -25,7 +25,7 @@ float: left;
 }
 
 .question-hyperlink {
-padding-left: 100px;
+padding-left: 75px;
 font-weight: bold;
 font-size: 15px;
 vertical-align: middle
@@ -365,7 +365,7 @@ display: table-cell;
 
 .votecell {
 vertical-align: top;
-width: 6%; 
+width: 8S%; 
 margin-right: 3%; 
 float: left;
 display: table-cell;
@@ -406,7 +406,9 @@ text-align: center;
 
 
 td, th {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
 }
 
 
@@ -418,4 +420,9 @@ td, th {
 
 .newAnswerCommentLink{
   
+}
+
+.question-hyperlink > a {
+  text-align: center;
+  position: relative;  
 }

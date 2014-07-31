@@ -4,7 +4,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.renderQuestionsAuthored);
-
+    this.pageNum = 1;
   },
 
   events: {
@@ -42,25 +42,37 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
     this.addSubview("#user-show-content", userDescription)
   },
 
+
   renderQuestionsAuthored: function(){
+    var pageNum = 1;
+
+    var that = this;
+    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "authoredQuestions"}) }); 
+
     this.clearUserShowContent()
-    var userQuestionsAuthored = new SOC.Views.UserQuestions({
-      model: this.model,
-      type: "authored"
+    var userQuestionsAuthored = new SOC.Views.IndexView({
+      user: this.model,
+      collection: SOC.questions,
+      typeOfIndex: "authoredQuestions",
+      pageNum: pageNum
     });
     this.addSubview("#user-show-content", userQuestionsAuthored)
   },
 
 
   renderQuestionsUpvoted: function(){
+    var pageNum = 1;
+    var that = this;
+    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "upvotedQuestions"}) }); 
     this.clearUserShowContent();    
-    var userQuestionsUpvoted = new SOC.Views.UserQuestions({
+    var userQuestionsUpvoted = new SOC.Views.IndexView({
       model: this.model,
-      type: "upvoted"
+      collection: SOC.questions,
+      typeOfIndex: "upvotedQuestions",
+      pageNum: pageNum
     });
     this.addSubview("#user-show-content", userQuestionsUpvoted)
   },
-
 
   clearUserShowContent: function(){
     _(this.subviews("#user-show-content")).each(function(subview) {

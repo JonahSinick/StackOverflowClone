@@ -4,6 +4,11 @@ SOC.Collections.Answers = Backbone.Collection.extend({
   
   initialize: function (models, options) {
     this.question = options.question;
-  }
+  },
+  
+  comparator: function(answer) {
+    return - answer.get("score");
+  },
+  
   
 })

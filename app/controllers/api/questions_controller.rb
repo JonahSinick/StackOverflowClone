@@ -21,7 +21,6 @@ module Api
     end
 
     def index
-
       unless params[:all_titles]
         params[:page] ||= 1
         if params[:user_id] && params[:type] == "authored"
@@ -36,7 +35,7 @@ module Api
         end
       end        
       if params[:all_titles]
-        @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score')
+        @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score')        
       end
       render json: @questions      
     end

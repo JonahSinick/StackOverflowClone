@@ -28,7 +28,8 @@ SOC.Models.Answer = Backbone.Model.extend({
       delete response.current_user_vote;
     }
   
-  }
+  },
+  
   
   
   

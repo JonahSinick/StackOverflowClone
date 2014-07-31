@@ -2,7 +2,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   template: JST['questions/show'],
 
   initialize: function (options) {
-    var that = this
+    var that = this;
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
     this.newCommentLink = new SOC.Views.NewQuestionCommentLink();    

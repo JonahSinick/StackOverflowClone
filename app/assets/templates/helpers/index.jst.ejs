@@ -6,18 +6,21 @@
 <div id="content">
   <div id="mainbar">
     <div class="subheader index">
-      <% if(typeOfIndex==="All") {%>
+      <% if(typeOfIndex==="questionsIndex") {%>
         <h1>All Questions</h1>
       <% } %>
-      <% if(typeOfIndex==="User upvoted") {%>
+      <% if(typeOfIndex==="upvotedQuestions") {%>
         <h1>Upvoted Questions</h1>
       <% } %>      
-      <% if(typeOfIndex==="User authored") {%>
+      <% if(typeOfIndex==="authoredQuestions") {%>
         <h1>Authored Questions</h1>
       <% } %>      
+      <% if(typeOfIndex==="usersIndex") {%>
+        <h1>Users</h1>
+      <% } %>
     </div>
     <div class="container" id="question-mini-list">
-      <table class="table table-striped"><tbody><div  id="questions"></div></tbody></table>
+      <table class="table table-striped"><tbody><div  id="models"></div></tbody></table>
       <div class="pager fl"></div>        
     </div>      
   </div>

@@ -1,0 +1,31 @@
+<% if(modelType==="user") { %>
+  <tr>
+    <td>
+      <div class="votes ">
+      <div style="font-size: 18px;">
+          Karma
+        </div>
+        <div class="mini-counts"><span><%=model.escape("karma")%></span></div>
+      </div>
+    </td>  
+    <td class="question-hyperlink">
+      <a href=<%= "#users/" + model.escape("id") %>><%= model.escape("username")%></a>
+    </td>
+  </tr>  
+<%} %>
+
+<% if(modelType==="question") { %>
+  <tr>
+    <td>
+      <div class="votes ">
+        <div style="font-size: 18px;">
+          Score
+        </div>
+        <div class="mini-counts"><span><%=model.escape("score")%></span></div>
+      </div>
+    </td>  
+    <td class="question-hyperlink">
+      <a href=<%= "#questions/" + model.escape("id") %>><%= model.escape("title")%></a>
+    </td>
+  </tr>
+<%} %>
