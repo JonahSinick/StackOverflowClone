@@ -8,11 +8,13 @@ module Api
     end
 
 
+
+
     def index
       if params[:page] == - 1
         @users = User.all
       else
-        @users = User.order("id DESC").page(params[:page]).per(15)
+        @users = User.order("karma DESC").page(params[:page]).per(15)
       end
       render json: @users      
     end

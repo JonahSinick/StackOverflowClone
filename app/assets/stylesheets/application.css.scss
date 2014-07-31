@@ -92,12 +92,15 @@ padding: 10px 15px;
 
 .my-nav-pills > li  > p {
   float: left;
-  font-size: 18px;
+  font-size: 24px;
   
 }
 
 .my-nav-pills > li  > a{
   float: right;
+  font-size: 18px;
+  
+  
 }
 
 
@@ -409,4 +412,7 @@ td, th {
 
 
 
-
+.newAnswerComment {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}

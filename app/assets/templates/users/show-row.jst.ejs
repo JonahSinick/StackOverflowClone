@@ -1,4 +1,22 @@
 
-<div class="question-summary narrow">
-  <div class="question-hyperlink"><a href=<%= "#users/" + user.escape("id") %>><%= user.escape("username")%></a></div>
-</div>
+
+<tr>
+  <td>
+    <div class="votes ">
+      <div>
+        score
+      </div>
+      <div class="mini-counts"><span><%=user.escape("karma")%></span></div>
+    </div>
+  </td>  
+  <td class="question-hyperlink">
+    <a href=<%= "#users/" + user.escape("id") %>><%= user.escape("username")%></a>
+  </td>
+</tr>
+
+
+
+
+
+
+
