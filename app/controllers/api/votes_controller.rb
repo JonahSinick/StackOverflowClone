@@ -2,9 +2,9 @@ module Api
   class VotesController < ApiController
 
     def create
-
       @vote = Vote.new(vote_params)
       current_object = self.current_object
+      @old_score = current_object.score      
       @vote = current_object.votes.new(vote_params)
       @vote.user_id = current_user.id
       if @vote.save
@@ -17,6 +17,8 @@ module Api
 
     def update
       @vote = Vote.find(params[:id])
+      @old_score = current_object.score      
+
       if @vote.update_attributes(vote_params)
         self.set_score_and_karma
         render json: @vote
@@ -34,15 +36,17 @@ module Api
     end
         
     def current_object
-      votable_id = @vote.votable_id
-      if @vote.votable_type == "Question"
+      votable_id = Integer(params[:votable_id])
+      votable_type = params[:votable_type]
+      if votable_type == "Question"
         return Question.find(votable_id)
-      elsif @vote.votable_type == "Answer"
+      elsif votable_type == "Answer"
         return Answer.find(votable_id)
-      elsif @vote.votable_type == "Comment"
+      elsif votable_type == "Comment"
         return Comment.find(votable_id)
       end
     end  
+
     
     def set_score_and_karma
       if votable_type = "Question" || "Answer"
@@ -53,7 +57,7 @@ module Api
       
       score_from_others = Integer(params[:score_from_others])
       new_score = score_from_others + @vote.value
-      new_karma = score_from_others + @vote.value * magnitude
+      new_karma = object_author.karma + (new_score - @old_score)*10
       object_author.update_attributes({karma: new_karma})
       current_object.update_attributes({score: new_score})
     end
