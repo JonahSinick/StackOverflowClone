@@ -22,7 +22,6 @@ SOC.Routers.Router = Backbone.Router.extend({
 
   
   questionsIndex: function(pageNum){
-    debugger
     if(pageNum===null){
       var pageNum = 1;
     }

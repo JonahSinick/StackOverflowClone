@@ -1,5 +1,5 @@
 SOC.Views.UserQuestions = Backbone.CompositeView.extend({
-  template: JST['users/user-questions'],
+  template: JST['questions/index'],
 
 
 
@@ -31,12 +31,13 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
 
   
   render: function () {
-    debugger
     var content = this.template({
       questions: this.questions
     });
+    this.$el.html(content);
     var $pager = this.generatePageChange()
     this.renderQuestions();
+    // $pager.appendTo(this.$el)
     this.$('.pager').html($pager)
     return this;
   },
@@ -48,7 +49,6 @@ SOC.Views.UserQuestions = Backbone.CompositeView.extend({
   },
   
   addQuestion: function (question) {
-    
     var view = new SOC.Views.QuestionRow({
       model: question,
       superView: this

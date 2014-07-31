@@ -21,20 +21,25 @@ module Api
     end
 
     def index
-      @questions = Question.all
-      if params[:author_id]
-        @questions = @questions.where(author_id: Integer(params[:author_id]))
-      end
-      
-      if params[:search]
-        @questions = @questions.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%")
-      end
-      
-      if params[:page]
-        @questions = @questions.order("id DESC").page(params[:page]).per(15)
+
+      unless params[:all_titles]
+        params[:page] ||= 1
+        if params[:author_id] && params[:type] = 
+          @questions = Question.where(author_id: Integer(params[:author_id])).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+        elsif params[:voter_id]
+          @questions = Question.where(voter_id: Integer(params[:author_id])).pluck(:title).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+        elsif params[:search] 
+          @questions = Question.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
+        else
+          @questions = Question.order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, created_at, score')
+        end
+      end        
+      if params[:all_titles]
+        @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score')
       end
       render json: @questions      
     end
+    
 
     def show
       @question = Question.includes(:answers, :comments).find(params[:id])

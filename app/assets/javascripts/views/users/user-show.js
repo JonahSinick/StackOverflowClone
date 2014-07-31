@@ -34,7 +34,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
 
   renderDescription: function(){
     this.clearUserShowContent()
-    var userDescription = new SOC.Views.ShowVote({
+    var userDescription = new SOC.Views.UserDescription({
       model: this.model
     });
     this.addSubview("#user-show-content", userDescription)
@@ -52,11 +52,11 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
 
   renderQuestionsUpvoted: function(){
     this.clearUserShowContent();    
-    var userQuestionsupvoted = new SOC.Views.UserQuestions({
+    var userQuestionsUpvoted = new SOC.Views.UserQuestions({
       model: this.model,
       type: "upvoted"
     });
-    this.addSubview("#user-show-content", userQuestionsupvoted)
+    this.addSubview("#user-show-content", userQuestionsUpvoted)
   },
 
 
