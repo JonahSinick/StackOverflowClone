@@ -16,13 +16,11 @@
 //= require backbone
 //= require soc
 //= require_tree ./typeahead.js
-
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
-//= require ./views/composite_view
-//= require ./views/index_row
-//= require ./views/index_view
+//= require_tree ./views/helpers
+//= require_tree ./views/objects
 //= require_tree ./views
 //= require_tree ./routers
 //= require_tree .

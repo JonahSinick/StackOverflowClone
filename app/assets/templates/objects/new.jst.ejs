@@ -1,5 +1,4 @@
 <div class="row">
-  <div class="comments">
 
 
     <%if(errors.length > 0){%>
@@ -12,13 +11,12 @@
 
     <form class="form">
       <div class="form-group">
-        <textarea class="form-control textToCreateUpdateComment" rows="4"><%= comment.escape("body") %></textarea>
+        <textarea class="form-control textToCreateUpdate" rows="4"><%= comment.escape("body") %></textarea>
       </div>
-      <button class="btn btn-failure createUpdateComment">Add</button>
-      <button class="btn btn-failure cancelCreateUpdateComment">Cancel</button>
+      <button class="btn btn-failure createUpdate">Add</button>
+      <button class="btn btn-failure cancelCreateUpdate">Cancel</button>
       <a href="#" class="close close-lg">&times;</a>
     </form>
 
 
-  </div>
 </div>

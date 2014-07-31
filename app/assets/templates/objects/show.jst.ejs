@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="votecell"></div>
+  <div class="post-text" itemprop="text">
+    <p><%= object.escape("body") %></p>
+  </div>
+</div>
+<div class="row">    
+  <div class="author-info">
+    <div class="pull-right">
+      <div class="object-hyperlink col-xs-1">
+        <a href=<%= "#users/" + object.escape("author_id") %>><%= object.escape("author_name")%></a>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <% if(SOC.currentUser.id === parseInt(object.escape("author_id"))){%>
+      <div class="object-hyperlink objectEdit"><a>Edit</a></div>
+      <div class="object-hyperlink objectDestroy"><a>Delete</a></div>
+    <% } %>  
+  </div>
+</div>

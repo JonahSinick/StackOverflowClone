@@ -24,7 +24,7 @@ width: 730px;
 float: left;
 }
 
-.question-hyperlink {
+.object-hyperlink {
 padding-left: 75px;
 font-weight: bold;
 font-size: 15px;
@@ -32,7 +32,7 @@ vertical-align: middle
 
 }
 
-.question-hyperlink > a{
+.object-hyperlink > a{
   position: relative;
 vertical-align: middle
 }
@@ -422,7 +422,7 @@ td, th {
   
 }
 
-.question-hyperlink > a {
+.object-hyperlink > a {
   text-align: center;
   position: relative;  
 }
