@@ -13,7 +13,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   events: {
-    'click .page-numbers' : 'pageSwitch'
+    'click .page-numbers.moving' : 'pageSwitch'
   },
   
   render: function () {
@@ -87,12 +87,12 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     var $pager = $('<div />', {"class": 'pager'})
     if(pageNum > 1){
       var previous = pageNum - 1
-      $pager.append('<a href=#' + previous + " data-pageNum=" + previous + '>' + '<span class="page-numbers"' + " data-pageNum=" + previous +  '> previous</span>' + '</a>');
+      $pager.append('<a href=#' + previous + " data-pageNum=" + previous + '>' + '<span class="page-numbers moving"' + " data-pageNum=" + previous +  '> previous</span>' + '</a>');
     }
     $pager.append('<span class="page-numbers current">' + pageNum + '</span>')
     if(this.collection.length >= 15){
       var next = pageNum + 1
-      $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
+      $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers moving"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
     }
     return $pager
   }

@@ -340,17 +340,16 @@ margin-bottom: 15px;
 
 .vote {
 text-align: center;
-background: Khaki;
-font-weight: bold;
+background: rgb(240,230,140);
 }
 
 .upvote:hover {
-background: Gold;
+background: rgb(220,210,120);
 }
 
 
 .downvote:hover {
-background: Gold;
+background: rgb(220,210,120);
 }
 
 
@@ -365,13 +364,14 @@ margin-bottom: 10%;
 
 
 .downvote.up-clicked {
-text-align: center;
 color: rgb(200,0,0);
+font-weight: bold;
 }
 
 
 .upvote.up-clicked {
 color: rgb(0,200,0);
+font-weight: bold;
 }
 
 

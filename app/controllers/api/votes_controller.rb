@@ -37,27 +37,27 @@ module Api
         
     def current_object
       votable_id = Integer(params[:votable_id])
-      votable_type = params[:votable_type]
-      if votable_type == "Question"
+      if params[:votable_type] == "Question"
         return Question.find(votable_id)
-      elsif votable_type == "Answer"
+      elsif params[:votable_type] == "Answer"
         return Answer.find(votable_id)
-      elsif votable_type == "Comment"
+      elsif params[:votable_type] == "Comment"
         return Comment.find(votable_id)
       end
     end  
 
     
     def set_score_and_karma
-      if votable_type = "Question" || "Answer"
+
+      if (params[:votable_type] == "Question") || (params[:votable_type] == "Answer")
         magnitude = 10
-      elsif votable_type = "Comment"
+      elsif params[:votable_type] == "Comment"
         magnitude = 1
       end
       
       score_from_others = Integer(params[:score_from_others])
       new_score = score_from_others + @vote.value
-      new_karma = object_author.karma + (new_score - @old_score)*10
+      new_karma = object_author.karma + (new_score - @old_score)*magnitude
       object_author.update_attributes({karma: new_karma})
       current_object.update_attributes({score: new_score})
     end

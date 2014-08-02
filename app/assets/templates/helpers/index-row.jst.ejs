@@ -8,7 +8,7 @@
         <div class="mini-counts"><span><%=model.escape("karma")%></span></div>
       </div>
     </td>  
-    <td class="question-hyperlink">
+    <td class="object-hyperlink">
       <a href=<%= "#users/" + model.escape("id") %>><%= model.escape("username")%></a>
     </td>
   </tr>  
@@ -24,7 +24,7 @@
         <div class="mini-counts"><span><%=model.escape("score")%></span></div>
       </div>
     </td>  
-    <td class="question-hyperlink">
+    <td class="object-hyperlink">
       <a href=<%= "#questions/" + model.escape("id") %>><%= model.escape("title")%></a>
     </td>
   </tr>
