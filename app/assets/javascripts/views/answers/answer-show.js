@@ -18,8 +18,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
 
   events: {
     'click .newAnswerCommentLink': 'newComment',
-    'click .answer-destroy': 'deleteAnswer',
-    'click .answer-edit': 'editAnswerForm',
+    'click .destroy': 'deleteAnswer',
+    'click .edit': 'editAnswerForm',
     'click .question-answer': 'submit'   
   },
   
@@ -76,7 +76,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     
     var params = { 
       answer: {
-        body: $('textarea').val(),
+        body: this.$('textarea').val(),
         question_id: this.question.id
       }
     };
