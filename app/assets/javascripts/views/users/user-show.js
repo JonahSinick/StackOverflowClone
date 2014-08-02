@@ -47,7 +47,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
     var pageNum = 1;
 
     var that = this;
-    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "authoredQuestions"}) }); 
+    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "authored"}) }); 
 
     this.clearUserShowContent()
     var userQuestionsAuthored = new SOC.Views.IndexView({
@@ -63,7 +63,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   renderQuestionsUpvoted: function(){
     var pageNum = 1;
     var that = this;
-    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "upvotedQuestions"}) }); 
+    SOC.questions.fetch({ data: $.param({user_id: parseInt(that.model.escape("id")), page: pageNum, type: "upvoted"}) }); 
     this.clearUserShowContent();    
     var userQuestionsUpvoted = new SOC.Views.IndexView({
       model: this.model,
