@@ -22,8 +22,8 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
 
   events: {
-    'click .newQuestionCommentLink': 'newComment',
-    'click .question-destroy' : 'deleteQuestion'
+    'click .newCommentLink': 'newComment',
+    'click .destroy' : 'deleteQuestion'
   },
     
 
@@ -65,13 +65,12 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   renderVoteCell: function(){
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
-      el: $("#question-votecell"),
       votable_type: "Question", 
       votable_id: that.model.id, 
       currentUserVote: that.currentUserVote, 
       score: that.model.escape("score") 
     });
-    this.addSubview("#question-votecell", showVoteView)
+    this.addSubview(".votecell", showVoteView)
   },
 
 
@@ -86,7 +85,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview(".questionCommentNewShowEdit", view);
+    this.addSubview("newShowEdit", view);
   },
   
   
@@ -107,18 +106,18 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       action: "new"
 
     });
-    this.addSubview(".questionCommentNewShowEdit", view);
+    this.addSubview(".newShowEdit", view);
   },
 
   
   renderCommentFormLink: function(){
-    this.$(".newQuestionComment").html("<a class='newQuestionCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div>");
+    this.$(".newComment").html("<a class='newQuestionCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div>");
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
 
   },
   
   removeCommentFormLink: function () {
-    this.$(".newQuestionComment").empty();
+    this.$(".newComment").empty();
   },
   
 

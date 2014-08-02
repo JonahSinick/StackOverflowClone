@@ -24,7 +24,7 @@ width: 730px;
 float: left;
 }
 
-.question-hyperlink {
+.object-hyperlink {
 padding-left: 75px;
 font-weight: bold;
 font-size: 15px;
@@ -32,10 +32,15 @@ vertical-align: middle
 
 }
 
-.question-hyperlink > a{
+.object-hyperlink > a{
   position: relative;
 vertical-align: middle
 }
+.object-hyperlink > a {
+  text-align: center;
+  position: relative;  
+}
+
 
 
 #question-mini-list {
@@ -256,7 +261,7 @@ padding-top: 20px;
 font-size: 100%;
 }
 
-.question {
+.object {
 width: 80%;
 padding-bottom: 20px;
 padding-top: 20px;
@@ -422,7 +427,3 @@ td, th {
   
 }
 
-.question-hyperlink > a {
-  text-align: center;
-  position: relative;  
-}
