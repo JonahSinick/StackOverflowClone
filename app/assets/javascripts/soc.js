@@ -15,7 +15,8 @@ window.SOC = {
     SOC.requireSignedIn = function(){
       if(!SOC.currentUserId){
         alert("You must be signed in to do that! Redirecting to sign in page");
-        window.location = "http://stackoverflowclone.herokuapp.com/session/new";
+        window.location = "/session/new";
+        return false;
       }
     };
 
