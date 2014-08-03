@@ -51,7 +51,7 @@ User.pluck(:id).each do |u|
       new_score = c.score + value
       c.update_attributes(score: new_score)
       author = User.find(c.author_id)
-      new_karma = author.karma + value * 10
+      new_karma = author.karma + value * 1
       author.update_attributes(karma: new_karma)
     end
   end

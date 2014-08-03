@@ -3,11 +3,12 @@
 
 
     <%if(errors.length > 0){%>
-    <ul>
+      <div class="alert alert-warning alert-dismissible" role="alert">
     <% errors.forEach(function(error){%>
-      <li><%= error%></li>
+      <%= error%>
+      <br>
     <% });%>
-    </ul>
+    </div>
     <% }%>
 
     <form class="form">

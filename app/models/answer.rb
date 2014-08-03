@@ -17,6 +17,7 @@ class Answer < ActiveRecord::Base
   after_initialize :default_values
 
   validates :author_id, uniqueness: {scope: :question_id, message: "User can only post one answer per question."}
+  validates :body, presence: true
 
   
   belongs_to :user,

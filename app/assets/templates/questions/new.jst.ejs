@@ -1,8 +1,12 @@
-<ul>
+
+<%if(errors.length > 0){%>
+  <div class="alert alert-warning alert-dismissible" role="alert">
 <% errors.forEach(function(error){%>
-  <li><%= error%></li>
+  <%= error%>
+  <br>
 <% });%>
-</ul>
+</div>
+<% }%>
 
 <form class="form">
   <h2 class="space">Your Question</h2>

@@ -8,9 +8,11 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   },
 
   events: {
-    'click #description' : 'renderDescription',
     'click #questions-authored' : 'renderQuestionsAuthored',    
-    'click #questions-upvoted' : 'renderQuestionsUpvoted'
+    'click #questions-upvoted' : 'renderQuestionsUpvoted',
+    'click .descriptionDelete': 'deleteDescription',
+    'click .descriptionEdit': 'editDescription'
+    
   },
 
   render: function () {
@@ -67,5 +69,19 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
     _(this.subviews("#user-show-content")).each(function(subview) {
       subview.remove();
     });
-  }  
+  },
+  
+  deleteDescription: function(){
+    event.preventDefault();
+    this.model.set({description: ""})
+    this.model.save();
+    this.render();
+  },
+
+  editDescription: function(){
+    event.preventDefault();
+    this.creatingOrEditing = true;
+    this.render();
+  }
+  
 });

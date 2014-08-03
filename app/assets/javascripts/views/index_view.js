@@ -17,7 +17,6 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   render: function () {
-    if(this.collection.length > 0){
       var content = this.template({
         collection: this.collection,
         modelType: this.modelType,
@@ -26,7 +25,6 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       this.$el.html(content);
       this.renderCollection();
       this.renderPager();
-    }
     return this;
   },
   

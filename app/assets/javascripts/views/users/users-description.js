@@ -14,8 +14,8 @@ SOC.Views.UserDescription = Backbone.CompositeView.extend({
   },  
 
   events: {
-    'click .destroy': 'deleteDescription',
-    'click .edit': 'editDescription',
+    'click .descriptionDelete': 'deleteDescription',
+    'click .descriptionEdit': 'editDescription',
     'click .descriptionSubmit': 'submit'
 
   },
@@ -38,7 +38,7 @@ SOC.Views.UserDescription = Backbone.CompositeView.extend({
   deleteDescription: function(){
     event.preventDefault();
     this.model.set({description: ""})
-    this.model.save()
+    this.model.save();
     this.remove();
   },
 
