@@ -3,10 +3,11 @@
 
 <div class= "container">
   <div class="mainbar col-xs-12">
-  <p class="user-header"><b><%= user.escape("username") + ": " +  user.escape("karma")%></p></b>
+  <p class="user-header"><b><%= user.escape("username")%></p></b>
   <div class="row">
+    <div class="col-xs-6">Karma: <%= user.escape("karma")%></div>
     <div class="col-xs-6"></div>
-    <div style="background-color: rgb(176,176,176);" class="col-xs-9">
+    <div style="background-color: rgb(200,200,200); display: table-cell;">
       <p><%=user.escape("description")%><p>
       <% if(SOC.currentUser.id === parseInt(user.escape("id"))){%>
         <div class="descriptionEdit col-xs-1"><a style="color: rgb(0, 0, 200);">Edit</a></div>

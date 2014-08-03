@@ -53,3 +53,16 @@ module Api
     end
   end
 end
+
+def primeMover(num)
+  primes = []
+  i = 2
+  until primes.length < num
+    if isPrime?(i)
+      primes << i
+    end
+    i += 1    
+  end  # code goes here
+  return primes[num]    
+end
+
