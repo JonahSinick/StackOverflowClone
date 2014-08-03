@@ -1,15 +1,16 @@
-<p class="user-header"><b><%= user.escape("username") + ": " +  user.escape("karma")%></p></b>
+
 
 
 <div class= "container">
   <div class="mainbar col-xs-12">
+  <p class="user-header"><b><%= user.escape("username") + ": " +  user.escape("karma")%></p></b>
   <div class="row">
     <div class="col-xs-6"></div>
-    <div style="background-color: rgb(176,176,176);" class="col-xs-6">
+    <div style="background-color: rgb(176,176,176);" class="col-xs-9">
       <p><%=user.escape("description")%><p>
       <% if(SOC.currentUser.id === parseInt(user.escape("id"))){%>
-        <div descriptionEdit col-xs-1"><a>Edit</a></div>
-        <div class="descriptionDelete col-xs-1"><a>Delete</a></div>
+        <div class="descriptionEdit col-xs-1"><a style="color: rgb(0, 0, 200);">Edit</a></div>
+        <div class="descriptionDelete col-xs-1"><a style="color: rgb(200, 0, 0);">Delete</a></div>
       <% } %>  
     </div>    
 
