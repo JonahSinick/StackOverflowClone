@@ -1,0 +1,17 @@
+
+
+
+
+<div class="row">
+  <div class="post-text" itemprop="text">  
+    <p><%= user.escape("description") %></p>
+  </div>
+</div>
+<div class="row" style='padding-top: 10px; padding-bottom: 40px;'>
+  <div class="">
+    <% if(SOC.currentUser.id === user.id){%>
+      <div class="object-hyperlink edit col-xs-1"><a>Edit</a></div>
+      <div class="object-hyperlink destroy col-xs-1"><a>Delete</a></div>
+    <% } %>  
+  </div>
+</div>

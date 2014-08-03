@@ -37,7 +37,8 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   renderDescription: function(){
     this.clearUserShowContent()
     var userDescription = new SOC.Views.UserDescription({
-      model: this.model
+      model: this.model,
+      creating: true
     });
     this.addSubview("#user-show-content", userDescription)
   },
