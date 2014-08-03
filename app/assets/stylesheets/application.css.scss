@@ -102,16 +102,14 @@ padding: 10px 15px;
 }
 
 .user-header {
-  font-size: 24px;
-  
+  font-size: 50px;
+  padding-bottom: 50px;
+border-bottom: 1px solid #ccc;
 }
 
 
 .my-nav-pills > li  > a{
-  float: right;
-  font-size: 18px;
-  
-  
+  float: left;
 }
 
 
@@ -455,3 +453,11 @@ td, th {
   
 }
 
+
+
+textarea { 
+  resize: vertical; 
+} /* none|horizontal|vertical|both */
+textarea.vert { 
+  resize: vertical; 
+}

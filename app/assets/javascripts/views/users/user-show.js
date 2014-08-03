@@ -4,15 +4,15 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.listenTo(this.model, 'sync', this.render);
     this.pageNum = 1;
-
+    this.editingDescription = false;
   },
 
   events: {
     'click #questions-authored' : 'renderQuestionsAuthored',    
     'click #questions-upvoted' : 'renderQuestionsUpvoted',
     'click .descriptionDelete': 'deleteDescription',
-    'click .descriptionEdit': 'editDescription'
-    
+    'click .descriptionEdit': 'editDescription',
+    'click .descriptionSubmit': 'submitDescription'    
   },
 
   render: function () {
@@ -20,15 +20,14 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
       questions: this.collection
     });
     this.$el.html(content);
-    var $pager = this.generatePageChange()
-    // $pager.appendTo(this.$el)
-    this.$('.pager').html($pager)
+    this.renderGravatar(); 
     return this;
   },
 
   render: function () {
     var content = this.template({
-      user: this.model
+      user: this.model,
+      editingDescription: this.editingDescription
     });
     this.$el.html(content);
     return this;
@@ -79,9 +78,22 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   },
 
   editDescription: function(){
-    event.preventDefault();
-    this.creatingOrEditing = true;
+    this.editingDescription = true;
     this.render();
+  },
+  
+  submitDescription: function(){
+    var that = this;
+    this.model.set({description: that.$("#user-description").val()})
+    this.model.save();
+    this.editingDescription = false;
+    this.render()
+  },
+  
+  renderGravatar: function(){
+    var email = this.model.escape("email");
+    var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(email)});
+    $('.gravatar').append(gravatar);    
   }
   
 });
