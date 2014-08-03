@@ -5,7 +5,6 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var that = this;
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
-    this.newCommentLink = new SOC.Views.NewQuestionCommentLink();    
     this.listenTo(this.model, 'sync', this.render);
     this.currentUserVote;
     this.currentUserVotes = SOC.currentUser.votes();
@@ -85,7 +84,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       creating: false,
       action: "show"
     });
-    this.addSubview("newShowEdit", view);
+    this.addSubview(".newShowEdit", view);
   },
   
   
@@ -111,7 +110,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderCommentFormLink: function(){
-    this.$(".newComment").html("<a class='newQuestionCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div>");
+    this.$(".newComment").html("<a class='newCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div>");
     // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
 
   },
@@ -175,14 +174,4 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
 
-})
-
-SOC.Views.NewQuestionCommentLink = Backbone.CompositeView.extend({
-  template: $("<a class='newQuestionCommentLink'>Add comment</a>"),
-  
-  render: function(){
-    var content = this.template
-    this.$el.html(content);
-    return this;
-  }
 })
