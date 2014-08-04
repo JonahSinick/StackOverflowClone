@@ -8,13 +8,16 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="/#">StackOverflow Clone</a>
+      <% if current_user %>
+      <a class="navbar-brand" style="margin-left: 20px;" href="/#users/<%=current_user.id%>">Signed in as: <%=current_user.username%></a></li>
+      <% end %>
+
   </div>
 
   <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
 
     <ul class="nav navbar-nav">
       <% if current_user %>
-      <li><a id="nav-askquestion" href="/#users/<%=current_user.id%>"><b>Signed in as: <%=current_user.username%></b></a></li>
       <li><a id="nav-askquestion" href="/#questions/new">Ask Question</a></li>
 
     <li><%= button_to "Sign out", session_url, method: :delete, class: "btn btn-primary navbar-btn" %></li>

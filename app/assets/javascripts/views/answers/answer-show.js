@@ -1,7 +1,5 @@
 SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
-  template: function(){
-    return this.editButtonClicked ? JST['answers/new'] : JST['answers/show'];
-  },
+  template: JST['answers/show'],
   
   initialize: function (options) {
     var that = this
@@ -9,6 +7,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
+    this.editingAnswer = false;
 
     this.currentUserVotes = SOC.currentUser.votes();
     this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);    
@@ -25,11 +24,12 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
   render: function () {
     var that = this;
-    var content = this.template()({
+    var content = this.template({
       answer: this.model,
       question: this.question,
       collection: this.superView.answers,
       superView: this.superView,
+      editingAnswer: that.editingAnswer,
       errors: []
     });
     this.$el.html(content);
@@ -52,7 +52,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       votable_type: "Answer", 
       votable_id: that.model.id, 
       currentUserVote: that.currentUserVote, 
-      score: that.model.escape("score") 
+      score: that.model.escape("score")
     });
     this.addSubview("#answer-votecell", showVoteView)
   },
@@ -65,13 +65,12 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
 
   editAnswerForm: function(){
-    this.editButtonClicked = true;
+    this.editingAnswer = true;
     this.render();
   },
   
   submit: function(){
-    this.editButtonClicked = false;
-    
+    this.editingAnswer = false;    
     event.preventDefault();
     
     var params = { 

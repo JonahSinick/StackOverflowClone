@@ -47,6 +47,7 @@ class Question < ActiveRecord::Base
   
   def default_values
     self.score ||= 0
+    self.answer_count ||= 0
     @current_user_vote = nil
   end
 end

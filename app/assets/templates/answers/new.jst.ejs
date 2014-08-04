@@ -1,8 +1,8 @@
-
-
+<% if(!answer || (answer.escape("body") === "")) { %>
 <div class="row">
   <div class="subheader"><h2>Your Answer</h2></div>        
 </div>
+<% } %>
 
 <%if(errors.length > 0){%>
   <div class="alert alert-warning alert-dismissible" role="alert">
@@ -16,6 +16,8 @@
 
 <div class="row">
   <div class="new-answer">
+  <div id="answer-votecell" class="votecell"></div>
+  
 
 
     <form class="form">
@@ -34,5 +36,36 @@
   </div>
 </div>
 
+
+
+<div class="row">
+  <div id="answer-votecell" class="votecell"></div>
+  <div class="post-text" itemprop="text">  
+    <p><%= answer.escape("body") %></p>
+  </div>
+</div>
+<div class="row" style='padding-top: 10px; padding-bottom: 40px;'>
+  <div class="author-info">
+    <div class="pull-right">
+      <div class="object-hyperlink col-xs-1">
+        <a href=<%= "#users/" + answer.escape("author_id") %>><%= answer.escape("author_name")%></a>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
+      <div class="object-hyperlink edit col-xs-1"><a>Edit</a></div>
+      <div class="object-hyperlink destroy col-xs-1"><a>Delete</a></div>
+    <% } %>  
+  </div>
+</div>
+
+<div class="row">
+  <div class="answerCommentNewShowEdit"></div>
+</div>
+
+<div class="row">
+  <div class="newAnswerComment"></div>
+</div>
 
 

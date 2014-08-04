@@ -8,6 +8,8 @@ module Api
       @answer.author_id = current_user.id
       @answer.author_name = current_user.username
       if @answer.save
+        current_question.answer_count += 1
+        current_question.save
         render json: @answer
       else
         render json: @answer.errors.full_messages, status: :unprocessable_entity
@@ -16,6 +18,8 @@ module Api
 
     def destroy
       @answer = Answer.find(params[:id])
+      current_question.answer_count -= 1
+      current_question.save
       @answer.destroy
       render json: {}
     end

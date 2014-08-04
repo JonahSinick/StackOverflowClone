@@ -1,4 +1,4 @@
-json.extract! @user, :id, :username, :description, :karma
+json.extract! @user, :id, :username, :description, :karma, :email
 
 
 json.questions @user.questions do |question|

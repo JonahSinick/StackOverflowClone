@@ -1,10 +1,10 @@
 
 
-
-<div class="form-group row">
-  <div class="col-xs-4 col-xs-offset-1" >
+<div style="font-size: 24px;">
+  <div class="form-group row">
+    <div class="col-xs-4 col-xs-offset-1" >
     <form role="form" action="<%= session_url %>" method="post">
-    <h2>Sign In</h2>
+    <h1 style="margin-bottom: 18px;">Sign In</h1>
       <input
         name="authenticity_token"
         type="hidden"
@@ -17,7 +17,9 @@
           id="user_username"
           name="user[email]"
           value="<%= @user.email %>"  
-          type="text">
+          type="text"
+          style="font-size: 24px;"
+          >
         </div>
         
       <div class='form-group'>
@@ -26,10 +28,39 @@
         class="form-control"
         id="user_password"
         name="user[password]"
-        type="password">
+        type="password"
+        style="font-size: 24px;"        
+        >
       </div>        
         
-      <button type="submit" class="btn btn-success">Log In 
+      <button type="submit" class="btn" style="font-size: 24px; background-color: #0066FF; color: white;">Sign In 
+      </button>
+    </form>
+  </div>
+  <div class="form-group row">
+    <div class="col-xs-4 col-xs-offset-1" >
+    <form role="form" action="<%= session_url %>" method="post">
+    <h1 style="margin-bottom: 18px;">Sign In As Guest</h1>
+      <input
+        name="authenticity_token"
+        type="hidden"
+        value="<%= form_authenticity_token %>">
+        
+        
+      <button type="submit" class="btn" style="font-size: 24px; background-color: #9900FF; color: white;">Sign In
+      </button>
+    </form>
+  </div>
+</div>
+
+
+
+<div style="font-size: 24px;">
+<div class="form-group row">
+  <div class="col-xs-4 col-xs-offset-1" >
+    <form role="form" action="<%= new_user_url %>" method="get">
+    <h1 style="margin-bottom: 18px;">Sign Up</h1>
+      <button type="submit" class="btn btn-success" style="font-size: 24px;">Sign Up 
       </button>
     </form>
   </div>

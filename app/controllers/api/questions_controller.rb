@@ -24,22 +24,18 @@ module Api
       unless params[:all_titles]
         params[:page] ||= 1
         if params[:user_id] && params[:type] == "authored"
-          @questions = Question.where(author_id: Integer(params[:user_id])).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+          @questions = Question.where(author_id: Integer(params[:user_id])).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score, answer_count')
         elsif params[:user_id] && params[:type] == "upvoted"
           @question_ids = Vote.where(votable_type: "Question", value: 1, user_id: Integer(params[:user_id])).pluck(:votable_id)
-          @questions = Question.where(id: @question_ids).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score')
+          @questions = Question.where(id: @question_ids).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score, answer_count')
         elsif params[:search] 
           @questions = Question.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
         else
-          @questions = Question.order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, created_at, score')
+          @questions = Question.order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, created_at, score, answer_count')
         end
       end        
       if params[:all_titles]
-        @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score')        
-      end
-      @questions.each do |question|
-        answer_count =  question.answers.length
-        question["answer_count"] = answer_count
+        @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score, answer_count')        
       end
       render json: @questions      
     end
@@ -57,16 +53,3 @@ module Api
     end
   end
 end
-
-def primeMover(num)
-  primes = []
-  i = 2
-  until primes.length < num
-    if isPrime?(i)
-      primes << i
-    end
-    i += 1    
-  end  # code goes here
-  return primes[num]    
-end
-

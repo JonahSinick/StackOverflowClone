@@ -10,6 +10,8 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.type;
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
+    this.listenTo(this.collection, 'sync', this.renderPager);
+
     this.rowColor = -1;
   },
   
@@ -25,7 +27,6 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       });
       this.$el.html(content);
       this.renderCollection();
-      this.renderPager();
     return this;
   },
   
