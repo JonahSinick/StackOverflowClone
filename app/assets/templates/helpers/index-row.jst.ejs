@@ -15,7 +15,7 @@
       <a href=<%= "#users/" + model.escape("id") %>><%= model.escape("username")%></a>
     </div>
 <%} %>
-
+</div>
 
 <% if(modelType==="question") { %>
     <div class="col-xs-2;">
@@ -25,12 +25,12 @@
         </div>
         <div class="mini-counts"><span><%=model.escape("score")%></span></div>
       </div>
-      <div class="votes ">
-        <div style="font-size: 18px;">
-          Answers
-        </div>
-        <div class="mini-counts"><span><%=model.escape("answer_count")%></span></div>
+    </div>
+    <div class="votes ">
+      <div style="font-size: 18px;">
+        Score
       </div>
+      <div class="mini-counts"><span><%=model.answers.length%></span></div>
     </div>
   </div>
 
