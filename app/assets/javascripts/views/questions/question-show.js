@@ -46,6 +46,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
         that.errors = response.responseJSON;
         that.editingQuestion = true;
         that.render();
+        that.renderSubviews();
       }
     })
   },
@@ -95,9 +96,10 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var that = this;
     var showVoteView = new SOC.Views.ShowVote({
       votable_type: "Question", 
-      votable_id: that.model.id, 
+      votable_id: that.model.id,
+      author_id: that.model.author_id,
       currentUserVote: that.currentUserVote, 
-      score: that.model.escape("score") 
+      score: that.model.escape("score")
     });
     this.addSubview(".votecell", showVoteView)
   },

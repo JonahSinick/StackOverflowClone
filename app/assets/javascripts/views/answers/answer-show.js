@@ -52,7 +52,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       votable_type: "Answer", 
       votable_id: that.model.id, 
       currentUserVote: that.currentUserVote, 
-      score: that.model.escape("score")
+      author_id: that.model.author_id,      
+      score: that.model.escape("score"),
     });
     this.addSubview("#answer-votecell", showVoteView)
   },

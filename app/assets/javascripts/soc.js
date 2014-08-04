@@ -20,6 +20,14 @@ window.SOC = {
         return false;
       }
     };
+    SOC.requireDifferentUser = function(){
+      if(!SOC.currentUserId){
+        alert("You must be signed in to do that! Redirecting to sign in page");
+        window.location = "/session/new";
+        return false;
+      }
+    };
+
 
     new SOC.Routers.Router({
       $rootEl: $("#main")
