@@ -69,7 +69,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.render();
   },
   
-  submit: function(){
+  submit: function(event){
     this.editingAnswer = false;    
     event.preventDefault();
     

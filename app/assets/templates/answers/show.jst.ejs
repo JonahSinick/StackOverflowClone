@@ -23,21 +23,13 @@
       </div>
     </div>
   </div>
-  <div class="">
-    <% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
-      <div class="object-hyperlink edit col-xs-1"><a>Edit</a></div>
-      <div class="object-hyperlink destroy col-xs-1"><a>Delete</a></div>
-    <% } %>  
+  <div class="col-xs-1"></div>
+  <% if(SOC.currentUser.id === parseInt(answer.escape("author_id"))){%>
+    <div class="col-xs-3">
+      <button class="btn btn-primary edit" style="display: table-cell;">Edit</button>
+      <button class="btn btn-danger destroy" style="display: table-cell;">Delete</button>
+    </div>      
+  <% } %>  
   </div>
 </div>
 <% } %>
-
-
-
-<div class="row">
-  <div class="answerCommentNewShowEdit"></div>
-</div>
-
-<div class="row">
-  <div class="newAnswerComment"></div>
-</div>

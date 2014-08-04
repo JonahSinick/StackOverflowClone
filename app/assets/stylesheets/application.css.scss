@@ -32,17 +32,13 @@ padding-left: 75px;
 font-size: 150%;
 
 vertical-align: middle
-
 }
 
 .object-hyperlink > a{
-position: relative;
 vertical-align: middle;
 color: green;
-}
-.object-hyperlink > a {
-  text-align: center;
-  position: relative;  
+display: inline-block;
+text-align: center;
 }
 
 
