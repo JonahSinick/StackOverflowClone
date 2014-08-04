@@ -24,7 +24,7 @@ width: 730px;
 float: left;
 }
 
-.object-hyperlink2 {
+.object-hyperlink {
   padding-bottom: 10px;
   padding-top: 10px;
 
@@ -39,6 +39,7 @@ vertical-align: middle
 .object-hyperlink > a{
   position: relative;
 vertical-align: middle;
+color: green;
 }
 .object-hyperlink > a {
   text-align: center;
@@ -99,11 +100,6 @@ position: relative;
 display: block;
 padding: 10px 15px;
 }
-
-.nav {
-font-size: 18px;
-}
-
 
 .my-nav-pills > li  > p {
   float: left;
@@ -470,10 +466,4 @@ td, th {
   display: block;
   width: 70%;
   height: 70%;
-}
-
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
 }
