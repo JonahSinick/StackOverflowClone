@@ -6,13 +6,20 @@
       </div>
     </div>  
 
-    <div class="row">
+    <div class="row questionBody" style="padding-bottom: 20px;">
+    <% if(!editingQuestion){%>
       <div class="votecell"></div>
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
       </div>
+    <%}%>
+    <% if(editingQuestion){%>
+      <textarea class="form-control questionText" id="user-description" rows="5" style="font-size: 100%;"><%= question.escape("body")%></textarea>
+      <button class="btn btn-success submitQuestion" style="font-size: 100%; margin-top: 20px;">Submit</button>    
+    <% } %>    
+    
     </div>
-    <div class="row">    
+    <div class="row" style="padding-bottom: 20px;">    
       <div class="author-info">
         <div class="pull-right">
           <div class="object-hyperlink col-xs-1">
@@ -21,8 +28,9 @@
         </div>
       </div>
       <div class="">
-        <% if(SOC.currentUser.id === parseInt(question.escape("author_id"))){%>
-          <div class="object-hyperlink destroy"><a>Delete</a></div>
+        <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && !editingQuestion){%>
+          <div class="object-hyperlink edit col-xs-1"><a>Edit</a></div>          
+          <div class="object-hyperlink destroy col-xs-1"><a>Delete</a></div>
         <% } %>  
       </div>
     </div>

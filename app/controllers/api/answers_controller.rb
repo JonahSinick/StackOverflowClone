@@ -18,9 +18,10 @@ module Api
 
     def destroy
       @answer = Answer.find(params[:id])
-      current_question.answer_count -= 1
-      current_question.save
-      @answer.destroy
+      question = Question.find(@answer.question_id)
+      question.answer_count -= 1
+      question.save
+      @answer.destroy  
       render json: {}
     end
 

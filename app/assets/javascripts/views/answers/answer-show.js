@@ -19,7 +19,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     'click .newAnswerCommentLink': 'newComment',
     'click .destroy': 'deleteAnswer',
     'click .edit': 'editAnswerForm',
-    'click .question-answer': 'submit'   
+    'click .submitAnswer': 'submit'   
   },
   
   render: function () {
@@ -59,7 +59,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
   
   deleteAnswer: function(){
-    event.preventDefault();
+    event.preventDefault();    
     this.model.destroy();
     this.remove();
   },
@@ -75,7 +75,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     
     var params = { 
       answer: {
-        body: this.$('textarea').val(),
+        body: this.$('.answerText').val(),
         question_id: this.question.id
       }
     };

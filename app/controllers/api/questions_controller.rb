@@ -46,6 +46,17 @@ module Api
       render :show
     end
 
+    def update
+      @question = Question.find(params[:id])
+
+      if @question.update_attributes(question_params)
+        render json: @question
+      else
+        render json: @question.errors.full_messages, status: :unprocessable_entity
+      end
+    end
+
+
     private
 
     def question_params

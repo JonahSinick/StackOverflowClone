@@ -11,7 +11,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(SOC.currentUser, 'sync', this.render);
     this.listenTo(this.answers, "remove", this.removeAnswer);
-
+    this.editingQuestion = false;
     this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);
     this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
     // this.listenTo(this.model, 'newCommentCreated', this.renderComments);
@@ -22,15 +22,29 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   events: {
     'click .newCommentLink': 'newComment',
-    'click .destroy' : 'deleteQuestion'
+    'click .destroy' : 'deleteQuestion',
+    'click .edit' : 'editQuestionForm',
+    'click .submitQuestion' : 'submit'
   },
-    
+
+
+  submit: function(){
+    var that = this;
+    this.editingQuestion = false;    
+    event.preventDefault();
+    this.model.set({body: that.$('.questionText').val()})
+    this.model.save();
+    this.render();
+  },
+
+
 
   render: function () {
     this.$el.empty();
     var that = this;
     var content = this.template({
-      question: this.model
+      question: this.model,
+      editingQuestion: that.editingQuestion
     });
     this.$el.html(content);
     if(this.model.escape("body")){
@@ -59,6 +73,10 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     Backbone.history.navigate("", {trigger: true});
   },
 
+  editQuestionForm: function(){
+    this.editingQuestion = true;
+    this.render();
+  },
 
   
   renderVoteCell: function(){
