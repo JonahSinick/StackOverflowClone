@@ -12,6 +12,9 @@
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
       </div>
+      <%question.tags().each(function(tag){%>
+            <a class="btn" style="background-color: lightGray;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
+      <%})%>      
     <%}%>
     <% if(editingQuestion){%>
       <textarea class="form-control questionText" id="user-description" rows="5" style="font-size: 100%;"><%= question.escape("body")%></textarea>

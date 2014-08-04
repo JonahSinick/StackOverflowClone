@@ -2,18 +2,17 @@
 #
 # Table name: questions
 #
-#  id          :integer          not null, primary key
-#  title       :string(255)      not null
-#  body        :text             not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  author_id   :integer          not null
-#  author_name :string(255)      not null
-#  score       :integer
+#  id             :integer          not null, primary key
+#  title          :string(255)      not null
+#  body           :text             not null
+#  created_at     :datetime
+#  updated_at     :datetime
+#  author_id      :integer          not null
+#  author_name    :string(255)      not null
+#  score          :integer
+#  answer_count   :integer
+#  number_of_tags :integer
 #
-
-
-
 
 class Question < ActiveRecord::Base
   
@@ -37,10 +36,12 @@ class Question < ActiveRecord::Base
   primary_key: :id,
   foreign_key: :question_id,
   dependent: :destroy 
+  
+  has_many :question_tags
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
-  
+  has_many :tags, through: :question_tags
 
   
   private
@@ -48,6 +49,5 @@ class Question < ActiveRecord::Base
   def default_values
     self.score ||= 0
     self.answer_count ||= 0
-    @current_user_vote = nil
   end
 end

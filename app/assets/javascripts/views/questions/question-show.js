@@ -5,6 +5,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var that = this;
     this.answers = this.model.answers();   
     this.comments = this.model.comments();
+    this.tags = this.model.tags();
     this.listenTo(this.model, 'sync', this.render);
     this.currentUserVote;
     this.currentUserVotes = SOC.currentUser.votes();

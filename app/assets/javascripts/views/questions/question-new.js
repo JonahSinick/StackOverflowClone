@@ -5,7 +5,6 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
     this.errors = []
   },
 
-
   events: {
     'submit form': 'submit'
   },
@@ -29,6 +28,7 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
 
     this.model.save(null, {
       success: function(model, response){
+        
         Backbone.history.navigate("questions/" + model.id, {trigger:true})
       },
       error: function (model, response, opts) {

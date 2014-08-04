@@ -21,6 +21,14 @@ SOC.Models.Question = Backbone.Model.extend({
     }
     return this._votes;
   },
+
+  tags: function () {
+    if(!this._tags) {
+      this._tags = new SOC.Collections.Tags([], { question: this });
+    }
+    return this._tags;
+  },
+
   
   current_user_vote: function () {
     if(!this._current_user_vote) {
@@ -52,6 +60,10 @@ SOC.Models.Question = Backbone.Model.extend({
       delete response.current_user_vote;
     }
 
+    if(response.tags) {
+      this.tags().set(response.tags, { parse: true });
+      delete response.tags;
+    }
 
     return response;
   }

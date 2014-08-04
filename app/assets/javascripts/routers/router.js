@@ -10,7 +10,10 @@ SOC.Routers.Router = Backbone.Router.extend({
     "users/page/:pageNum" : "usersIndex",
     "questions/new" : "newQuestion",
 
-    "questions/:id" : "showQuestion"
+    "questions/:id" : "showQuestion",
+    "tags/" : "showTags",   
+    "tags/:id" : "showTag"
+    
   },
 
   initialize: function (options) {

@@ -16,6 +16,7 @@ SOC::Application.routes.draw do
     resources :answers, only: [:create, :update, :destroy]
     resources :comments, only: [:create, :update, :destroy]
     resources :votes, only: [:create, :destroy, :show, :update]
+    resources :tags, except: [:new, :edit]
   end
   
 end

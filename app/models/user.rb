@@ -11,6 +11,7 @@
 #  updated_at      :datetime
 #  description     :text
 #  karma           :integer
+#  guest           :boolean
 #
 
 class User < ActiveRecord::Base
@@ -35,6 +36,9 @@ class User < ActiveRecord::Base
   foreign_key: :author_id
 
   has_many :votes
+  has_many :favorite_tags
+  
+  has_many :tags, through: :favorite_tags
   
   after_initialize :default_values
   

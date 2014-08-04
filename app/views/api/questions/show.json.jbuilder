@@ -51,3 +51,7 @@ json.votes @question.votes do |vote|
   # end
   #
 end
+
+json.tags @question.tags do |tag|
+  json.extract! tag, :id, :name
+end

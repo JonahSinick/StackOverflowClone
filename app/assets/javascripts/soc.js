@@ -7,7 +7,8 @@ window.SOC = {
     SOC.questions = new SOC.Collections.Questions();
     SOC.questionTitles = new SOC.Collections.Questions();
     SOC.questionTitles.fetch({ data: $.param({all_titles: true})});
-
+    SOC.tags = new SOC.Collections.Tags();
+    SOC.tags.fetch();
     SOC.users = new SOC.Collections.Users();
     SOC.currentUserId = $("#current-user-id").data("current-user-id");
     SOC.currentUser = new SOC.Models.User({id: SOC.currentUserId});

@@ -1,2 +1,0 @@
-class QuestionTagsController < ApplicationController
-end
