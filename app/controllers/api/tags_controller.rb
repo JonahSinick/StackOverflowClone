@@ -32,7 +32,8 @@ module Api
     end
 
     def show
-      @tag = Tag.includes(:questions, :users).find(params[:id])
+      @tag = Tag.includes(:users).find(params[:id])
+      render :show
     end
 
     def tag_params

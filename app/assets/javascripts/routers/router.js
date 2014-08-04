@@ -82,6 +82,16 @@ SOC.Routers.Router = Backbone.Router.extend({
     this._swapView(showView);
   },
 
+  showTag: function(id){
+    var tag = new SOC.Models.Tag({id: id})
+    tag.fetch();
+    var tagQuestions = new SOC.Collections.Questions();
+    tagQuestions.fetch({ data: $.param({ tagId: id}) });
+    var showView = new SOC.Views.ShowTag({model: tag, collection: tagQuestions});
+    this._swapView(showView);
+  },
+
+
 
   showUser: function(id){
     var user = SOC.users.get(id);

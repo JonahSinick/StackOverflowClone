@@ -5,7 +5,7 @@ module Api
       @question_tag = QuestionTag.new(question_tag_params)
       @question = Question.find(question_tag_params[:question_id])
       if @question.question_tags.length > 5
-        @question_tag << ["This question already has 5 tags."]
+        @question_tag.errors << ["This question already has 5 tags."]
         render json: @question_tag.errors.full_messages, status: :unprocessable_entity
       end
       if @question_tag.save

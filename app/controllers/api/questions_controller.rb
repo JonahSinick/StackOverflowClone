@@ -30,6 +30,10 @@ module Api
           @questions = Question.where(id: @question_ids).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score, answer_count')
         elsif params[:search] 
           @questions = Question.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
+        elsif params[:tagId]
+          tagId = Integer(params[:tagId])
+          t = Tag.find(tagId)
+          @questions = t.questions
         else
           @questions = Question.order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, created_at, score, answer_count')
         end

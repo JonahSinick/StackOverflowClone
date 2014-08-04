@@ -1,6 +1,12 @@
+<% if flash[:errors] %>
+<div class="alert alert-warning alert-dismissible" role="alert">
+   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<%= flash[:errors].join("<br>") %>
+</div>
+<% end %>
 
 
-<div style="font-size: 24px;">
+<div style="font-size: 18px;">
   <div class="form-group row">
     <div class="col-xs-4 col-xs-offset-1" >
     <form role="form" action="<%= session_url %>" method="post">
@@ -11,14 +17,14 @@
         value="<%= form_authenticity_token %>">
         
       <div class='form-group'>
-        <label for="user_username">Email</label>
+        <label for="user_email">Email</label>
         <input
           class="form-control"
-          id="user_username"
+          id="user_email"
           name="user[email]"
           value="<%= @user.email %>"  
           type="text"
-          style="font-size: 24px;"
+          style="font-size: 18px;"
           >
         </div>
         
@@ -29,15 +35,15 @@
         id="user_password"
         name="user[password]"
         type="password"
-        style="font-size: 24px;"        
+        style="font-size: 18px;"        
         >
       </div>        
         
-      <button type="submit" class="btn" style="font-size: 24px; background-color: #0066FF; color: white;">Sign In 
+      <button type="submit" class="btn" style="font-size: 18px; background-color: #0066FF; color: white;">Sign In 
       </button>
     </form>
   </div>
-  <div class="form-group row">
+  <!-- <div class="form-group row">
     <div class="col-xs-4 col-xs-offset-1" >
     <form role="form" action="<%= session_url %>" method="post">
     <h1 style="margin-bottom: 18px;">Sign In As Guest</h1>
@@ -45,22 +51,22 @@
         name="authenticity_token"
         type="hidden"
         value="<%= form_authenticity_token %>">
-        
-        
-      <button type="submit" class="btn" style="font-size: 24px; background-color: #9900FF; color: white;">Sign In
+
+
+      <button type="submit" class="btn" style="font-size: 18px; background-color: #9900FF; color: white;">Sign In
       </button>
     </form>
-  </div>
+  </div> -->
 </div>
 
 
 
-<div style="font-size: 24px;">
+<div style="font-size: 18px;">
 <div class="form-group row">
   <div class="col-xs-4 col-xs-offset-1" >
     <form role="form" action="<%= new_user_url %>" method="get">
     <h1 style="margin-bottom: 18px;">Sign Up</h1>
-      <button type="submit" class="btn btn-success" style="font-size: 24px;">Sign Up 
+      <button type="submit" class="btn btn-success" style="font-size: 18px;">Sign Up 
       </button>
     </form>
   </div>
