@@ -4,6 +4,16 @@
 
 <div class="row">
   <% if(editingAnswer){%>
+    
+    <%if(errors.length > 0){%>
+      <div class="alert alert-warning alert-dismissible" role="alert">
+    <% errors.forEach(function(error){%>
+      <%= error%>
+      <br>
+    <% });%>
+    </div>
+    <% }%>
+    
     <textarea class="form-control answerText" id="user-description" rows="5" style="font-size: 100%;"><%= answer.escape("body")%></textarea>
     <button class="btn btn-success submitAnswer" style="font-size: 100%; margin-top: 20px;">Submit</button>    
   <% } %>    

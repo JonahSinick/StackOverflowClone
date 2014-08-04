@@ -15,6 +15,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.editingQuestion = false;
     this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);
     this.listenTo(this.answers, 'commentsRendered', this.renderAnswers);
+    this.errors = [];
     // this.listenTo(this.model, 'newCommentCreated', this.renderComments);
 
 
@@ -29,23 +30,33 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   },
 
 
-  submit: function(){
+  submit: function(event){
     var that = this;
-    this.editingQuestion = false;    
     event.preventDefault();
     this.model.set({body: that.$('.questionText').val()})
-    this.model.save();
-    this.render();
+    that.model.save(null, {
+      success: function(model, response){
+        if(that.editingQuestion){          
+          that.editingQuestion = false;
+          that.render();
+        }
+        that.errors = []
+      },
+      error: function (model, response, opts) {
+        that.errors = response.responseJSON;
+        that.editingQuestion = true;
+        that.render();
+      }
+    })
   },
 
 
 
   render: function () {
-    this.$el.empty();
-    var that = this;
     var content = this.template({
       question: this.model,
-      editingQuestion: that.editingQuestion
+      editingQuestion: this.editingQuestion,
+      errors: this.errors
     });
     if(this.model.escape("body")){
       this.$el.html(content);

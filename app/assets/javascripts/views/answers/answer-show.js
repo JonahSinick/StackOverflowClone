@@ -8,7 +8,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
     this.question = this.superView.model;
     this.comments = this.model.comments();   
     this.editingAnswer = false;
-
+    this.errors = [];
     this.currentUserVotes = SOC.currentUser.votes();
     this.listenTo(this.model, 'revertToCommentFormLink', this.renderCommentFormLink);    
 
@@ -29,8 +29,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       question: this.question,
       collection: this.superView.answers,
       superView: this.superView,
-      editingAnswer: that.editingAnswer,
-      errors: []
+      editingAnswer: this.editingAnswer,
+      errors: this.errors
     });
     this.$el.html(content);
     if(this.model.escape("body")){
@@ -70,7 +70,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
   
   submit: function(event){
-    this.editingAnswer = false;    
+    var that = this;
     event.preventDefault();
     
     var params = { 
@@ -80,8 +80,20 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       }
     };
     this.model.set(params);
-    this.model.save();
-    this.render();
+    that.model.save(null, {
+      success: function(model, response){
+        if(that.editingAnswer){          
+          that.editingAnswer = false;
+          that.collection.add(that.model)
+          that.render();
+        }
+        that.errors = []
+      },
+      error: function (model, response, opts) {
+        that.errors = response.responseJSON;
+        that.render();
+      }
+    })
   },
 
 

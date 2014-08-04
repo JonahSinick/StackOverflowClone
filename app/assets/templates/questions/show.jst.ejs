@@ -13,10 +13,18 @@
         <p><%= question.escape("body") %></p>
       </div>
       <%question.tags().each(function(tag){%>
-            <a class="btn" style="background-color: lightGray;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
+        <a class="btn" style="background-color: lightGray;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
       <%})%>      
     <%}%>
     <% if(editingQuestion){%>
+      <%if(errors.length > 0){%>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+      <% errors.forEach(function(error){%>
+        <%= error%>
+        <br>
+      <% });%>
+      </div>
+      <% }%>
       <textarea class="form-control questionText" id="user-description" rows="5" style="font-size: 100%;"><%= question.escape("body")%></textarea>
       <button class="btn btn-success submitQuestion" style="font-size: 100%; margin-top: 20px;">Submit</button>    
     <% } %>    
@@ -30,11 +38,13 @@
           </div>
         </div>
       </div>
-      <div class="">
-        <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && !editingQuestion){%>
-          <div class="object-hyperlink edit col-xs-1"><a>Edit</a></div>          
-          <div class="object-hyperlink destroy col-xs-1"><a>Delete</a></div>
-        <% } %>  
+      <div class="col-xs-1"></div>
+      <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && !editingQuestion){%>
+        <div class="col-xs-3">
+          <button class="btn btn-primary edit" style="display: table-cell;">Edit</button>
+          <button class="btn btn-danger destroy" style="display: table-cell;">Delete</button>
+        </div>      
+      <% } %>  
       </div>
     </div>
     <div class="newShowEdit"></div>
