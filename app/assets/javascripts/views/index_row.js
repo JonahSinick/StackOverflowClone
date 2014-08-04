@@ -6,21 +6,19 @@ SOC.Views.IndexRow = Backbone.CompositeView.extend({
     this.modelType = options.modelType;
     this.rowColor = options.rowColor;
     if(this.rowColor === 1){
-      this.row = '<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: LightBlue;">'
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: LightBlue;"></div>');
     } else{
-      this.row = '<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: white;">'
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #E8E8E8;" ></div>');
     }
   },
   render: function () {
     var content = this.template({
       model: this.model,
       modelType: this.modelType,
-      row: this.row
-
     })
     this.$el.html(content);
     if(this.modelType==="user"){
-      this.renderGravatar;
+      this.renderGravatar();
     }
     return this;
   },
