@@ -29,15 +29,14 @@ float: left;
   padding-top: 10px;
 
 padding-left: 75px;
-font-weight: bold;
-font-size: 25px;
+font-size: 150%;
 
 vertical-align: middle
 
 }
 
 .object-hyperlink > a{
-  position: relative;
+position: relative;
 vertical-align: middle;
 color: green;
 }
@@ -114,6 +113,7 @@ border-bottom: 1px solid #ccc;
 
 .my-nav-pills > li  > a{
   float: left;
+  font-size: 24px;  
 }
 
 
@@ -278,6 +278,16 @@ margin-bottom: 0px;
 font-size: 100%;
 }
 
+#answerForm {
+width: 80%;
+padding-bottom: 20px;
+padding-top: 20px;
+margin-right: 10%;
+margin-bottom: 0px;
+font-size: 100%;
+}
+
+
 .subheader {
 border-bottom: 1px solid #ccc;
 height: 34px;
@@ -389,7 +399,7 @@ font-weight: bold;
 word-wrap: break-word;
 width: 70%;
 float: center;
-font-size: 100%;
+font-size: 150%;
 margin-bottom: 5px;
 margin-right: 5px;
 line-height: 1.4em;

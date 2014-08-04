@@ -46,9 +46,9 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       question: this.model,
       editingQuestion: that.editingQuestion
     });
-    this.$el.html(content);
     if(this.model.escape("body")){
-      that.renderSubviews();
+      this.$el.html(content);
+      this.renderSubviews();
     }
     return this;
   },

@@ -9,8 +9,9 @@
   <% } %>    
   <% if(!editingAnswer){%>
     <div id="answer-votecell" class="votecell"></div>
-    
-    <p><%=answer.escape("body")%><p>  
+    <div class="post-text" itemprop="text">    
+      <p><%=answer.escape("body")%><p>  
+    </div>
   <% } %>      
 </div>
 <% if(!editingAnswer) { %>
