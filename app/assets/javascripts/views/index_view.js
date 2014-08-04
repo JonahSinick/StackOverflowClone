@@ -10,6 +10,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.type;
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
+    this.rowColor = -1;
   },
   
   events: {
@@ -75,9 +76,11 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     var row = new SOC.Views.IndexRow({
       model: model,
       typeOfIndex: this.typeOfIndex,
-      modelType: this.modelType
+      modelType: this.modelType,
+      rowColor: this.rowColor
     });
     this.addSubview("#models", row);
+    this.rowColor = -this.rowColor
   },
   
   generatePageChange: function(){

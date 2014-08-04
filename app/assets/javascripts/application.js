@@ -15,6 +15,7 @@
 //= require underscore
 //= require backbone
 //= require soc
+//= require md5
 //= require_tree ./typeahead.js
 
 //= require_tree ../templates

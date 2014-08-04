@@ -25,16 +25,21 @@ float: left;
 }
 
 .object-hyperlink {
+  padding-bottom: 10px;
+  padding-top: 10px;
+
 padding-left: 75px;
 font-weight: bold;
-font-size: 15px;
+font-size: 25px;
+
 vertical-align: middle
 
 }
 
 .object-hyperlink > a{
   position: relative;
-vertical-align: middle
+vertical-align: middle;
+color: green;
 }
 .object-hyperlink > a {
   text-align: center;
@@ -47,6 +52,7 @@ vertical-align: middle
 overflow: auto;
 margin-top: 30px;
 margin-bottom: 30px;
+
 }
 
 
@@ -454,10 +460,10 @@ td, th {
 }
 
 
-
-textarea { 
-  resize: vertical; 
-} /* none|horizontal|vertical|both */
-textarea.vert { 
-  resize: vertical; 
+.gravatar >  img{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 70%;
+  height: 70%;
 }

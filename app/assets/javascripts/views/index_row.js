@@ -4,11 +4,19 @@ SOC.Views.IndexRow = Backbone.CompositeView.extend({
   initialize: function(options) {
     this.model = options.model;
     this.modelType = options.modelType;
+    this.rowColor = options.rowColor;
+    if(this.rowColor === 1){
+      this.row = '<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: LightBlue;">'
+    } else{
+      this.row = '<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: white;">'
+    }
   },
   render: function () {
     var content = this.template({
       model: this.model,
-      modelType: this.modelType
+      modelType: this.modelType,
+      row: this.row
+
     })
     this.$el.html(content);
     return this;

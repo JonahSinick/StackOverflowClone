@@ -3,48 +3,33 @@
 
 <div class= "container">
   <div class="mainbar col-xs-12" style="font-size: 200%; padding-top: 50px;">
-
-  <div class="row" style="border-bottom: 1px solid #ccc; padding-bottom: 50px;">
-  <div class="col-xs-3">
-    <p><b>Karma:</b> <%= user.escape("karma")%></p>
-    <div class="gravatar"><img></img></div>
-  </div>
-  
-    <div class="col-xs-9" style="border-left: 1px solid #ccc;">
-    <p><b>Description</b></p>
-    <% if(editingDescription){%>
-
-      <textarea class="form-control" id="user-description" rows="5" style="font-size: 100%;"><%= user.escape("description")%></textarea>
-      <button class="btn btn-success question-answer descriptionSubmit">Submit</button>    
+    <div class="row" style="border-bottom: 1px solid #ccc; padding-bottom: 50px;">
+      <div class="col-xs-3">
+        <p style="text-align: center;"><b>Karma:</b> <%= user.escape("karma")%></p>
+        <div class="gravatar"></div>
       </div>
-    <% } %>  
-    <% if(!editingDescription){%>
-    <div style="background-color: rgb(176,176,176);">
-      <p><%=user.escape("description")%><p>      
-      <% if(SOC.currentUser.id === parseInt(user.escape("id"))){%>
-        <div class="descriptionEdit col-xs-1"><a style="color: rgb(0, 0, 200);">Edit</a></div>
-      <% } %>  
-          </div>    
-    <% } %>  
-</div>
-
+      <div class="col-xs-9">
+        <p><b>Description</b></p>
+        <% if(editingDescription){%>
+          <textarea class="form-control" id="user-description" rows="5" style="font-size: 100%;"><%= user.escape("description")%></textarea>
+          <button class="btn btn-success descriptionSubmit" style="font-size: 100%; margin-top: 20px;">Submit</button>    
+        <% } %>  
+        <% if(!editingDescription){%>
+          <div style="background-color: rgb(176,176,176);">
+            <p><%=user.escape("description")%><p>      
+          </div>
+          <% if(SOC.currentUser.id === parseInt(user.escape("id"))){%>
+            <div class="descriptionEdit"><a style="color: rgb(0, 0, 200); float: right; padding-top: 20px;">Edit</a></div>
+          <% } %>  
+        <% } %>  
+      </div>
+    </div>
   </div>
-  
-
-  </div>
-</div>
   <div class="row" style="font-size: 200%;">
-
     <ul class="nav my-nav-pills col-xs-12">
-
       <li><a id="questions-authored">Questions Authored</a></li>
       <li><a id="questions-upvoted">Questions Upvoted</a></li>
     </ul>
-
+  </div>
+  <div id="user-show-content"></div>
 </div>
-
-
-<div id="user-show-content"></div>
-
-<script>
-</script>

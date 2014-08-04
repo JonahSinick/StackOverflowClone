@@ -17,19 +17,11 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
 
   render: function () {
     var content = this.template({
-      questions: this.collection
-    });
-    this.$el.html(content);
-    this.renderGravatar(); 
-    return this;
-  },
-
-  render: function () {
-    var content = this.template({
       user: this.model,
       editingDescription: this.editingDescription
     });
     this.$el.html(content);
+    this.renderGravatar();     
     return this;
   },
 

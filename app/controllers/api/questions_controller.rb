@@ -37,6 +37,10 @@ module Api
       if params[:all_titles]
         @questions = Question.find(:all, :select => 'id, title, author_name, created_at, score')        
       end
+      @questions.each do |question|
+        answer_count =  question.answers.length
+        question["answer_count"] = answer_count
+      end
       render json: @questions      
     end
     
