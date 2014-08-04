@@ -11,7 +11,6 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'sync', this.renderPager);
-
     this.rowColor = -1;
   },
   
