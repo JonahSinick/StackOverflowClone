@@ -1,3 +1,19 @@
+<%if(errors.length > 0){%>
+
+
+
+<div class="row unbordered">    
+  <div class="author-info" style="text-align: center; font-size: 18px;">
+    <div class="alert alert-warning alert-dismissible" style="margin-bottom: 0px;" role="alert">
+    <% errors.forEach(function(error){%>
+      <%= error%>
+      <br>
+    <% });%>
+    </div>
+  </div>
+</div>
+
+<% };%>
 
 <div class="row comments">
   <div class="votecell"></div>

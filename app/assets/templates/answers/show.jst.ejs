@@ -1,18 +1,27 @@
+<%if(errors.length > 0){%>
 
 
 
-
-<div class="row">
-  <% if(editingAnswer){%>
-    
-    <%if(errors.length > 0){%>
-      <div class="alert alert-warning alert-dismissible" role="alert">
+<div class="row ">    
+  <div class="author-info" style="text-align: center; font-size: 18px;">
+    <div class="alert alert-danger alert-dismissible" role="alert">
     <% errors.forEach(function(error){%>
       <%= error%>
       <br>
     <% });%>
     </div>
-    <% }%>
+  </div>
+</div>
+
+<% };%>
+
+
+
+
+<div class="row">
+
+
+  <% if(editingAnswer){%>
     <div id="answer-votecell" class="votecell"></div>
       <textarea class="form-control post-text answerText" id="user-description" rows="5"><%= answer.escape("body")%></textarea>
   <% } %>    
