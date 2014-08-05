@@ -77,7 +77,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     var that = this;
     event.preventDefault();    
     if(!SOC.currentUserId){
-      window.location.href = ("/session/new?previous_url=questions/" + that.question_id);
+      this.superView.errors.push("Users cannot vote on their own content")
+      window.location.href = ("/session/new?previous_url=questions/" + that.question_id +"&errors=You must be signed in to vote.");
       return false;
     }; 
     if(SOC.currentUser.id === this.author_id){
@@ -107,16 +108,17 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   //
 
   minusVote: function(event){
+    var that = this;
     event.preventDefault();    
     if(!SOC.currentUserId){
-      window.location.href = ("/session/new?previous_url=questions/" + that.question_id);
+      window.location.href = ("/session/new?previous_url=questions/" + that.question_id +"&errors='You must be signed in to vote.'");
+      return false;
     }; 
     if(SOC.currentUser.id === this.author_id){
       this.superView.errors.push("Users cannot vote on their own content")
       this.superView.render();
       return false;
     }; 
-    var that = this;
     if(that.voteValue === -1){
       that.voteValue = 0;
     }else{
