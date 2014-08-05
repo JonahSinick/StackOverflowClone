@@ -15,7 +15,7 @@
           <button class="btn btn-success descriptionSubmit" style="font-size: 100%; margin-top: 20px;">Submit</button>    
         <% } %>  
         <% if(!editingDescription){%>
-          <div style="background-color: rgb(176,176,176);">
+          <div style="background-color: #9DBDFF;">
             <p><%=user.escape("description")%><p>      
           </div>
           <% if(SOC.currentUser.id === parseInt(user.escape("id"))){%>

@@ -98,13 +98,13 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
 
     if(that.objectType==="tag"){
       if(object){
-        that.superView.collection.add(object)
+        that.superView.ownCollection.add(object)
       } else{
         var object = new SOC.Models.Tag({name: that.$(".tt-input").val()})
-        object.save();
-        that.superView.collection.add(object)
+        that.superView.ownCollection.add(object)
       }
-    }    
+    }
+    debugger    
     this.superView.collection.trigger("resetSearchBox")
   }
 });

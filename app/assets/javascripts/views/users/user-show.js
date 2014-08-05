@@ -21,6 +21,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
       editingDescription: this.editingDescription
     });
     this.$el.html(content);
+    this.renderQuestionsAuthored();
     this.renderGravatar();     
     return this;
   },

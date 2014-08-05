@@ -15,10 +15,10 @@ module Api
       @tag.destroy
       render json: {}
     end
-    #
+
     def update
       @tag = Tag.find(params[:id])
-      if @tag.update_attributes(comment_params)
+      if @tag.update_attributes(tag_params)
         render json: @tag
       else
         render json: @tag.errors.full_messages, status: :unprocessable_entity

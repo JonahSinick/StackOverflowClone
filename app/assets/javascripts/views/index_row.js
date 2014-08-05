@@ -6,9 +6,9 @@ SOC.Views.IndexRow = Backbone.CompositeView.extend({
     this.modelType = options.modelType;
     this.rowColor = options.rowColor;
     if(this.rowColor === 1){
-      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: LightBlue;"></div>');
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #9DBDFF;"></div>');
     } else{
-      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #E8E8E8;" ></div>');
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #B2CBFF;" ></div>');
     }
   },
   render: function () {

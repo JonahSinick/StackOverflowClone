@@ -4,10 +4,12 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   initialize: function(){
     this.errors = [];
     this.listenTo(this.collection, 'sync', this.render);
-    this.objectType = "tag"
+    this.objectType = "tag",
+    this.ownCollection = new SOC.Collections.Tags();
   },
 
   events: {
+    'click .tagAdd': 'addTag',
     'submit form': 'submit'
   },
 
@@ -17,6 +19,7 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
     
     var content = this.template({question: this.model, errors: this.errors});
     this.$el.html(content);
+    this.renderSearchBoxView();
     return this;
   },
 
@@ -40,20 +43,20 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
         that.render();
       }
     })
+  },
+  
+  renderSearchBoxView: function(event){
+    if(this.objectType==="tag"){
+      this.$(".search-box").empty();
+
+      var that = this;
+      var showSearchBox = new SOC.Views.SearchBoxView({
+        superView: this,
+        objectType: "tag",
+        collection: this.collection
+      });
+      this.addSubview(".search-box", showSearchBox)
+    }
   }
-  
-  // renderSearchBoxView: function(event){
-  //   if(this.objectType==="tag"){
-  //     this.$(".search-box").empty();
-  //
-  //     var that = this;
-  //     var showSearchBox = new SOC.Views.SearchBoxView({
-  //       superView: this,
-  //       objectType: "tag",
-  //       collection: this.collection
-  //     });
-  //     this.addSubview(".search-box", showSearchBox)
-  //   }
-  // }
-  
+
 });
