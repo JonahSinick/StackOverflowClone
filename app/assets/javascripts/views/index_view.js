@@ -11,7 +11,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.setModelTypeAndRequestType();
     this.searchBoxFiller();
     this.listenTo(this.collection, 'sync', this.render);
-    this.listenTo(SOC.questionTitles, 'sync', this.searchBoxFiller);
+    this.listenTo(SOC.questionTitles, 'sync', this.render);
     
     this.listenTo(this.collection, 'sync', this.renderPager);
     this.rowColor = 1;
@@ -22,13 +22,14 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   render: function () {
-      var content = this.template({
-        collection: this.collection,
-        modelType: this.modelType,
-        typeOfIndex: this.typeOfIndex
-      });
-      this.$el.html(content);
-      this.renderCollection();
+    var content = this.template({
+      collection: this.collection,
+      modelType: this.modelType,
+      typeOfIndex: this.typeOfIndex
+    });
+    this.$el.html(content);
+    this.renderCollection();
+    this.searchBoxFiller();
     return this;
   },
   
@@ -153,6 +154,5 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       displayKey: 'value',
       source: that.substringMatcher(that.questionTitles())
     });
-    debugger
   }
 });
