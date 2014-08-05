@@ -60,7 +60,8 @@ SOC.Routers.Router = Backbone.Router.extend({
       return false;
     };    
     var question  = new SOC.Models.Question();
-    var newView = new SOC.Views.NewQuestion({model: question});
+    SOC.tags.fetch();
+    var newView = new SOC.Views.NewQuestion({model: question, collection: SOC.tags});
     this._swapView(newView);
     
   },

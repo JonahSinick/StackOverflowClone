@@ -3,23 +3,28 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   template: $('<div><input class="typeahead" type="text" style="width: 300px;"></input>'),
   
   initialize: function(options){
+    var that = this;
     this.superView = options.superView;
     this.objectType = options.objectType;
-    if(this.objectType==="question"){
-      this.listenTo(SOC.questionTitles, 'sync', this.render);      
-    }
-    if(this.objectType==="tag"){
-      this.listenTo(SOC.tags, 'sync', this.render);      
-    }
+    this.label = (that.objectType==="tag") ? "name" : "title";
   },
   
   render: function () {
-    var content = this.template;
-    this.$el.html(content);
-    if(SOC.questionTitles.length > 0){
+    if(this.collection.length > 0){
+      var content = this.template;
+      this.$el.html(content);
       this.searchBoxFiller();
     }
     return this;
+  },
+  
+  setNameTitles: function(){
+    var that = this;
+    var nameTitles = [];
+    this.collection.models.forEach(function(model){
+      nameTitles.push(model.escape(that.label))
+    });
+    return nameTitles;
   },
   
   
@@ -47,20 +52,8 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     };
     
   },  
-  
-  
-  questionTitles: function(){
-    if(SOC.questionTitles.length > 0){
-      var questionTitles = []
-      SOC.questionTitles.models.forEach(function(qt){
-        questionTitles.push(qt.escape("title"))
-      });
-    }
-    return questionTitles;
-  },
-  
+    
   searchBoxFiller: function(){
-
     var that = this;
     this.$('.typeahead').typeahead({
       hint: false,
@@ -70,7 +63,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     {
       name: 'states',
       displayKey: 'value',
-      source: that.substringMatcher(that.questionTitles())
+      source: that.substringMatcher(that.setNameTitles())
     });
   },
   
@@ -81,7 +74,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   
   
   keyAction: function(e){
-    if(1===1){
+    if(true){
       var code = e.keyCode || e.which;
       if(code == 13) { 
         e.preventDefault();
@@ -90,19 +83,28 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     }
   },
   
-  submit: function(){
+  submit: function(event){
     var that = this;
-    var question = SOC.questionTitles.find(function(model) { return model.get('title') === that.$(".tt-input").val() });
-    if(question){
-      that.$(".tt-input").val("")
-      Backbone.history.navigate("questions/" + question.id, {trigger:true});
-    } else{
-      that.superView.collection.reset()
-      that.superView.collection.fetch({ data: $.param({ search: that.$(".tt-input").val()}) });
+    var object = this.collection.find(function(model) { return model.get(that.label) === that.$(".tt-input").val() });
+    if(that.objectType==="question"){
+      if(object){
+        that.$(".tt-input").val("")
+        Backbone.history.navigate(that.objectType + "s/" + object.id, {trigger:true});
+      } else{
+        that.superView.collection.reset()
+        that.superView.collection.fetch({ data: $.param({ search: that.$(".tt-input").val()}) });
+      }      
     }
+
+    if(that.objectType==="tag"){
+      if(object){
+        that.superView.collection.add(object)
+      } else{
+        var object = new SOC.Models.Tag({name: that.$(".tt-input").val()})
+        object.save();
+        that.superView.collection.add(object)
+      }
+    }    
     this.superView.collection.trigger("resetSearchBox")
   }
-  
-  
-
 });

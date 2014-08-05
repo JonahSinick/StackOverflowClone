@@ -10,9 +10,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.type;
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
-    this.listenTo(SOC.questionTitles, 'sync', this.renderSearchBoxView);
     this.listenTo(this.collection, 'sync', this.renderNoResults);
-    
     this.listenTo(this.collection, 'sync', this.renderPager);
   },
   

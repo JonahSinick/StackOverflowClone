@@ -3,6 +3,8 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   
   initialize: function(){
     this.errors = [];
+    this.listenTo(this.collection, 'sync', this.render);
+    this.objectType = "tag"
   },
 
   events: {
@@ -12,6 +14,7 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
 
 
   render: function () {
+    
     var content = this.template({question: this.model, errors: this.errors});
     this.$el.html(content);
     return this;
@@ -38,4 +41,19 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
       }
     })
   }
+  
+  // renderSearchBoxView: function(event){
+  //   if(this.objectType==="tag"){
+  //     this.$(".search-box").empty();
+  //
+  //     var that = this;
+  //     var showSearchBox = new SOC.Views.SearchBoxView({
+  //       superView: this,
+  //       objectType: "tag",
+  //       collection: this.collection
+  //     });
+  //     this.addSubview(".search-box", showSearchBox)
+  //   }
+  // }
+  
 });
