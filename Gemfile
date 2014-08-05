@@ -13,6 +13,10 @@ gem 'rails', '4.0.2'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'kaminari'
+gem 'deep_clonable'
+gem 'deep_cloneable'
+gem 'deep_clone'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

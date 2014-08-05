@@ -20,7 +20,13 @@ class ApplicationController < ActionController::Base
   def sign_in(user)
     ensure_session_token(user)
     session[:session_token] = user.session_token
-    redirect_to root_url
+    if session[:previous_url]
+      redirect_to ("#" + session[:previous_url])
+      session[:previous_url] = nil
+    else
+      redirect_to root_url
+    end
+
   end
 
 

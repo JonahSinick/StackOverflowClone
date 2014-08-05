@@ -13,6 +13,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   initialize: function(options){
     var that = this;
     this.model;
+    this.question_id = parseInt(options.question_id);
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
     this.author_id = parseInt(options.author_id);
@@ -72,11 +73,11 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }
   },
 
-
   plusVote: function(event){
+    var that = this;
     event.preventDefault()
-
-    if(SOC.requireSignedIn()===false){
+    if(!SOC.currentUserId){
+      window.location.href = ("/session/new?previous_url=questions/" + that.question_id + "&errors=You+must+be+signed+in+to+vote");
       return false;
     }; 
     if(SOC.currentUser.id === this.author_id){
@@ -106,9 +107,9 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
   minusVote: function(event){
     event.preventDefault();    
-    if(SOC.requireSignedIn()===false){
-      return false;
-    };
+    if(!SOC.currentUserId){
+      window.location.href = ("/session/new?previous_url=questions/" + that.question_id);
+    }; 
     if(SOC.currentUser.id === this.author_id){
       SOC.requireDifferentUser();
       return false;

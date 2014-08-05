@@ -53,6 +53,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       currentUserVote: that.currentUserVote, 
       author_id: that.model.escape("author_id"),
       score: that.model.escape("score"),
+      question_id: this.question.id      
     });
     this.addSubview("#answer-votecell", showVoteView)
   },
@@ -106,7 +107,8 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       model: comment,
       superView: this,
       creating: false,
-      action: "show"
+      action: "show",
+      question_id: this.question.id      
     });
     this.addSubview(".answerCommentNewShowEdit", view);
   },
@@ -134,10 +136,12 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
 
 
   renderCommentFormLink: function(){
+    var that = this;
+    var new_session_template = "<div class='row comment'><a href='/session/new?previous_url=questions/" + that.question.id + "' class='col-xs-12'>Sign in to leave comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>";
     if(SOC.currentUserId){
-      this.$(".newAnswerComment").html("<div class ='row'><a class='newAnswerCommentLink col-xs-12'>Add comment</a> <div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div></div>");
+      this.$(".newAnswerComment").html("<div class ='row comment'><a class='newAnswerCommentLink col-xs-12'>Add comment</a> <div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div></div>");
     } else{
-      this.$(".newAnswerComment").html("<div class='row'><a href='/session/new/' class='col-xs-12'>Sign in to leave comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>");
+      this.$(".newAnswerComment").html(new_session_template);
     }
   },
     

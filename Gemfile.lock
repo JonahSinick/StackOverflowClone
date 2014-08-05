@@ -68,6 +68,10 @@ GEM
       debugger-ruby_core_source (~> 1.3.5)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.5)
+    deep_clonable (1.2.0)
+    deep_clone (0.0.1)
+    deep_cloneable (2.0.0)
+      activerecord (>= 3.1.0, < 5.0.0)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -172,6 +176,9 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   debugger
+  deep_clonable
+  deep_clone
+  deep_cloneable
   faker
   font-awesome-rails
   jbuilder (~> 1.2)

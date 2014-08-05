@@ -1,5 +1,20 @@
-<h1><%= tag.escape("name")%></h1>
+<h1 style="text-align: center;"><%= tag.escape("name")%></h1>
 
-<% questions.each(function(question){%>
-  <p><a href=<%= "#questions/" + question.escape("id") %>><%= question.escape("title")%></a></p>
-<% })%>
+
+<div class= "container">
+  <div class="mainbar col-xs-12" style="font-size: 150%; padding-top: 50px;">
+    <div class="row" style="padding-bottom: 50px;">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-8">
+        <div style="background-color: rgb(176,176,176);">
+          <p><%=tag.escape("description")%><p>      
+        </div>
+      </div>
+      <div class="col-xs-2"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="taggedQuestions"></div>

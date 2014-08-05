@@ -7,7 +7,7 @@ SOC::Application.routes.draw do
 
   resources :users, only: [:new, :create]
   
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :show]
   
   
   namespace :api, defaults: { format: :json } do

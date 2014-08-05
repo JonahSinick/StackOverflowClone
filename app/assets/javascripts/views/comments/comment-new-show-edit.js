@@ -6,6 +6,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
   initialize: function(options){
     this.creating = options.creating;
     this.action = options.action;
+    this.question_id = options.question_id;
     this.creatingOrEditing = this.creating ? true : false;
     this.collection = options.collection;
     this.superView = options.superView;
@@ -21,7 +22,8 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     'click .cancelCreateUpdateComment': 'cancelCreateOrEdit',
 
     'click .commentDestroy': 'deleteComment',
-    'click .commentEdit': 'showEditView'
+    'click .commentEdit': 'showEditView',
+    'pressed' : 'submit'
   },
   
   showEditView: function(event){
@@ -73,7 +75,8 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       votable_id: that.model.id, 
       currentUserVote: currentUserVote, 
       author_id: that.model.escape("author_id"),
-      score: that.model.escape("score") 
+      score: that.model.escape("score"),
+      question_id: that.question_id
     });
     this.addSubview(".votecell", showVoteView)
   }, 
@@ -84,6 +87,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     this.model.destroy();
     this.remove();
   },
+  
 
 
   submit: function(){

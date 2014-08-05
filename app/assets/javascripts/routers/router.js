@@ -54,9 +54,9 @@ SOC.Routers.Router = Backbone.Router.extend({
   },
 
 
-
   newQuestion: function(){
-    if(SOC.requireSignedIn()===false){
+    if(!SOC.currentUserId){
+      window.location.href = "/session/new?previous_url=questions/new&errors=You+must+be+signed+in+to+ask+a+new+question";
       return false;
     };    
     var question  = new SOC.Models.Question()

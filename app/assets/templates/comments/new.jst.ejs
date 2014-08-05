@@ -1,3 +1,5 @@
+
+
 <div class="row">
   <div class="comments">
 
@@ -13,7 +15,7 @@
 
     <form class="form">
       <div class="form-group">
-        <textarea class="form-control textToCreateUpdateComment" rows="4"><%= comment.escape("body") %></textarea>
+        <textarea onkeydown="pressed(event)"class="form-control textToCreateUpdateComment" rows="4"><%= comment.escape("body") %></textarea>
       </div>
       <button class="btn btn-primary createUpdateComment">Add</button>
       <a href="#" class="close close-lg">&times;</a>
@@ -22,3 +24,5 @@
 
   </div>
 </div>
+
+

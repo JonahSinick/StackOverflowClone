@@ -11,7 +11,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'sync', this.renderPager);
-    this.rowColor = 1
+    this.rowColor = 1;
   },
   
   events: {
@@ -44,6 +44,9 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     
     if(this.typeOfIndex === "usersIndex"){
       this.modelType = "user";
+    }    
+    if(this.typeOfIndex === "taggedQuestions"){
+      this.modelType = "question";
     }    
   },
   
