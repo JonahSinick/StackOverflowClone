@@ -81,6 +81,14 @@ SOC.Routers.Router = Backbone.Router.extend({
     this._swapView(showView);
   },
 
+  showTags: function(){
+    var tags = new SOC.Collections.Tags()
+    tags.fetch();
+    var indexView = new SOC.Views.TagsIndex({collection: tags});
+    this._swapView(indexView);
+  },
+
+
   showTag: function(id){
     var tag = new SOC.Models.Tag({id: id})
     tag.fetch();

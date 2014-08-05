@@ -14,7 +14,6 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.listenTo(this.collection, 'sync', this.renderNoResults);
     
     this.listenTo(this.collection, 'sync', this.renderPager);
-    this.rowColor = 1;
   },
   
   events: {
@@ -23,7 +22,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   render: function () {
-
+    this.rowColor = 1;
     var content = this.template({
       collection: this.collection,
       modelType: this.modelType,
@@ -118,15 +117,16 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   renderSearchBoxView: function(event){
-    this.$(".search-box").empty();
+    if(this.modelType==="question"){
+      this.$(".search-box").empty();
     
-    var that = this;
-    var showSearchBox = new SOC.Views.SearchBoxView({
-      superView: this 
-    });
-    this.addSubview(".search-box", showSearchBox)
-  } 
-  
+      var that = this;
+      var showSearchBox = new SOC.Views.SearchBoxView({
+        superView: this 
+      });
+      this.addSubview(".search-box", showSearchBox)
+    }   
+  }
   
 });
 
@@ -172,7 +172,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
         }
       });
 
-      cb(matches);
+      cb(matches.slice(0, 10));
     };
     
   },  

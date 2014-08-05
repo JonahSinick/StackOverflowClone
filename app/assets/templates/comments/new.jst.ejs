@@ -26,3 +26,31 @@
 </div>
 
 
+
+
+<div class="row comments">
+  <div class="votecell"></div>
+    <div class="post-text" itemprop="text">  
+    <textarea class="form-control textToCreateUpdateComment post-text" rows="4"><%= comment.escape("body") %></textarea>
+    </div>
+</div>
+
+<div class="row comments2">    
+  <div class="author-info">
+    <div class="pull-right">
+      <div class="object-hyperlink col-xs-1">
+        <a href=<%= "#users/" + comment.escape("author_id") %>><%= comment.escape("author_name")%></a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-1"></div>
+  <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
+    <div class="col-xs-3">
+      <button class="btn btn-primary commentEdit" style="display: table-cell; font-size: 18px;">Edit</button>
+      <button class="btn btn-danger commentDestroy" style="display: table-cell; font-size: 18px;">Delete</button>
+    </div>      
+  <% } %>  
+  </div>
+</div>
+
+
