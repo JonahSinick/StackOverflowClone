@@ -29,7 +29,7 @@ module Api
           @question_ids = Vote.where(votable_type: "Question", value: 1, user_id: Integer(params[:user_id])).pluck(:votable_id)
           @questions = Question.where(id: @question_ids).order("score DESC").page(params[:page]).per(15).find(:all, :select => 'id, title, author_name, author_id, created_at, score, answer_count')
         elsif params[:search] 
-          @questions = Question.where("title LIKE ? OR body like ?", "%#{params[:search]}%", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
+          @questions = Question.where("title LIKE ?", "%#{params[:search]}%").order("score DESC").page(params[:page]).per(15)
         elsif params[:tagId]
           tagId = Integer(params[:tagId])
           t = Tag.find(tagId)

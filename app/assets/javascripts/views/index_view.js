@@ -11,20 +11,23 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.setModelTypeAndRequestType();
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(SOC.questionTitles, 'sync', this.renderSearchBoxView);
+    this.listenTo(this.collection, 'sync', this.renderNoResults);
     
     this.listenTo(this.collection, 'sync', this.renderPager);
     this.rowColor = 1;
   },
   
   events: {
-    'click .page-numbers.moving' : 'pageSwitch'
+    'click .page-numbers.moving' : 'pageSwitch',
+    'resetSearchBox' : "renderSearchBoxView"
   },
   
   render: function () {
+
     var content = this.template({
       collection: this.collection,
       modelType: this.modelType,
-      typeOfIndex: this.typeOfIndex
+      typeOfIndex: this.typeOfIndex,
     });
     this.$el.html(content);
     this.renderCollection();
@@ -54,9 +57,19 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   renderPager: function(){
-    var $pager = this.generatePageChange()
-    this.$('.pager').html($pager)    
+    if(this.collection.length > 0){
+      var $pager = this.generatePageChange()
+      this.$('.pager').html($pager)          
+    }
   },
+
+  renderNoResults: function(){
+    if(this.collection.length === 0){
+      var $noResults = $("<h2 style='margin-top: 50px; padding-top: 50px; border-top: 1px solid LightGrey;'>No Results</h2>")
+      this.$('.noResults').html($noResults)          
+    }
+  },
+
   
   pageSwitch: function(event){
     event.preventDefault()
@@ -104,7 +117,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     return $pager
   },
   
-  renderSearchBoxView: function(){
+  renderSearchBoxView: function(event){
     this.$(".search-box").empty();
     
     var that = this;
@@ -123,13 +136,18 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
 SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   
   template: $('<div><input class="typeahead" type="text"  style="width: 300px;"></input>'),
-  initialize: function(){
-    this.listenTo(SOC.questionTitles, 'sync', this.searchBoxFiller);
+  
+  initialize: function(options){
+    this.superView = options.superView;
+    this.listenTo(SOC.questionTitles, 'sync', this.render);
   },
   
   render: function () {
     var content = this.template;
     this.$el.html(content);
+    if(SOC.questionTitles.length > 0){
+      this.searchBoxFiller();
+    }
     return this;
   },
   
@@ -171,11 +189,10 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   },
   
   searchBoxFiller: function(){
-    this.render();
 
     var that = this;
     this.$('.typeahead').typeahead({
-      hint: true,
+      hint: false,
       highlight: true,
       minLength: 1
     },
@@ -187,7 +204,32 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   },
   
   events: {
-    'keydown': 'keyAction'
+    'keydown': 'keyAction',
+    'click' : 'preventDefault'    
+  },
+  
+  
+  keyAction: function(e){
+    if(1===1){
+      var code = e.keyCode || e.which;
+      if(code == 13) { 
+        e.preventDefault();
+        this.submit();
+      }
+    }
+  },
+  
+  submit: function(){
+    var that = this;
+    var question = SOC.questionTitles.find(function(model) { return model.get('title') === that.$(".tt-input").val() });
+    if(question){
+      that.$(".tt-input").val("")
+      Backbone.history.navigate("questions/" + question.id, {trigger:true});
+    } else{
+      that.superView.collection.reset()
+      that.superView.collection.fetch({ data: $.param({ search: that.$(".tt-input").val()}) });
+    }
+    this.superView.collection.trigger("resetSearchBox")
   }
   
   
