@@ -23,8 +23,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
 
     'click .commentDestroy': 'deleteComment',
     'click .commentEdit': 'showEditView',
-    'keydown': 'keyAction'
-    
+    'keydown': 'keyAction'    
   },
   
 

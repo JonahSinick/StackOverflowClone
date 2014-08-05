@@ -9,9 +9,8 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.modelType;
     this.type;
     this.setModelTypeAndRequestType();
-    this.searchBoxFiller();
     this.listenTo(this.collection, 'sync', this.render);
-    this.listenTo(SOC.questionTitles, 'sync', this.render);
+    this.listenTo(SOC.questionTitles, 'sync', this.renderSearchBoxView);
     
     this.listenTo(this.collection, 'sync', this.renderPager);
     this.rowColor = 1;
@@ -29,7 +28,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     });
     this.$el.html(content);
     this.renderCollection();
-    this.searchBoxFiller();
+    this.renderSearchBoxView();
     return this;
   },
   
@@ -105,6 +104,36 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     return $pager
   },
   
+  renderSearchBoxView: function(){
+    this.$(".search-box").empty();
+    
+    var that = this;
+    var showSearchBox = new SOC.Views.SearchBoxView({
+      superView: this 
+    });
+    this.addSubview(".search-box", showSearchBox)
+  } 
+  
+  
+});
+
+
+
+
+SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
+  
+  template: $('<div><input class="typeahead" type="text"  style="width: 300px;"></input>'),
+  initialize: function(){
+    this.listenTo(SOC.questionTitles, 'sync', this.searchBoxFiller);
+  },
+  
+  render: function () {
+    var content = this.template;
+    this.$el.html(content);
+    return this;
+  },
+  
+  
   substringMatcher: function(strs){
     return function findMatches(q, cb) {
       var matches, substrRegex;
@@ -128,8 +157,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       cb(matches);
     };
     
-  },
-  
+  },  
   
   
   questionTitles: function(){
@@ -143,6 +171,8 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
   },
   
   searchBoxFiller: function(){
+    this.render();
+
     var that = this;
     this.$('.typeahead').typeahead({
       hint: true,
@@ -154,5 +184,12 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       displayKey: 'value',
       source: that.substringMatcher(that.questionTitles())
     });
+  },
+  
+  events: {
+    'keydown': 'keyAction'
   }
+  
+  
+
 });
