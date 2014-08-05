@@ -52,10 +52,11 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
     var that = this;
     var content = this.template()({
       comment: that.model,
-      errors: that.errors
+      errors: that.errors,
+      creating: that.creating
     });
     this.$el.html(content);
-    if(!that.creatingOrEditing && (that.model.id)){
+    if(!that.creating && (that.model.id)){
       that.renderVoteCell();
     }
     if(this.action==="show" || this.action==="new"){

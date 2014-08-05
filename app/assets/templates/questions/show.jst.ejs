@@ -7,6 +7,11 @@
     </div>  
 
     <div class="row questionBody" style="padding-bottom: 20px;">
+    <% if(editingQuestion){%>
+      <div class="votecell"></div>
+        <textarea class="form-control post-text questionText" id="user-description" rows="5"><%= question.escape("body")%></textarea>
+    <% } %>    
+
     <% if(!editingQuestion){%>
       <div class="votecell"></div>
       <div class="post-text" itemprop="text">
@@ -16,10 +21,6 @@
             <a class="btn" style="background-color: lightGray;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
       <%})%>      
     <%}%>
-    <% if(editingQuestion){%>
-      <textarea class="form-control questionText" id="user-description" rows="5" style="font-size: 100%;"><%= question.escape("body")%></textarea>
-      <button class="btn btn-success submitQuestion" style="font-size: 100%; margin-top: 20px;">Submit</button>    
-    <% } %>    
     
     </div>
     <div class="row" style="padding-bottom: 20px;">    
@@ -36,7 +37,12 @@
           <button class="btn btn-primary edit" style="display: table-cell;">Edit</button>
           <button class="btn btn-danger destroy" style="display: table-cell;">Delete</button>
         </div>      
-      <% } %>        
+      <% } %> 
+      <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && editingQuestion){%>      
+      <div class="col-xs-3">      
+        <button class="btn btn-success submitQuestion" style="font-size: 100%; margin-top: 20px;">Submit</button>    
+      </div>
+      <% } %>       
     </div>
     <div class="newShowEdit"></div>
     <div class="newComment" style="font-size: 18px;"></div>
