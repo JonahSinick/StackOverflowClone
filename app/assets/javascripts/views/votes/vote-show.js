@@ -25,7 +25,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     }
     this.score = options.score
     this.scoreFromOthers = this.score - this.voteValue;
-    this.questionShow = options.questionShow;
+    this.superView = options.superView;
 
     this.setModel();
     this.listenTo(this.model, 'changeVote', this.updatePage);
@@ -111,7 +111,8 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
       window.location.href = ("/session/new?previous_url=questions/" + that.question_id);
     }; 
     if(SOC.currentUser.id === this.author_id){
-      SOC.requireDifferentUser();
+      this.superView.errors.push("Users cannot vote on their own content")
+      this.superView.render();
       return false;
     }; 
     var that = this;

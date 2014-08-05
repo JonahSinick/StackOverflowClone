@@ -23,8 +23,11 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
 
     'click .commentDestroy': 'deleteComment',
     'click .commentEdit': 'showEditView',
-    'pressed' : 'submit'
+    'keydown': 'keyAction'
+    
   },
+  
+
   
   showEditView: function(event){
     event.preventDefault();
@@ -76,7 +79,8 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       currentUserVote: currentUserVote, 
       author_id: that.model.escape("author_id"),
       score: that.model.escape("score"),
-      question_id: that.question_id
+      question_id: that.question_id,
+      superView: this      
     });
     this.addSubview(".votecell", showVoteView)
   }, 
@@ -117,6 +121,16 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
         that.render();
       }
     })
+  },
+  
+  keyAction: function(e){
+    if(this.creatingOrEditing){
+      var code = e.keyCode || e.which;
+      if(code == 13) { 
+        e.preventDefault();
+        this.submit();
+      }
+    }
   }
 });
 

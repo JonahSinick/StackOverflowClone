@@ -4,7 +4,9 @@ class SessionsController < ApplicationController
   def new
     if params[:previous_url]
       session[:previous_url] = params[:previous_url]
-      flash.now[:errors] = [params[:errors]]
+      if params[:errors]
+        flash.now[:errors] = [params[:errors]]
+      end
     end
     @user = User.new
   end

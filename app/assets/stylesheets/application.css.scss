@@ -297,7 +297,7 @@ margin-bottom: 15px;
   padding-top: 10px;
   margin-left: 20%;
   margin-right: 20%;
-
+  border-bottom: 1px solid #aaa;  
   font-size: 100%;
 
 }
@@ -341,7 +341,6 @@ margin-bottom: 15px;
 
 .comment{
   
-  border-top: 1px solid #aaa;
   margin-left: 25%;
   padding-bottom: 5px;
   padding-top: 5px;
@@ -405,6 +404,14 @@ display: table-cell;
 
 
 .votecell {
+vertical-align: top;
+width: 8S%; 
+margin-right: 3%; 
+float: left;
+display: table-cell;
+}
+
+.fakevotecell {
 vertical-align: top;
 width: 8S%; 
 margin-right: 3%; 
