@@ -75,13 +75,14 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
   plusVote: function(event){
     var that = this;
-    event.preventDefault()
+    event.preventDefault();    
     if(!SOC.currentUserId){
-      window.location.href = ("/session/new?previous_url=questions/" + that.question_id + "&errors=You+must+be+signed+in+to+vote");
+      window.location.href = ("/session/new?previous_url=questions/" + that.question_id);
       return false;
     }; 
     if(SOC.currentUser.id === this.author_id){
-      SOC.requireDifferentUser();
+      this.superView.errors.push("Users cannot vote on their own content")
+      this.superView.render();
       return false;
     }; 
     var that = this;

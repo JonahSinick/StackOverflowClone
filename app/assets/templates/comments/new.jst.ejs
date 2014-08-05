@@ -7,8 +7,12 @@
   <div class="votecell"></div>
   <textarea class="form-control textToCreateUpdateComment post-text" rows="4"><%= comment.escape("body") %></textarea>
 </div>
-
+<% if(creating){%>
+<div class="row comments">    
+<% } %>
+<% if(!creating){%>
 <div class="row comments2">    
+<% } %>
   <div class="author-info">
     <div class="pull-right">
       <div class="object-hyperlink col-xs-1">
@@ -16,9 +20,9 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-1"></div>
+
     <div class="col-xs-3">
-      <button class="btn btn-primary createUpdateComment">Submit</button>
+      <button class="btn btn-primary createUpdateComment" style="font-size: 18px;">Submit</button>
     </div>      
 
   </div>

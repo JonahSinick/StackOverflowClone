@@ -38,6 +38,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       that.renderVoteCell();
       
     }
+    this.errors = [];
     return this;
   },
   

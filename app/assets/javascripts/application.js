@@ -22,6 +22,7 @@
 //= require_tree ./models
 //= require_tree ./collections
 //= require ./views/composite_view
+//= require ./views/search_box_view
 //= require ./views/index_row
 //= require ./views/index_view
 //= require_tree ./views

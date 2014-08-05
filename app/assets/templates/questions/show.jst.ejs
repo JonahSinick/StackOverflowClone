@@ -1,3 +1,7 @@
+
+
+
+
 <div class="container">
   <div class="mainbar col-xs-6 object">
     <div class="row">  
@@ -5,6 +9,23 @@
         <h1 itemprop="name"><%= question.escape("title") %></h1>
       </div>
     </div>  
+    <%if(errors.length > 0){%>
+
+
+
+    <div class="row ">    
+      <div class="author-info" style="text-align: center; font-size: 18px;">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+        <% errors.forEach(function(error){%>
+          <%= error%>
+          <br>
+        <% });%>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only" >Close</span></button>
+        </div>
+      </div>
+    </div>
+
+    <% };%>
 
     <div class="row questionBody" style="padding-bottom: 20px;">
     <% if(editingQuestion){%>
@@ -40,7 +61,7 @@
       <% } %> 
       <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && editingQuestion){%>      
       <div class="col-xs-3">      
-        <button class="btn btn-success submitQuestion" style="font-size: 100%; margin-top: 20px;">Submit</button>    
+        <button class="btn btn-success submitQuestion" style="margin-top: 20px;">Submit</button>    
       </div>
       <% } %>       
     </div>

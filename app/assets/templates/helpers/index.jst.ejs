@@ -22,18 +22,21 @@
               <h1>Users</h1>
             <% } %>
           </div>
+          <% if(typeOfIndex==="questionsIndex") {%>          
+            <div class="col-xs-3 pull-right search-box" style="font-size: 18px; margin-bottom: 20px;">
+              <input class="typeahead" type="text"  style="width: 300px;"></input>
+            </div>
+            <div class="col-xs-3 pull-right" style="font-size: 18px;">
+              <b>Search Questions:</b>
+            </div>
+          <% } %>          
         <div>
       </div>      
-      <div class="col-xs-3 pull-right search-box">
-        <input class="typeahead" type="text"  style="width: 300px;">
-        </input>
+      <div class="container" id="question-mini-list" style="padding-left: 0px;">
+        <div class="col-xs-10 table-striped">
+          <div id="models"></div>
+        </div>
       </div>
-      <div class="col-xs-3 pull-right"><b>Search Questions:</b></div>
-      
-    </div>
-    <div class="container" id="question-mini-list" style="padding-left: 0px;">
-      <div class="col-xs-10 table-striped"><div id="models"></div></div>
-    </div>
     <div class="pager fl"></div>
   </div>
 </div>

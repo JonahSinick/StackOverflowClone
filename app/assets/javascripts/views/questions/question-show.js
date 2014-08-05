@@ -63,6 +63,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       this.$el.html(content);
       this.renderSubviews();
     }
+    this.errors = [];
     return this;
   },
   

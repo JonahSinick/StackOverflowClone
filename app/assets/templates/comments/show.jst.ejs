@@ -1,3 +1,21 @@
+<%if(errors.length > 0){%>
+
+
+
+<div class="row unbordered">    
+  <div class="author-info" style="text-align: center; font-size: 18px;">
+    <div class="alert alert-danger alert-dismissible" role="alert">
+    <% errors.forEach(function(error){%>
+      <%= error%>
+      <br>
+    <% });%>
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only" >Close</span></button>
+    </div>
+  </div>
+</div>
+
+<% };%>
+
 <div class="row comments">
   <div class="votecell"></div>
     <div class="post-text" itemprop="text">  
