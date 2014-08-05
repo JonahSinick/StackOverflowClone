@@ -1,19 +1,23 @@
 SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   
-  template: $('<div><input class="typeahead" type="text" style="width: 300px;"></input>'),
+  template: $('<div><input class="typeahead" type="text" placeholder="" style="width: 300px;"></input>'),
   
   initialize: function(options){
     var that = this;
     this.superView = options.superView;
     this.objectType = options.objectType;
+    this.tagsLeft = options.tagsLeft;
     this.label = (that.objectType==="tag") ? "name" : "title";
   },
   
   render: function () {
+    var that = this;
     if(this.collection.length > 0){
       var content = this.template;
+      this.template.attr("placeholder", that.tagsLeft)
       this.$el.html(content);
       this.searchBoxFiller();
+      
     }
     return this;
   },
@@ -87,6 +91,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     var that = this;
     var object = this.collection.find(function(model) { return model.get(that.label) === that.$(".tt-input").val() });
     if(that.objectType==="question"){
+      that.$(".tt-input").val("")      
       if(object){
         that.$(".tt-input").val("")
         Backbone.history.navigate(that.objectType + "s/" + object.id, {trigger:true});
@@ -101,10 +106,12 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
         that.superView.ownCollection.add(object)
       } else{
         var object = new SOC.Models.Tag({name: that.$(".tt-input").val()})
-        that.superView.ownCollection.add(object)
       }
+      that.superView.ownCollection.add(object)
+      debugger
+      that.superView.trigger("tagAdded");
+      that.$(".tt-input").val("");
     }
-    debugger    
-    this.superView.collection.trigger("resetSearchBox")
+
   }
 });
