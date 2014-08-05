@@ -72,7 +72,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
       votable_type: "Comment", 
       votable_id: that.model.id, 
       currentUserVote: currentUserVote, 
-      author_id: that.model.author_id,      
+      author_id: that.model.escape("author_id"),
       score: that.model.escape("score") 
     });
     this.addSubview(".votecell", showVoteView)

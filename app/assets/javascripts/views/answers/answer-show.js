@@ -2,8 +2,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   template: JST['answers/show'],
   
   initialize: function (options) {
-    var that = this
-    this.newCommentLink = new SOC.Views.NewAnswerCommentLink();    
+    var that = this;
     this.superView = options.superView;
     this.question = this.superView.model;
     this.comments = this.model.comments();   
@@ -52,7 +51,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
       votable_type: "Answer", 
       votable_id: that.model.id, 
       currentUserVote: that.currentUserVote, 
-      author_id: that.model.author_id,      
+      author_id: that.model.escape("author_id"),
       score: that.model.escape("score"),
     });
     this.addSubview("#answer-votecell", showVoteView)
@@ -133,29 +132,18 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
 
 
 
-  
-  renderCommentFormLink: function(){
-    this.$(".newAnswerComment").html("<div class ='row'><a class='newAnswerCommentLink col-xs-12'>Add comment</a> <div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div></div>");
-    
-    // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
-    
 
+  renderCommentFormLink: function(){
+    if(SOC.currentUserId){
+      this.$(".newAnswerComment").html("<div class ='row'><a class='newAnswerCommentLink col-xs-12'>Add comment</a> <div style='padding-top: 10px; padding-bottom: 40px;' class='bordered'></div></div>");
+    } else{
+      this.$(".newAnswerComment").html("<div class='row'><a href='/session/new/' class='col-xs-12'>Sign in to leave comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>");
+    }
   },
-  
+    
   removeCommentFormLink: function () {
     this.$(".newAnswerComment").empty();
   }
   
   
 });
-
-
-SOC.Views.NewAnswerCommentLink = Backbone.CompositeView.extend({
-  template: $("<a class='newAnswerCommentLink'>Add comment</a>"),
-  
-  render: function(){
-    var content = this.template
-    this.$el.html(content);
-    return this
-  }
-})

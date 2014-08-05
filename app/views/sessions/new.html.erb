@@ -1,10 +1,11 @@
 <% if flash[:errors] %>
-<div class="alert alert-warning alert-dismissible" role="alert">
-   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<%= flash[:errors].join("<br>") %>
+<div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center; font-size: 18px;">
+  <% flash[:errors].each do |error|%>
+  <p><%= error%></p>
+
+<% end %>
 </div>
 <% end %>
-
 
 <div style="font-size: 18px;">
   <div class="form-group row">

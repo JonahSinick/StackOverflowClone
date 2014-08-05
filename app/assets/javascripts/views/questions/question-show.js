@@ -97,7 +97,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     var showVoteView = new SOC.Views.ShowVote({
       votable_type: "Question", 
       votable_id: that.model.id,
-      author_id: that.model.author_id,
+      author_id: that.model.escape("author_id"),
       currentUserVote: that.currentUserVote, 
       score: that.model.escape("score")
     });
@@ -142,9 +142,11 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
 
   
   renderCommentFormLink: function(){
-    this.$(".newComment").html("<div class='row'><a class='newCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>");
-    // this.$(".comment-form-link").html("<a id='new-question-comment-link'>Add comment</a>")
-
+    if(SOC.currentUserId){
+      this.$(".newComment").html("<div class='row'><a class='newCommentLink col-xs-12'>Add comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>");
+    } else{
+      this.$(".newComment").html("<div class='row'><a href='/session/new' class='col-xs-12'>Sign in to leave comment</a><div style='padding-top: 10px; padding-bottom: 40px;' class=''></div></div>");
+    }
   },
   
   removeCommentFormLink: function () {

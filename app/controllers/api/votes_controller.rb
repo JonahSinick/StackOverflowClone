@@ -3,6 +3,10 @@ module Api
 
     def create
       @vote = Vote.new(vote_params)
+      if @vote.user_id == current_user.id
+        @vote.errors << "User can't vote on own content"
+        render json: @vote.errors.full_messages, status: :unprocessable_entity
+      end
       current_object = self.current_object
       @old_score = current_object.score      
       @vote = current_object.votes.new(vote_params)

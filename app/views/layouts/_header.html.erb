@@ -9,7 +9,7 @@
     </button>
     <a class="navbar-brand" href="/#">StackOverflow Clone</a>
       <% if current_user %>
-      <a class="navbar-brand" style="margin-left: 20px;" href="/#users/<%=current_user.id%>">Signed in as: <%=current_user.username%></a></li>
+      <a class="navbar-brand" style="margin-left: 20px; font-size: 18px;" href="/#users/<%=current_user.id%>">Signed in as: <%=current_user.username%></a></li>
       <% end %>
 
   </div>
@@ -18,13 +18,13 @@
 
     <ul class="nav navbar-nav">
       <% if current_user %>
-      <li><a id="nav-askquestion" href="/#questions/new">Ask Question</a></li>
+      <li style="font-size: 18px;"><a id="nav-askquestion" href="/#questions/new">Ask Question</a></li>
 
-    <li><%= button_to "Sign out", session_url, method: :delete, class: "btn btn-primary navbar-btn" %></li>
+    <li><%= button_to "Sign out", session_url, method: :delete, class: "btn btn-primary navbar-btn", style: "font-size: 18px;"%></li>
     
     <% else %>
-      <li><%= link_to "Log in", new_session_url %></li>
-      <li><%= link_to "Sign up", new_user_url %></li>
+      <li  style="font-size: 18px;"><%= link_to "Log in", new_session_url %></li>
+      <li  style="font-size: 18px;"><%= link_to "Sign up", new_user_url %></li>
     </ul>
     <% end %>
   </div>

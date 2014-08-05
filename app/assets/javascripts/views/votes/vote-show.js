@@ -15,6 +15,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
     this.model;
     this.votable_type = options.votable_type;
     this.votable_id = options.votable_id;
+    this.author_id = parseInt(options.author_id);
     this.currentUserVote = options.currentUserVote;
     if(!that.currentUserVote || that.currentUserVote.escape("value")===""){
       that.voteValue = 0
@@ -73,10 +74,15 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
 
   plusVote: function(event){
+    event.preventDefault()
+
     if(SOC.requireSignedIn()===false){
       return false;
     }; 
-    event.preventDefault()
+    if(SOC.currentUser.id === this.author_id){
+      SOC.requireDifferentUser();
+      return false;
+    }; 
     var that = this;
     if(that.voteValue === 1){
       that.voteValue = 0;
@@ -99,10 +105,14 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   //
 
   minusVote: function(event){
+    event.preventDefault();    
     if(SOC.requireSignedIn()===false){
       return false;
     };
-    event.preventDefault();
+    if(SOC.currentUser.id === this.author_id){
+      SOC.requireDifferentUser();
+      return false;
+    }; 
     var that = this;
     if(that.voteValue === -1){
       that.voteValue = 0;

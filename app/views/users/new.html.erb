@@ -1,3 +1,11 @@
+<% if flash[:errors] %>
+<div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center; font-size: 18px;">
+  <% flash[:errors].each do |error|%>
+  <p><%= error%></p>
+
+<% end %>
+</div>
+<% end %>
 
 
 <div style="font-size: 18px;">

@@ -21,11 +21,8 @@ window.SOC = {
       }
     };
     SOC.requireDifferentUser = function(){
-      if(!SOC.currentUserId){
-        alert("You must be signed in to do that! Redirecting to sign in page");
-        window.location = "/session/new";
-        return false;
-      }
+      alert("Users can't vote on their own content");
+      return false;
     };
 
 
