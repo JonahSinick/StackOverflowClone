@@ -9,7 +9,10 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
     this.modelType;
     this.type;
     this.setModelTypeAndRequestType();
+    this.searchBoxFiller();
     this.listenTo(this.collection, 'sync', this.render);
+    this.listenTo(SOC.questionTitles, 'sync', this.searchBoxFiller);
+    
     this.listenTo(this.collection, 'sync', this.renderPager);
     this.rowColor = 1;
   },
@@ -99,5 +102,57 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
       $pager.append('<a href=#' + next + " data-pageNum=" + next + '>' +'<span class="page-numbers moving"'  + " data-pageNum=" + next +  '> next</span>' + '</a>');
     }
     return $pager
+  },
+  
+  substringMatcher: function(strs){
+    return function findMatches(q, cb) {
+      var matches, substrRegex;
+
+      // an array that will be populated with substring matches
+      matches = [];
+
+      // regex used to determine if a string contains the substring `q`
+      substrRegex = new RegExp(q, 'i');
+
+      // iterate through the pool of strings and for any string that
+      // contains the substring `q`, add it to the `matches` array
+      $.each(strs, function(i, str) {
+        if (substrRegex.test(str)) {
+          // the typeahead jQuery plugin expects suggestions to a
+          // JavaScript object, refer to typeahead docs for more info
+          matches.push({ value: str });
+        }
+      });
+
+      cb(matches);
+    };
+    
+  },
+  
+  
+  
+  questionTitles: function(){
+    if(SOC.questionTitles.length > 0){
+      var questionTitles = []
+      SOC.questionTitles.models.forEach(function(qt){
+        questionTitles.push(qt.escape("title"))
+      });
+    }
+    return questionTitles;
+  },
+  
+  searchBoxFiller: function(){
+    var that = this;
+    this.$('.typeahead').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'states',
+      displayKey: 'value',
+      source: that.substringMatcher(that.questionTitles())
+    });
+    debugger
   }
 });

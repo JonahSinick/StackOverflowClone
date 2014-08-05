@@ -59,8 +59,7 @@ SOC.Routers.Router = Backbone.Router.extend({
       window.location.href = "/session/new?previous_url=questions/new&errors=You+must+be+signed+in+to+ask+a+new+question";
       return false;
     };    
-    var question  = new SOC.Models.Question()
-    
+    var question  = new SOC.Models.Question();
     var newView = new SOC.Views.NewQuestion({model: question});
     this._swapView(newView);
     

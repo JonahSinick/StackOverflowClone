@@ -6,23 +6,30 @@
 <div id="content">
   <div id="mainbar">
     <div class="container" style="padding-left: 0px;">
-      <div class="col-xs-10">
+      <div class="col-xs-9">
         <div class="row">
-    <div class="subheader index">
-      <% if(typeOfIndex==="questionsIndex") {%>
-        <h1>All Questions</h1>
-      <% } %>
-      <% if(typeOfIndex==="upvotedQuestions") {%>
-        <h1>Upvoted Questions</h1>
-      <% } %>      
-      <% if(typeOfIndex==="authoredQuestions") {%>
-        <h1>Authored Questions</h1>
-      <% } %>      
-      <% if(typeOfIndex==="usersIndex") {%>
-        <h1>Users</h1>
-      <% } %>
+          <div class="subheader index">
+            <% if(typeOfIndex==="questionsIndex") {%>
+              <h1>All Questions</h1>
+            <% } %>
+            <% if(typeOfIndex==="upvotedQuestions") {%>
+              <h1>Upvoted Questions</h1>
+            <% } %>      
+            <% if(typeOfIndex==="authoredQuestions") {%>
+              <h1>Authored Questions</h1>
+            <% } %>      
+            <% if(typeOfIndex==="usersIndex") {%>
+              <h1>Users</h1>
+            <% } %>
+          </div>
         <div>
+      </div>      
+      <div class="col-xs-3 pull-right search-box">
+        <input class="typeahead" type="text">
+        </input>
       </div>
+      <div class="col-xs-3 pull-right"><b>Search Questions:</b></div>
+      
     </div>
     <div class="container" id="question-mini-list" style="padding-left: 0px;">
       <div class="col-xs-10 table-striped"><div id="models"></div></div>
@@ -30,6 +37,4 @@
     <div class="pager fl"></div>
   </div>
 </div>
-
-
 

@@ -2,7 +2,7 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   template: JST['questions/new'],
   
   initialize: function(){
-    this.errors = []
+    this.errors = [];
   },
 
   events: {
@@ -26,13 +26,14 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
     var params = $(event.currentTarget).serializeJSON();
     this.model.set(params);
 
-    this.model.save(null, {
+    this.model.save(params, {
       success: function(model, response){
         
         Backbone.history.navigate("questions/" + model.id, {trigger:true})
       },
       error: function (model, response, opts) {
         that.errors = response.responseJSON;
+        that.model = model;
         that.render();
       }
     })

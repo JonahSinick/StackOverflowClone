@@ -1,25 +1,8 @@
-<%if(errors.length > 0){%>
-
-
-
-<div class="row unbordered">    
-  <div class="author-info" style="text-align: center; font-size: 18px;">
-    <div class="alert alert-warning alert-dismissible" style="margin-bottom: 0px;" role="alert">
-    <% errors.forEach(function(error){%>
-      <%= error%>
-      <br>
-    <% });%>
-    </div>
-  </div>
-</div>
-
-<% };%>
-
 <div class="row comments">
   <div class="votecell"></div>
-  <div class="post-text" itemprop="text">  
-    <p><%= comment.escape("body") %></p>
-  </div>
+    <div class="post-text" itemprop="text">  
+      <p><%= comment.escape("body") %></p>
+    </div>
 </div>
 
 <div class="row comments2">    
@@ -30,11 +13,12 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-1"></div>
-  <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
-    <div class="col-xs-3">
-      <button class="btn btn-primary commentEdit" style="display: table-cell; font-size: 18px;">Edit</button>
-      <button class="btn btn-danger commentDestroy" style="display: table-cell; font-size: 18px;">Delete</button>
-    </div>      
-  <% } %>  
+  <div class="">
+    <% if(SOC.currentUser.id === parseInt(comment.escape("author_id"))){%>
+      <div class="object-hyperlink commentEdit col-xs-1"><a>Edit</a></div>
+      <div class="object-hyperlink commentDestroy col-xs-1"><a>Delete</a></div>
+    <% } %>  
+  </div>
 </div>
+
+
