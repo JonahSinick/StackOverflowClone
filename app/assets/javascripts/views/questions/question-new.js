@@ -6,13 +6,13 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
     this.listenTo(this.collection, 'sync', this.render);
     this.objectType = "tag",
     this.ownCollection = new SOC.Collections.Tags();
+    this.listenTo(this.collection, 'tagAdded', this.renderTags);
+    this.listenTo(this.collection, 'resetSearchBoxView', this.renderSearchBoxView);
   },
 
   events: {
     'click .tagAdd': 'renderTags',
-    'tagAdded' : 'renderTags',
-    'submit form': 'submit',
-    'resetSearchBox': 'renderSearchBoxView'
+    'submit form': 'submit'
   },
 
 
@@ -26,12 +26,10 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   },
   
   renderTags: function(){
-    debugger
-    $(".tag").empty();
+    $(".tags").empty();
     this.ownCollection.each(function(tag){
-      $(".tags").after('<div class="btn btn-primary" style="margin-right: 20px;">' + tag.escape("name") + '</div>')
+      $(".tags").append($('<div class="btn btn-primary" style="margin-right: 20px;">' + tag.escape("name") + '</div>'))
     })
-    this.renderSearchBoxView();    
   },
 
 
@@ -64,18 +62,14 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
   },
   
   renderSearchBoxView: function(event){
-    if(this.objectType==="tag"){
-      this.$(".search-box").empty();
-
-      var that = this;
-      var showSearchBox = new SOC.Views.SearchBoxView({
-        superView: this,
-        objectType: "tag",
-        collection: this.collection,
-        tagsLeft: this.tagsLeft()
-      })
-      this.addSubview(".search-box", showSearchBox)
-    }
+    this.subviews(".search-box").forEach(function(subview){subview.remove()})
+    var that = this;
+    var showSearchBox = new SOC.Views.SearchBoxView({
+      superView: this,
+      objectType: "tag",
+      collection: this.collection
+    })
+    this.addSubview(".search-box", showSearchBox)
   }
 
 });

@@ -12,6 +12,8 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   
   render: function () {
     var that = this;
+    this.$(".tt-input").val("");
+
     if(this.collection.length > 0){
       var content = this.template;
       this.template.attr("placeholder", that.tagsLeft)
@@ -107,10 +109,10 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
       } else{
         var object = new SOC.Models.Tag({name: that.$(".tt-input").val()})
       }
+      that.$(".tt-input").val("")
       that.superView.ownCollection.add(object)
-      debugger
-      that.superView.trigger("tagAdded");
-      that.$(".tt-input").val("");
+      that.superView.collection.trigger("tagAdded");
+      that.superView.collection.trigger("resetSearchBox");
     }
 
   }
