@@ -6,9 +6,9 @@ SOC.Views.IndexRow = Backbone.CompositeView.extend({
     this.modelType = options.modelType;
     this.rowColor = options.rowColor;
     if(this.rowColor === 1){
-      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #9DBDFF;"></div>');
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #B2CBFF;"></div>');
     } else{
-      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #B2CBFF;" ></div>');
+      this.$el = $('<div class="row" style="padding-top:10px; padding-bottom:10px; background-color: #DAF2FF;" ></div>');
     }
   },
   render: function () {
@@ -30,3 +30,4 @@ SOC.Views.IndexRow = Backbone.CompositeView.extend({
   }
   
 });
+

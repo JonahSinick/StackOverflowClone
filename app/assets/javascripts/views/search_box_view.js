@@ -106,6 +106,8 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     if(that.objectType==="tag"){
       if(this.superView.ownCollection.length>= 5){
         this.superView.tagErrors = "A question can have no more than 5 tags."
+        this.superView.collection.trigger("resetSearchBox");
+
         this.superView.render();
         return false;
       }
@@ -116,6 +118,8 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
         that.superView.ownCollection.add(object)
       } else{
         this.superView.tagErrors = "That's not one of the listed tags."
+        this.superView.collection.trigger("resetSearchBox");
+
         this.superView.render();
         return false;
       }

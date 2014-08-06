@@ -6,32 +6,35 @@
 <div id="content">
   <div id="mainbar">
     <div class="container" style="padding-left: 0px;">
-      <div class="col-xs-9">
-        <div class="row">
-          <div class="subheader index">
+      <div class="col-xs-10">
+        <div class="row" style="margin-bottom: 50px;">
+          <div class="col-xs-4 index" style="font-weight: 500; font-size:30px; ">
             <% if(typeOfIndex==="questionsIndex") {%>
-              <h1>All Questions</h1>
+              All Questions
             <% } %>
             <% if(typeOfIndex==="upvotedQuestions") {%>
-              <h1>Upvoted Questions</h1>
+              Upvoted Questions
             <% } %>      
             <% if(typeOfIndex==="authoredQuestions") {%>
-              <h1>Authored Questions</h1>
+              Authored Questions
             <% } %>      
             <% if(typeOfIndex==="usersIndex") {%>
-              <h1>Users</h1>
+              Users
             <% } %>
           </div>
+        </div>
+        <div class="row">
           <% if(typeOfIndex==="questionsIndex") {%>          
-            <div class="col-xs-3 pull-right search-box" style="font-size: 18px; margin-bottom: 20px;">
-              <input class="typeahead" type="text"  style="width: 300px;"></input>
-            </div>
-            <div class="col-xs-3 pull-right" style="font-size: 18px;">
+            <div class="col-xs-3" style="font-size: 18px; vertical-align: middle; margin-top: auto; margin-bottom: auto;">
               <b>Search Questions:</b>
             </div>
-          <% } %>          
-        <div>
-      </div>      
+            <div class="search-box" style="font-size: 18px; margin-bottom: 20px;">
+              <input class="typeahead" type="text"  style="width: 300px;"></input>
+            </div>
+          <% } %>                          
+        </div>
+      </div>
+
       <div class="container" id="question-mini-list" style="padding-left: 0px;">
         <div class="col-xs-10 table-striped">
           <div id="models"></div>

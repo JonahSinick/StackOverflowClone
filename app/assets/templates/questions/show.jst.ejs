@@ -38,27 +38,35 @@
       <div class="post-text" itemprop="text">
         <p><%= question.escape("body") %></p>
       </div>
-      <%question.tags().each(function(tag){%>
-            <a class="btn" style="background-color: lightGray;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
-      <%})%>      
     <%}%>
-    
     </div>
-    <div class="row" style="padding-bottom: 20px;">    
+    
+    <div class="tags row" style="padding-bottom: 20px;">
+      <div class="fake-votecell pull-left" style="height: 48px; line-height: 48px;
+ font-size: 24px;  margin-right: 50px;"><b>Tags:</b></div>
+        <%question.tags().each(function(tag){%>
+      <div class="fake-votecell pull-left" style="padding-left: 15px;  font-size: 24px;">
+          <a class="btn btn-primary vote" style="background-color: #428bca;  font-size: 24px;" href=<%= "#tags/" + tag.escape("id") %>><%= tag.escape("name")%></a>
+      </div>
+          
+        <%})%>
+    </div>
+    
+    <div class="row bordered" style="padding-bottom: 20px;">    
       <div class="author-info">
         <div class="pull-right">
           <div class="object-hyperlink col-xs-1">
             <a href=<%= "#users/" + question.escape("author_id") %>><%= question.escape("author_name")%></a>
           </div>
         </div>
+        <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && !editingQuestion){%>
+          <div class="object-hyperlink">
+            <a class="edit" style="padding-right: 30px;">Edit</a>
+            <a class=" destroy ">Delete</a>
+          </div>
+        <% } %> 
       </div>
-      <div class="col-xs-1"></div>
-      <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && !editingQuestion){%>
-        <div class="col-xs-3">
-          <button class="btn btn-primary edit" style="display: table-cell;">Edit</button>
-          <button class="btn btn-danger destroy" style="display: table-cell;">Delete</button>
-        </div>      
-      <% } %> 
+
       <% if(SOC.currentUser.id === parseInt(question.escape("author_id")) && editingQuestion){%>      
       <div class="col-xs-3">      
         <button class="btn btn-success submitQuestion" style="margin-top: 20px;">Submit</button>    
