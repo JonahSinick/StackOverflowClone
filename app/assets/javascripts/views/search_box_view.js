@@ -104,15 +104,27 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     }
 
     if(that.objectType==="tag"){
+      if(this.superView.ownCollection.length>= 5){
+        this.superView.tagErrors = "A question can have no more than 5 tags."
+        this.superView.render();
+        return false;
+      }
+      if(that.$(".tt-input").val() === ""){
+        return false;
+      }
       if(object){
         that.superView.ownCollection.add(object)
       } else{
-        var object = new SOC.Models.Tag({name: that.$(".tt-input").val()})
+        this.superView.tagErrors = "That's not one of the listed tags."
+        this.superView.render();
+        return false;
       }
+      debugger
       that.$(".tt-input").val("")
       that.superView.ownCollection.add(object)
-      that.superView.collection.trigger("tagAdded");
       that.superView.collection.trigger("resetSearchBox");
+      that.superView.tagErrors = null
+      that.superView.render();      
     }
 
   }

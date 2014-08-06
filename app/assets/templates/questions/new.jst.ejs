@@ -1,32 +1,48 @@
 
-<%if(errors.length > 0){%>
-  <div class="alert alert-warning alert-dismissible" role="alert">
-<% errors.forEach(function(error){%>
-  <%= error%>
-  <br>
-<% });%>
-</div>
-<% }%>
 
-<form class="form" style="font-size: 18px;">
+<form class="form" style="font-size: 24px;">
   <h2 class="space">Your Question</h2>
 
-  <div class="form-group" style="font-size: 18px;">Title
-    <input class="form-control" id="new-title" name="question[title]" style="font-size: 18px;" type="text" value=<%=question.escape("title")%> ></input>
+  <div class="form-group" style="font-size: 24px;">Title
+    <input class="form-control" id="new-title" name="question[title]" style="font-size: 24px;" type="text" value=<%=question.escape("title")%> ></input>
   </div>
 
-  <div class="form-group" style="font-size: 18px;">Body
-    <textarea class="form-control" name="question[body]" rows="6" style="font-size: 18px;" value=<%= question.escape("body")%> ></textarea>
+  <div class="form-group" style="font-size: 24px;">Body
+    <textarea class="form-control" name="question[body]" rows="6" style="font-size: 24px;" value=<%= question.escape("body")%> ></textarea>
   </div>
+
+  <div class="form-group" style="font-size: 24px;">
+    <div style="margin-bottom: 20px;">Tags:</div>
+    <%if(tagErrors){%>
+      <div class="alert alert-warning alert-dismissible" style="text-align: center;" role="alert">    
+        <%=tagErrors%>
+      </div>
+    <%}%>    
+    <div class="tags row"></div>
+  </div>
+
   
-  <div class="form-group" style="font-size: 18px;">
-    <div>Tags</div><div class="tags"></div>
+  <div style="margin-bottom: 15px;">
+  <div class="pull-left" style="height: 31px; vertical-align: middle; margin-right: 30px;"><p style="vertical-align: middle; margin-bottom: 0px; height: 31px;">Add a tag (maximum of 5):</p></div><div class="search-box pull-left"></div><div style="margin-left: 25px; height: 32px;"></div>
+  </div>
+  <div class="form-group" style="font-size: 24px;">
+    <div>When you're done, click the submit button</div>
   </div>
   <div style="margin-bottom: 15px;">
-  <div class="search-box pull-left"></div><div style="margin-left: 25px; height: 32px;"></div>
   </div>
 
-  <button class="btn btn-success" style="font-size: 18px;">Submit</button>
+  <div style="font-size: 24px;">
+  <%if(errors.length > 0){%>
+    <div class="alert alert-warning alert-dismissible" style="text-align: center;" role="alert">
+  <% errors.forEach(function(error){%>
+    <%= error%>
+    <br>
+  <% });%>
+  </div>
+  <% }%>
+    
+  <button class="btn btn-success" style="font-size: 24px;">Submit</button>
   <a href="#" class="close close-lg">&times;</a>
 </form>
-
+<div style="height: 200px;"></div
+<div>
