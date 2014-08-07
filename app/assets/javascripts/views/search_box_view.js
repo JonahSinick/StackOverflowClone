@@ -1,6 +1,6 @@
 SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
   
-  template: $('<div><input class="typeahead" type="text" placeholder="" style="width: 300px;"></input>'),
+  template: $('<div><input class="typeahead" type="text" placeholder="" style="width: 600px;"></input>'),
   
   initialize: function(options){
     var that = this;
@@ -28,7 +28,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     var that = this;
     var nameTitles = [];
     this.collection.models.forEach(function(model){
-      nameTitles.push(model.escape(that.label))
+      nameTitles.push(model.get(that.label))
     });
     return nameTitles;
   },
@@ -56,7 +56,6 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
 
       cb(matches.slice(0, 10));
     };
-    
   },  
     
   searchBoxFiller: function(){
@@ -98,8 +97,13 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
         that.$(".tt-input").val("")
         Backbone.history.navigate(that.objectType + "s/" + object.id, {trigger:true});
       } else{
-        that.superView.collection.reset()
-        that.superView.collection.fetch({ data: $.param({ search: that.$(".tt-input").val()}) });
+        debugger
+        that.superView.collection.fetch({ 
+          data: $.param({
+            search: that.$(".tt-input").val()
+          }) 
+        });
+        debugger
       }      
     }
 
@@ -123,7 +127,6 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
         this.superView.render();
         return false;
       }
-      debugger
       that.$(".tt-input").val("")
       that.superView.ownCollection.add(object)
       that.superView.collection.trigger("resetSearchBox");

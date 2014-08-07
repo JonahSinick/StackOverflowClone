@@ -21,6 +21,7 @@ module Api
     end
 
     def index
+
       unless params[:all_titles]
         params[:page] ||= 1
         if params[:user_id] && params[:type] == "authored"

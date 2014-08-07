@@ -1,12 +1,12 @@
-content = File.read("lorum_ipsum.txt")
+content = File.read("french.txt")
 array_content = content.split("\n")
 
-User.all.each do |u|
-  description = []
-  until description.length > 0
-    description = array_content.sample
-  end
-  
-  u.update_attributes(description: description)
+(0..99).each do |i|
+  u = User.new
+  u.username = Faker::Name.name
+  u.email = Faker::Internet.email
+  u.password = Faker::Internet.password
+  u.session_token = SecureRandom.base64
+  u.description = array_content.sample
   u.save
 end

@@ -9,7 +9,7 @@
     </button>
     <a class="navbar-brand" href="/#">StackOverflow Clone</a>
       <% if current_user %>
-      <a class="navbar-brand" style="margin-left: 20px; font-size: 18px;" href="/#users/<%=current_user.id%>">Signed in as: <%=current_user.username%></a></li>
+      <a class="navbar-brand" style="margin-left: 20px; font-size: 18px;" href="/#users/<%=current_user.id%>">Signed in: <%=current_user.username%></a></li>
       <% end %>
 
   </div>

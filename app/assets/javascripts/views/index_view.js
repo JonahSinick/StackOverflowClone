@@ -62,7 +62,7 @@ SOC.Views.IndexView = Backbone.CompositeView.extend({
 
   renderNoResults: function(){
     if(this.collection.length === 0){
-      var $noResults = $("<h2 style='margin-top: 50px; padding-top: 50px; border-top: 1px solid LightGrey;'>No Results</h2>")
+      var $noResults = $("<div style='margin-top: 50px; padding-top: 50px; border-top: 1px solid LightGrey; font-size: 24px;'><div>No Results</div></div>")
       this.$('.noResults').html($noResults)          
     }
   },

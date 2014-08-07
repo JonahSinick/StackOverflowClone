@@ -3,7 +3,7 @@ SOC.Collections.Questions = Backbone.Collection.extend({
   model: SOC.Models.Question,
   
   comparator: function(question) {
-    return - question.get("score");
+    return question.get("created_at");
   },
   
 })

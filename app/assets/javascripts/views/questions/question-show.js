@@ -74,6 +74,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     })[0]; 
 
     this.renderVoteCell();
+    this.renderAnswerHead();
     this.renderAnswers();
     this.renderNewAnswerForm();
     this.renderComments();
@@ -175,8 +176,12 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
       collection: this.answers
     });
     this.addSubview("#answers", view);
+    this.renderAnswerHead();
+  },
+  
+  renderAnswerHead: function () {
     var $newhead = $("<h2>" + this.model.answers().length + ' Answers' + "</h2>")
-    this.$('.answers-subheader').html($newhead)
+    this.$('.answers-subheader').html($newhead)    
   },
 
 

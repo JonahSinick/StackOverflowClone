@@ -1,6 +1,8 @@
 content = File.read("cupcake_ipsum.txt")
 array_content = content.split("\n")
 
+
+
 # User.all.each do |u|
 #   num_questions = (0..5).to_a.sample
 #
@@ -16,5 +18,3 @@ array_content = content.split("\n")
 # end
 
 
-
-  

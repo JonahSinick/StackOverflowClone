@@ -85,7 +85,7 @@ SOC.Views.ShowUser = Backbone.CompositeView.extend({
   
   renderGravatar: function(){
     var email = this.model.escape("email");
-    var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(email)});
+    var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(email) + "?s=48&d=identicon"});
     $('.gravatar').append(gravatar);    
   }
   
