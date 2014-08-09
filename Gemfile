@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'deep_clonable'
 gem 'deep_cloneable'
 gem 'deep_clone'
+gem 'thin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
