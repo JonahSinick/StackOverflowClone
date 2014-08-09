@@ -47,7 +47,7 @@ module Api
     
 
     def show
-      @question = Question.includes(:answers, :comments).find(params[:id])
+      @question = Question.includes({answers: :comments}, :comments).find(params[:id])
       render :show
     end
 
