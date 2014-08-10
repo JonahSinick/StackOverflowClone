@@ -7,14 +7,11 @@ module Api
       render :show
     end
 
-
-
-
     def index
       if params[:page] == - 1
-        @users = User.all
+        @users = User.order("karma DESC").find(:all, :select => 'id, username, description, karma, email')
       else
-        @users = User.order("karma DESC").page(params[:page]).per(15)
+        @users = User.order("karma DESC").page(params[:page]).per(15).find(:all, :select => 'id, username, description, karma, email')
       end
       render json: @users      
     end

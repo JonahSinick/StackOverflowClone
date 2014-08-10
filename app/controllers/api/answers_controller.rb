@@ -1,15 +1,15 @@
 module Api
   class AnswersController < ApiController
     
-
     
     def create
+
       @answer = current_question.answers.new(answer_params)
       @answer.author_id = current_user.id
       @answer.author_name = current_user.username
       if @answer.save
-        current_question.answer_count += 1
-        current_question.save
+        new_answer_count = current_question.answer_count + 1
+        current_question.update_attributes({answer_count: new_answer_count})
         render json: @answer
       else
         render json: @answer.errors.full_messages, status: :unprocessable_entity
@@ -19,8 +19,8 @@ module Api
     def destroy
       @answer = Answer.find(params[:id])
       question = Question.find(@answer.question_id)
-      question.answer_count -= 1
-      question.save
+      new_answer_count = question.answer_count - 1
+      question.update_attributes({answer_count: new_answer_count})
       @answer.destroy  
       render json: {}
     end

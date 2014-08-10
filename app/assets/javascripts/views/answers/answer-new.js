@@ -39,9 +39,10 @@ SOC.Views.NewAnswer = Backbone.CompositeView.extend({
     };
     
     if(this.model.id===undefined){
-      this.collection.create(params, {
+      this.model.save(params, {
         success: function(model, response){
           Backbone.history.navigate("questions/" + that.question.id, {trigger:true})
+          that.collection.add(model)
           that.superView.render();
         },
         error: function (model, response, opts) {

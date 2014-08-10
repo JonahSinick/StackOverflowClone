@@ -131,7 +131,7 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
       that.superView.ownCollection.add(object)
       that.superView.collection.trigger("resetSearchBox");
       that.superView.tagErrors = null
-      that.superView.render();      
+      that.superView.renderTags();      
     }
 
   }

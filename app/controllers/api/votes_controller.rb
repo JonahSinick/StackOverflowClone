@@ -8,7 +8,8 @@ module Api
         render json: @vote.errors.full_messages, status: :unprocessable_entity
       end
       current_object = self.current_object
-      @old_score = current_object.score      
+      @old_score = current_object.score
+      @score_from_others = @old_score      
       @vote = current_object.votes.new(vote_params)
       @vote.user_id = current_user.id
       if @vote.save
@@ -22,7 +23,7 @@ module Api
     def update
       @vote = Vote.find(params[:id])
       @old_score = current_object.score      
-
+      @score_from_others = @old_score - @vote.value
       if @vote.update_attributes(vote_params)
         self.set_score_and_karma
         render json: @vote
@@ -58,12 +59,10 @@ module Api
       elsif params[:votable_type] == "Comment"
         magnitude = 1
       end
-      
-      score_from_others = Integer(params[:score_from_others])
-      new_score = score_from_others + @vote.value
-      new_karma = object_author.karma + (new_score - @old_score)*magnitude
-      object_author.update_attributes({karma: new_karma})
-      current_object.update_attributes({score: new_score})
+      @new_score = @score_from_others + @vote.value
+      @new_karma = object_author.karma + (@new_score - @old_score)*magnitude
+      object_author.update_attributes({karma: @new_karma})
+      current_object.update_attributes({score: @new_score})
     end
     
     def object_author
