@@ -1,5 +1,3 @@
-content = File.read("cupcake_ipsum.txt")
-array_content = content.split("\n")
 
 
 User.pluck(:id).each do |u|
