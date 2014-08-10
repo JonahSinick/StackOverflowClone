@@ -31,8 +31,12 @@ class ApplicationController < ActionController::Base
 
 
   def sign_out(user)
-    user.session_token = SecureRandom.base64
-    session[:session_token] = nil
+    if user.guest_id
+      user.destroy
+    else
+      user.session_token = SecureRandom.base64
+      session[:session_token] = nil
+    end
     redirect_to root_url
   end  
   

@@ -10,54 +10,70 @@
 <div style="font-size: 18px;">
   <div class="form-group row">
     <div class="col-xs-4 col-xs-offset-1" >
-    <form role="form" action="<%= session_url %>" method="post">
-    <h1 style="margin-bottom: 18px;">Sign In</h1>
-      <input
-        name="authenticity_token"
-        type="hidden"
-        value="<%= form_authenticity_token %>">
+      <form role="form" action="<%= session_url %>" method="post">
+        <h1 style="margin-bottom: 18px;">Sign In</h1>
+        <input
+          name="authenticity_token"
+          type="hidden"
+          value="<%= form_authenticity_token %>">
         
-      <div class='form-group'>
-        <label for="user_email">Email</label>
+        <div class='form-group'>
+          <label for="user_email">Email</label>
+          <input
+            class="form-control"
+            id="user_email"
+            name="user[email]"
+            value="<%= @user.email %>"  
+            type="text"
+            style="font-size: 18px;"
+            >
+          </div>
+        
+        <div class='form-group'>
+        <label for="user_password">Password</label>
         <input
           class="form-control"
-          id="user_email"
-          name="user[email]"
-          value="<%= @user.email %>"  
-          type="text"
-          style="font-size: 18px;"
+          id="user_password"
+          name="user[password]"
+          type="password"
+          style="font-size: 18px;"        
           >
-        </div>
+        </div>        
         
-      <div class='form-group'>
-      <label for="user_password">Password</label>
-      <input
-        class="form-control"
-        id="user_password"
-        name="user[password]"
-        type="password"
-        style="font-size: 18px;"        
-        >
-      </div>        
-        
-      <button type="submit" class="btn" style="font-size: 18px; background-color: #0066FF; color: white;">Sign In 
-      </button>
-    </form>
-  </div>
-  
-  
+        <button type="submit" class="btn" style="font-size: 18px; background-color: #0066FF; color: white;">Sign In 
+        </button>
+      </form>  
+    </div>
+    <div class="col-xs-4 col-xs-offset-1" >
+      <form role="form" action="<%= users_url %>" method="post">
+        <h1 style="margin-bottom: 18px;">Sign in as guest</h1>
+        <input
+          name="authenticity_token"
+          type="hidden"
+          value="<%= form_authenticity_token %>">
 
+        <input
+          name="user[guest_id]"
+          type="hidden"
+          value="true">
+        
+        <button type="submit" class="btn" style="font-size: 18px; background-color: purple; color: white; margin-top: 20px;">Sign In As Guest
+        </button>
+      </form>
+    </div>
+  </div> 
 </div>
 
 
 
 <div style="font-size: 18px;">
-<div class="form-group row">
-  <div class="col-xs-4 col-xs-offset-1" >
-    <form role="form" action="<%= new_user_url %>" method="get">
-    <h1 style="margin-bottom: 18px;">Sign Up</h1>
-      <button type="submit" class="btn btn-success" style="font-size: 18px;">Sign Up 
-      </button>
-    </form>
+  <div class="form-group row">
+    <div class="col-xs-4 col-xs-offset-1" >
+      <form role="form" action="<%= new_user_url %>" method="get">
+        <h1 style="margin-bottom: 18px;">Sign Up</h1>
+        <button type="submit" class="btn btn-success" style="font-size: 18px;">Sign Up 
+        </button>
+      </form>
+    </div>
   </div>
 </div>
