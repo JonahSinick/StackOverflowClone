@@ -43,7 +43,10 @@ SOC.Views.NewQuestion = Backbone.CompositeView.extend({
     return this;
   },
   
-  renderTags: function(){
+  renderTags: function(event){
+    if(event){
+      event.preventDefault();
+    }
     $(".tags").empty();
     this.ownCollection.each(function(tag){
       $(".tags").append($('<div data-removeLabel="' + tag.escape("name") + '" class="votecell" style="padding-left: 15px;"><div class="vote btn btn-primary" style="font-size: 24px; background-color: #428bca;">' + tag.escape("name") + '</div><div class="votefiller"></div><div class="vote" style="text-align: center; background-color: white;"><a  class="deleteTag" data="' + tag.escape("name") + '" style="font-size: 16px;">remove</a></div></div>'))

@@ -61,13 +61,13 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   },
   
   
-  deleteAnswer: function(){
+  deleteAnswer: function(event){
     event.preventDefault();    
     this.model.destroy();
     this.remove();
   },
 
-  editAnswerForm: function(){
+  editAnswerForm: function(event){
     this.editingAnswer = true;
     this.render();
   },
@@ -117,7 +117,7 @@ SOC.Views.ShowAnswer = Backbone.CompositeView.extend({
   
   
   
-  newComment: function(){
+  newComment: function(event){
     event.preventDefault();    
     this.removeCommentFormLink();
     var that = this;

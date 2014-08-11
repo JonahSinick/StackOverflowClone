@@ -81,14 +81,14 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
     this.renderCommentFormLink()
   },
   
-  deleteQuestion: function(){
+  deleteQuestion: function(event){
     event.preventDefault();
     this.model.destroy();
     this.remove();
     Backbone.history.navigate("", {trigger: true});
   },
 
-  editQuestionForm: function(){
+  editQuestionForm: function(event){
     this.editingQuestion = true;
     this.render();
   },
@@ -126,7 +126,7 @@ SOC.Views.ShowQuestion = Backbone.CompositeView.extend({
   
   
   
-  newComment: function(){
+  newComment: function(event){
     SOC.requireSignedIn();
     event.preventDefault();
     this.removeCommentFormLink();

@@ -4,8 +4,7 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
 
   events: {
     'click .upvote': 'plusVote',
-    'click .downvote': 'minusVote',
-    "changeVote" : "updatePage"
+    'click .downvote': 'minusVote'
 
   },
 
@@ -49,9 +48,9 @@ SOC.Views.ShowVote = Backbone.CompositeView.extend({
   },
   
   updatePage: function(){
-    var vote = this.model;    
+    var vote = this.model;  
     var that = this;
-    vote.set({value: that.voteValue, });
+    vote.set({value: that.voteValue});
     vote.save();
     this.render();
   },

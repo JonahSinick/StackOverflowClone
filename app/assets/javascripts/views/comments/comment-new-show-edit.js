@@ -95,7 +95,7 @@ SOC.Views.CommentNewShowEdit = Backbone.CompositeView.extend({
   
 
 
-  submit: function(){
+  submit: function(event){
     var that = this;
     event.preventDefault();
     
