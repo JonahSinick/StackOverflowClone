@@ -1,9 +1,13 @@
 
-
-
-
-
 <div class="row comments">
+<%if(errors.length > 0){%>
+  <div class="alert alert-warning alert-dismissible" role="alert">
+<% errors.forEach(function(error){%>
+  <%= error%>
+  <br>
+<% });%>
+</div>
+<% }%>
   <div class="votecell"></div>
   <textarea class="form-control textToCreateUpdateComment post-text" rows="4"><%= comment.escape("body") %></textarea>
 </div>
