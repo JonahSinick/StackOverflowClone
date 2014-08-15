@@ -92,18 +92,11 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
     var that = this;
     var object = this.collection.find(function(model) { return model.get(that.label) === that.$(".tt-input").val() });
     if(that.objectType==="question"){
-      that.$(".tt-input").val("")      
       if(object){
         that.$(".tt-input").val("")
         Backbone.history.navigate(that.objectType + "s/" + object.id, {trigger:true});
       } else{
-        debugger
-        that.superView.collection.fetch({ 
-          data: $.param({
-            search: that.$(".tt-input").val()
-          }) 
-        });
-        debugger
+        return false;
       }      
     }
 
@@ -121,10 +114,6 @@ SOC.Views.SearchBoxView = Backbone.CompositeView.extend({
       if(object){
         that.superView.ownCollection.add(object)
       } else{
-        this.superView.tagErrors = "That's not one of the listed tags."
-        this.superView.collection.trigger("resetSearchBox");
-
-        this.superView.render();
         return false;
       }
       that.$(".tt-input").val("")

@@ -7,3 +7,5 @@
 * Custom index method enables sorting of questions by any of author, tag or voter.
 
 * Autocomplete search for questions and tags enabled.
+
+* Text of questions, anwers and comments taken from Crime and Punishment by Fyodor Dostoevsky
